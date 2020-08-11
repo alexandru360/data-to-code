@@ -1,12 +1,6 @@
-# ExampleProject
+# DataToCode
 
-This project demonstrates the infrastructure of a PrimeNG Premium Angular CLI Template.
-
-![alt text](https://www.primefaces.org/wp-content/uploads/2018/05/why-you-should-ng.jpg "PrimeNG")
-
-## Live Demo
-
-Project is deployed at: https://www.primefaces.org/primeng-blueprint/
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.
 
 ## Development server
 
@@ -18,7 +12,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
 ## Running unit tests
 
