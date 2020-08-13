@@ -1,4 +1,4 @@
-<form [formGroup]="oForm" novalidate (ngSubmit)="onSubmit()">
+<form [formGroup]="oForm" novalidate>
   <mat-card class="shipping-card">
     <mat-card-header>
       <mat-card-title>{{title}}</mat-card-title>
@@ -7,7 +7,7 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <mat-select placeholder="Connection type" formControlName="connType">
+            <mat-select placeholder="Connection type" formControlName="connType" (selectionChange)="onConnTypeChange()">
               <mat-option *ngFor="let connType of connTypes" [value]="connType.abbreviation">
                 {{ connType.name }}
               </mat-option>
@@ -18,82 +18,70 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="row">
+
+      <div class="row" *ngIf="mustUploadFile">
         <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput placeholder="Host" formControlName="connHost">
-            <mat-error *ngIf="oForm.controls['connHost'].hasError('required')">
-              First name is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput placeholder="User" formControlName="connUser">
-            <mat-error *ngIf="oForm.controls['connUser'].hasError('required')">
-              User is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input type="password" matInput placeholder="Password" formControlName="connPassword">
-            <mat-error *ngIf="oForm.controls['connPassword'].hasError('required')">
-              Password is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
+          <mat-file-upload
+            [labelText]="'Select an excel file to upload:'"
+            [selectButtonText]="'Choose File'"
+            [selectFilesButtonType]="button"
+            [uploadButtonText]="'Upload'"
+            [uploadButtonType]="button"
+            [allowMultipleFiles]="true"
+            [showUploadButton]="true"
+            [customSvgIcon]="'close_custom'"
+            [acceptedTypes]="'.xls,.xlsx'"
+            (uploadClicked)="onUploadClicked($event)"
+            (selectedFilesChanged)="onSelectedFilesChanged($event)"
+          >
+          </mat-file-upload>
         </div>
       </div>
 
-<!--      // Aici eventual ne folosim de advanced stuff ... ca sa
-          obtinem niste detalii de conexiune dar cu ajutorul butonului !-->
-<!--      <div class="row" *ngIf="!hasUnitNumber">-->
-<!--        <div class="col">-->
-<!--          <button mat-button type="button" (click)="hasUnitNumber = !hasUnitNumber">-->
-<!--            + Add C/O, Apt, Suite, Unit-->
-<!--          </button>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="row" *ngIf="hasUnitNumber">-->
-<!--        <div class="col">-->
-<!--          <mat-form-field class="full-width">-->
-<!--            <textarea matInput placeholder="Address 2" formControlName="address2"></textarea>-->
-<!--          </mat-form-field>-->
-<!--        </div>-->
-<!--      </div>-->
-
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput placeholder="Database" formControlName="connDatabase">
-            <mat-error *ngIf="oForm.controls['connDatabase'].hasError('required')">
-              Database is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
+      <div *ngIf="!mustUploadFile">
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Host" formControlName="connHost">
+              <mat-error *ngIf="oForm.controls['connHost'].hasError('required')">
+                First name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="User" formControlName="connUser">
+              <mat-error *ngIf="oForm.controls['connUser'].hasError('required')">
+                User is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input type="password" matInput placeholder="Password" formControlName="connPassword">
+              <mat-error *ngIf="oForm.controls['connPassword'].hasError('required')">
+                Password is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Database" formControlName="connDatabase">
+              <mat-error *ngIf="oForm.controls['connDatabase'].hasError('required')">
+                Database is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
         </div>
       </div>
-<!--      <div class="row">-->
-<!--        <div class="col">-->
-<!--          <mat-form-field class="full-width">-->
-<!--            <input matInput #postalCode maxlength="5" placeholder="Postal Code" type="number" formControlName="postalCode">-->
-<!--            <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>-->
-<!--          </mat-form-field>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="row">-->
-<!--        <div class="col">-->
-<!--          <mat-radio-group formControlName="shipping">-->
-<!--            <mat-radio-button value="free">Free Shipping</mat-radio-button>-->
-<!--            <mat-radio-button value="priority">Priority Shipping</mat-radio-button>-->
-<!--            <mat-radio-button value="nextday">Next Day Shipping</mat-radio-button>-->
-<!--          </mat-radio-group>-->
-<!--        </div>-->
-<!--      </div>-->
+
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" type="submit">Submit</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!oForm.valid" (click)="onSubmit()">Submit</button>
     </mat-card-actions>
   </mat-card>
 </form>

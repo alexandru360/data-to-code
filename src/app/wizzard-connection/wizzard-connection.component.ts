@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
@@ -10,7 +10,7 @@ export class WizzardConnectionComponent {
 
   title = 'Connection Information';
   oForm: FormGroup;
-  hasUnitNumber = false;
+  mustUploadFile = false;
   connTypes = [
     {name: 'Excel', abbreviation: 'XLS'},
     {name: 'SqLite', abbreviation: 'SQLITE'},
@@ -32,6 +32,10 @@ export class WizzardConnectionComponent {
     });
   }
 
+  onConnTypeChange() {
+    this.mustUploadFile = this.oForm.controls.connType.value === 'XLS';
+  }
+
   onSubmit() {
     const conn = {
       connType: null,
@@ -49,5 +53,14 @@ export class WizzardConnectionComponent {
     conn.connDatabase = this.oForm.controls.connDatabase.value;
 
     alert(JSON.stringify(conn));
+  }
+
+  onUploadClicked(event: any) {
+    console.log('onUploadClicked', event);
+
+  }
+
+  onSelectedFilesChanged(event: any) {
+    console.log('onSelectedFilesChanged', event);
   }
 }
