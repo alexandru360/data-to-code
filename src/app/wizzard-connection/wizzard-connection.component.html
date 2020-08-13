@@ -27,14 +27,16 @@
             [selectFilesButtonType]="button"
             [uploadButtonText]="'Upload'"
             [uploadButtonType]="button"
-            [allowMultipleFiles]="true"
-            [showUploadButton]="true"
-            [customSvgIcon]="'close_custom'"
+            [allowMultipleFiles]="false"
+            [showUploadButton]="false"
             [acceptedTypes]="'.xls,.xlsx'"
             (uploadClicked)="onUploadClicked($event)"
             (selectedFilesChanged)="onSelectedFilesChanged($event)"
           >
           </mat-file-upload>
+<!--          <mat-error *ngIf="oForm.controls['connFile'].hasError('required')">-->
+<!--            An excel file <strong>required</strong>-->
+<!--          </mat-error>-->
         </div>
       </div>
 
@@ -85,3 +87,8 @@
     </mat-card-actions>
   </mat-card>
 </form>
+
+<hr/>
+<div style="word-wrap: break-word;">
+{{payloadConn | json}}
+</div>

@@ -19,9 +19,20 @@ export class WizzardConnectionComponent {
     {name: 'MySql', abbreviation: 'MYSQL'},
   ];
 
+  payloadConn = {
+    connType: null,
+    connFileName: null,
+    connFileContent: null,
+    connHost: null,
+    connUser: null,
+    connPassword: null,
+    connDatabase: null,
+  };
+
   constructor(private fb: FormBuilder) {
     this.oForm = this.fb.group({
       connType: [null, Validators.required],
+      connFile: [null, Validators.required],
       connHost: [null, Validators.required],
       connUser: [null, Validators.required],
       connPassword: [null, Validators.required],
@@ -33,34 +44,70 @@ export class WizzardConnectionComponent {
   }
 
   onConnTypeChange() {
-    this.mustUploadFile = this.oForm.controls.connType.value === 'XLS';
+    const mustUpload = this.oForm.controls.connType.value === 'XLS';
+    this.mustUploadFile = mustUpload;
+    if (mustUpload) {
+      this.oForm.get('connFile').setValidators(Validators.required);
+      // Other controls have no validation
+      this.oForm.get('connHost').clearValidators();
+      this.oForm.get('connHost').setErrors(null);
+
+      this.oForm.get('connUser').clearValidators();
+      this.oForm.get('connUser').setErrors(null);
+
+      this.oForm.get('connPassword').clearValidators();
+      this.oForm.get('connPassword').setErrors(null);
+
+      this.oForm.get('connDatabase').clearValidators();
+      this.oForm.get('connDatabase').setErrors(null);
+    } else {
+      this.oForm.get('connFile').clearValidators();
+      this.oForm.get('connFile').setErrors(null);
+
+      // Other controls have validation
+      this.oForm.get('connHost').setValidators(Validators.required);
+      this.oForm.get('connUser').setValidators(Validators.required);
+      this.oForm.get('connPassword').setValidators(Validators.required);
+      this.oForm.get('connDatabase').setValidators(Validators.required);
+    }
+    console.log('this.oForm', this.oForm);
   }
 
   onSubmit() {
-    const conn = {
-      connType: null,
-      connHost: null,
-      connUser: null,
-      connPassword: null,
-      connDatabase: null,
-    };
-
     console.log(this.oForm);
-    conn.connType = this.oForm.controls.connType.value;
-    conn.connHost = this.oForm.controls.connHost.value;
-    conn.connUser = this.oForm.controls.connUser.value;
-    conn.connPassword = this.oForm.controls.connPassword.value;
-    conn.connDatabase = this.oForm.controls.connDatabase.value;
-
-    alert(JSON.stringify(conn));
+    this.payloadConn.connType = this.oForm.controls.connType.value;
+    this.payloadConn.connHost = this.oForm.controls.connHost.value;
+    this.payloadConn.connUser = this.oForm.controls.connUser.value;
+    this.payloadConn.connPassword = this.oForm.controls.connPassword.value;
+    this.payloadConn.connDatabase = this.oForm.controls.connDatabase.value;
   }
 
-  onUploadClicked(event: any) {
-    console.log('onUploadClicked', event);
-
+  onUploadClicked(event: FileList) {
+    this.setFileUpload(event);
   }
 
-  onSelectedFilesChanged(event: any) {
-    console.log('onSelectedFilesChanged', event);
+  onSelectedFilesChanged(event: FileList) {
+    this.setFileUpload(event);
+  }
+
+  private setFileUpload(event: FileList) {
+    debugger;
+    // const fileList: FileList = event.target.files;
+    const fileList: FileList = event;
+    if (fileList.length > 0) {
+      this.oForm.get('connHost').setValue(event);
+      this.oForm.get('connFile').setErrors(null);
+
+      const file: File = fileList[0];
+      this.payloadConn.connFileName = fileList[0].name;
+      const fileReader = new FileReader();
+      fileReader.onload = (e) => {
+        this.payloadConn.connFileContent = fileReader.result;
+      };
+      fileReader.readAsDataURL(file);
+
+      console.log('this.oForm.valid', this.oForm.valid);
+      console.log('this.oForm', this.oForm);
+    }
   }
 }
