@@ -12,11 +12,12 @@ export class WizzardConnectionComponent {
   oForm: FormGroup;
   mustUploadFile = false;
   connTypes = [
-    {name: 'Excel', abbreviation: 'XLS'},
-    {name: 'SqLite', abbreviation: 'SQLITE'},
-    {name: 'SqLite memory', abbreviation: 'SQLITEMEMO'},
-    {name: 'Microsoft SQL Server', abbreviation: 'MSSQL'},
-    {name: 'MySql', abbreviation: 'MYSQL'},
+    {name: 'Excel', connType: 'XLS'},
+    {name: 'SqLite', connType: 'SQLITE'},
+    {name: 'SqLite memory', connType: 'SQLITEMEMO'},
+    {name: 'Microsoft SQL Server', connType: 'MSSQL'},
+    {name: 'MySql', connType: 'MYSQL'},
+    {name: 'MariaDB', connType: 'MARIADB'},
   ];
 
   payloadConn = {
