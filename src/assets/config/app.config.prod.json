@@ -1,0 +1,28 @@
+{
+  "connTypes": [
+    {
+      "name": "Excel",
+      "connType": "XLS"
+    },
+    {
+      "name": "SqLite",
+      "connType": "SQLITE"
+    },
+    {
+      "name": "SqLite memory",
+      "connType": "SQLITEMEMO"
+    },
+    {
+      "name": "Microsoft SQL Server",
+      "connType": "MSSQL"
+    },
+    {
+      "name": "MySql",
+      "connType": "MYSQL"
+    },
+    {
+      "name": "MariaDB",
+      "connType": "MARIADB"
+    }
+  ]
+}

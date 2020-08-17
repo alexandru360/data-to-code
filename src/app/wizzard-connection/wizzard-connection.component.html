@@ -34,9 +34,9 @@
             (selectedFilesChanged)="onSelectedFilesChanged($event)"
           >
           </mat-file-upload>
-<!--          <mat-error *ngIf="oForm.controls['connFile'].hasError('required')">-->
-<!--            An excel file <strong>required</strong>-->
-<!--          </mat-error>-->
+          <!--          <mat-error *ngIf="oForm.controls['connFile'].hasError('required')">-->
+          <!--            An excel file <strong>required</strong>-->
+          <!--          </mat-error>-->
         </div>
       </div>
 
@@ -47,6 +47,14 @@
               <input matInput placeholder="Host" formControlName="connHost">
               <mat-error *ngIf="oForm.controls['connHost'].hasError('required')">
                 First name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Port" formControlName="connPort">
+              <mat-error *ngIf="oForm.controls['connPort'].hasError('required')">
+                Port is <strong>required</strong>
               </mat-error>
             </mat-form-field>
           </div>
@@ -83,12 +91,22 @@
 
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" type="submit" [disabled]="!oForm.valid" (click)="onSubmit()">Submit</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!oForm.valid" (click)="onSubmit()">Submit
+      </button>
     </mat-card-actions>
   </mat-card>
 </form>
-
+<br/><br/><br/>
 <hr/>
+<p>Body sent:</p>
+<hr/>
+<br/>
 <div style="word-wrap: break-word;">
-{{payloadConn | json}}
+  {{payloadConn | json}}
 </div>
+<br/><br/>
+<hr/>
+<p>Response:</p>
+<hr/>
+<br/>
+{{response|json}}
