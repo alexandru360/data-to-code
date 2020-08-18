@@ -11,6 +11,15 @@
                 }, {
                     "maxValue": 31
                 }]
+            },
+            {
+                "name": "field12",
+                "type": "string/bool/etc",
+                "validators": [{
+                    "length": 27
+                }, {
+                    "maxValue": 31
+                }]
             }],
             "crudEndponts": {
                 "read": {
