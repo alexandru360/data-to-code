@@ -1,8 +1,5 @@
 <form [formGroup]="oForm" novalidate>
   <mat-card class="shipping-card">
-    <mat-card-header>
-      <mat-card-title>{{title}}</mat-card-title>
-    </mat-card-header>
     <mat-card-content>
       <div class="row">
         <div class="col">
@@ -24,9 +21,7 @@
           <mat-file-upload
             [labelText]="'Select an excel file to upload:'"
             [selectButtonText]="'Choose File'"
-            [selectFilesButtonType]="button"
             [uploadButtonText]="'Upload'"
-            [uploadButtonType]="button"
             [allowMultipleFiles]="false"
             [showUploadButton]="false"
             [acceptedTypes]="'.xls,.xlsx'"
@@ -91,11 +86,27 @@
 
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" type="submit" [disabled]="!oForm.valid" (click)="onSubmit()">Submit
+
+      <button mat-button
+              *ngIf="!responseSuccess"
+              (click)="onSubmit()">
+        Test
+      </button>
+      <button mat-stroked-button
+              *ngIf="responseSuccess"
+              (click)="onSubmit()">
+        Test
+      </button>
+      <button mat-button matStepperNext color="primary"
+              *ngIf="responseSuccess"
+              (click)="onSubmit()">
+        Next
       </button>
     </mat-card-actions>
   </mat-card>
 </form>
+<!--Aici sunt chestii doar pentru debug ... in productie trebuie sa dispara ! -->
+
 <br/><br/><br/>
 <hr/>
 <p>Body sent:</p>

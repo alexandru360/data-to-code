@@ -24,5 +24,17 @@
       "name": "MariaDB",
       "connType": "MARIADB"
     }
-  ]
+  ],
+  "payloadConn": {
+    "connType": null,
+    "connFileName": null,
+    "connFileContent": null,
+    "connHost": null,
+    "connUser": null,
+    "connPassword": null,
+    "connDatabase": null
+  },
+  "urls": {
+    "findTables": "http://demo.adces.ro:8080/home/FindTables"
+  }
 }

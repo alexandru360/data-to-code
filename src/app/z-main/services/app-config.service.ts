@@ -4,7 +4,7 @@ import {Configuration} from './configuration';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable()
-export class ConfigService {
+export class AppConfigService {
   private config: Configuration;
 
   constructor(private http: HttpClient) {}

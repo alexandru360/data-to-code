@@ -1,16 +1,16 @@
 import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ConfigService} from '../services/config.service';
-import {ConfigConnTypes, PayloadConn} from '../services/configuration';
-import {WizzardConnectionService} from './wizzard-connection.service';
+import {AppConfigService} from '../../../z-main/services/app-config.service';
+import {ConfigConnTypes, PayloadConn} from '../../../z-main/services/configuration';
+import {WizardConnectionService} from './wizard-connection.service';
 
 @Component({
-  selector: 'app-wizzard-connection',
-  templateUrl: './wizzard-connection.component.html',
-  styleUrls: ['./wizzard-connection.component.css'],
-  providers: [WizzardConnectionService]
+  selector: 'app-wizard-connection',
+  templateUrl: './wizard-connection.component.html',
+  styleUrls: ['./wizard-connection.component.css'],
+  providers: [WizardConnectionService]
 })
-export class WizzardConnectionComponent {
+export class WizardConnectionComponent {
 
   title = 'Connection Information';
 
@@ -20,10 +20,12 @@ export class WizzardConnectionComponent {
   payloadConn: PayloadConn;
 
   response: any;
+  responseSuccess: boolean;
 
   constructor(private fb: FormBuilder,
-              private cfg: ConfigService,
-              private srvWiz: WizzardConnectionService) {
+              private cfg: AppConfigService,
+              private srvWiz: WizardConnectionService) {
+    this.responseSuccess = false;
     this.connTypes = this.cfg.getConfiguration().connTypes;
     this.payloadConn = new PayloadConn();
 
@@ -81,9 +83,10 @@ export class WizzardConnectionComponent {
     this.payloadConn.connUser = this.oForm.controls.connUser.value;
     this.payloadConn.connPassword = this.oForm.controls.connPassword.value;
     this.payloadConn.connDatabase = this.oForm.controls.connDatabase.value;
-    debugger;
+
     this.srvWiz.callEndpointMariaDb(this.payloadConn).subscribe(data => {
         this.response = data;
+        this.responseSuccess = Boolean(data.success);
       },
       error => {
         console.log(error);
@@ -111,14 +114,11 @@ export class WizzardConnectionComponent {
         this.payloadConn.connFileContent = fileReader.result;
       };
       fileReader.readAsDataURL(file);
-
-      // console.log('this.oForm.valid', this.oForm.valid);
-      // console.log('this.oForm', this.oForm);
     }
   }
 
   private setValuesMariaDB() {
-    this.oForm.get('connHost').setValue('alex.go.ro');
+    this.oForm.get('connHost').setValue('alex360.go.ro');
     this.oForm.get('connPort').setValue('85');
     this.oForm.get('connUser').setValue('root');
     this.oForm.get('connPassword').setValue('datatocode');
