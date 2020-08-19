@@ -2,31 +2,30 @@ import {Component, EventEmitter, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AppConfigService} from '../../../z-main/services/app-config.service';
 import {ConfigConnTypes, PayloadConn} from '../../../z-main/services/configuration';
-import {WizardConnectionService} from './wizard-connection.service';
+import {StepOneConnWizService} from './step-one-conn-wiz.service';
+import EntitiesDetails from '../class-and-types/entities-details';
+import {AppAssistedStepsService} from '../../connection-wizard-steps/app-assisted-steps.service';
 
 @Component({
   selector: 'app-wizard-connection',
-  templateUrl: './wizard-connection.component.html',
-  styleUrls: ['./wizard-connection.component.css'],
-  providers: [WizardConnectionService]
+  templateUrl: './step-one-conn-wiz.component.html',
+  styleUrls: ['./step-one-conn-wiz.component.css'],
+  providers: [StepOneConnWizService]
 })
-export class WizardConnectionComponent {
+export class StepOneConnWizComponent {
 
   @Output() stepComplete = new EventEmitter<boolean>();
   stepValid: boolean;
-
-  title = 'Connection Information';
 
   oForm: FormGroup;
   mustUploadFile = false;
   connTypes: Array<ConfigConnTypes>;
   payloadConn: PayloadConn;
 
-  response: any;
-
   constructor(private fb: FormBuilder,
               private cfg: AppConfigService,
-              private srvWiz: WizardConnectionService) {
+              private srvWiz: StepOneConnWizService,
+              private srvCommon: AppAssistedStepsService) {
     this.stepComplete.emit(false);
     this.stepValid = false;
 
@@ -89,10 +88,9 @@ export class WizardConnectionComponent {
     this.payloadConn.connDatabase = this.oForm.controls.connDatabase.value;
 
     this.srvWiz.callEndpointMariaDb(this.payloadConn).subscribe(data => {
-        this.response = data;
-        const success = Boolean(data.success);
-        this.stepComplete.emit(success);
-        this.stepValid = success;
+        this.srvCommon.setEntitiesDetailsSubject(data.input);
+        this.stepComplete.emit(Boolean(data.success));
+        this.stepValid = Boolean(data.success);
       },
       error => {
         console.log(error);

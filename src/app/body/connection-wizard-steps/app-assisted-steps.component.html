@@ -4,22 +4,20 @@
     <app-wizard-connection (stepComplete)="onStepComplete($event)"></app-wizard-connection>
   </mat-step>
   <mat-step [stepControl]="formGroup2">
-    <form [formGroup]="formGroup2">
-      <ng-template matStepLabel>{{step2Head}}</ng-template>
-      <mat-form-field>
-        <mat-label>Address</mat-label>
-        <input matInput formControlName="form2" placeholder="Ex. 1 Main St, New York, NY"
-               required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
+    <ng-template matStepLabel>{{step2Head}}</ng-template>
+    <app-chose-tables-step-two></app-chose-tables-step-two>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Step 3</ng-template>
+    <p>How your application looks ...</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Done</ng-template>
-    <p>You are now done.</p>
+    <p>Download your application.</p>
     <div>
       <button mat-button matStepperPrevious>Back</button>
       <button mat-button (click)="stepper.reset()">Reset</button>
