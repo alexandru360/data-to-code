@@ -12,7 +12,8 @@ export class AppAssistedStepsComponent implements OnInit {
   isLinear: boolean;
   step1Head: string;
   step2Head: string;
-  secondFormGroup: FormGroup;
+  formGroup1: FormGroup;
+  formGroup2: FormGroup;
 
   constructor(private formBuilder: FormBuilder) {
     this.isLinear = true;
@@ -21,8 +22,20 @@ export class AppAssistedStepsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.secondFormGroup = this.formBuilder.group({
-      secondCtrl: ['', Validators.required]
+    this.formGroup1 = this.formBuilder.group({
+      form1: ['', Validators.required]
     });
+    this.formGroup2 = this.formBuilder.group({
+      form2: ['', Validators.required]
+    });
+  }
+
+  onStepComplete(stepComplete: boolean) {
+    if (stepComplete) {
+      this.formGroup1.get('form1').clearValidators();
+      this.formGroup1.get('form1').setErrors(null);
+    } else {
+      this.formGroup1.get('form1').setValidators(Validators.required);
+    }
   }
 }

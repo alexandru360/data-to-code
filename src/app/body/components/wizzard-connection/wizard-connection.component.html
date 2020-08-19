@@ -88,20 +88,16 @@
     <mat-card-actions>
 
       <button mat-button
-              *ngIf="!responseSuccess"
+              *ngIf="!stepValid"
               (click)="onSubmit()">
         Test
       </button>
       <button mat-stroked-button
-              *ngIf="responseSuccess"
+              *ngIf="stepValid"
               (click)="onSubmit()">
         Test
       </button>
-      <button mat-button matStepperNext color="primary"
-              *ngIf="responseSuccess"
-              (click)="onSubmit()">
-        Next
-      </button>
+      <button mat-button matStepperNext color="primary" *ngIf="stepValid">Next</button>
     </mat-card-actions>
   </mat-card>
 </form>

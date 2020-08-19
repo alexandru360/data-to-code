@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AppConfigService} from '../../../z-main/services/app-config.service';
 import {ConfigConnTypes, PayloadConn} from '../../../z-main/services/configuration';
@@ -12,6 +12,9 @@ import {WizardConnectionService} from './wizard-connection.service';
 })
 export class WizardConnectionComponent {
 
+  @Output() stepComplete = new EventEmitter<boolean>();
+  stepValid: boolean;
+
   title = 'Connection Information';
 
   oForm: FormGroup;
@@ -20,12 +23,13 @@ export class WizardConnectionComponent {
   payloadConn: PayloadConn;
 
   response: any;
-  responseSuccess: boolean;
 
   constructor(private fb: FormBuilder,
               private cfg: AppConfigService,
               private srvWiz: WizardConnectionService) {
-    this.responseSuccess = false;
+    this.stepComplete.emit(false);
+    this.stepValid = false;
+
     this.connTypes = this.cfg.getConfiguration().connTypes;
     this.payloadConn = new PayloadConn();
 
@@ -86,7 +90,9 @@ export class WizardConnectionComponent {
 
     this.srvWiz.callEndpointMariaDb(this.payloadConn).subscribe(data => {
         this.response = data;
-        this.responseSuccess = Boolean(data.success);
+        const success = Boolean(data.success);
+        this.stepComplete.emit(success);
+        this.stepValid = success;
       },
       error => {
         console.log(error);
