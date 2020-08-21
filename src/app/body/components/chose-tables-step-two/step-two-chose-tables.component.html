@@ -5,15 +5,17 @@
   <mat-card-content>
 
     <mat-accordion>
-      <mat-expansion-panel *ngFor="let itm of stepOneServerPayload; index as idx;"> <!--hideToggle-->
+      <mat-expansion-panel *ngFor="let itm of stepOnePayload; index as idx;"> <!--hideToggle-->
         <mat-expansion-panel-header>
           <mat-panel-title>
             <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.selected">{{itm.name}}</mat-checkbox>
           </mat-panel-title>
           <mat-panel-description>
-            Table of interest ?!
+            <p>Endpoints & SQL</p>
           </mat-panel-description>
         </mat-expansion-panel-header>
+
+        <!-- Table columns !-->
         <mat-table [dataSource]="itm.fields" class="mat-elevation-z8">
           <!-- name Column -->
           <ng-container matColumnDef="name">
@@ -40,6 +42,72 @@
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
+        <!-- END - Table columns !-->
+        <br/>
+        <mat-divider></mat-divider>
+        <br/>
+        <mat-card>
+          <mat-card-title>Select</mat-card-title>
+
+          <mat-form-field class="input-full-width">
+            <mat-label>Connection type</mat-label>
+            <input matInput placeholder="Sql statement" value="Here should be a combobox or something ...">
+          </mat-form-field>
+          <mat-form-field class="input-full-width">
+            <mat-label>Sql statement</mat-label>
+            <input matInput placeholder="Sql statement" [(ngModel)]="itm.crudEndpoints.Read.SqlStatement">
+          </mat-form-field>
+
+        </mat-card>
+        <br/>
+        <mat-divider></mat-divider>
+        <br/>
+        <mat-card>
+          <mat-card-title>Create</mat-card-title>
+
+          <mat-form-field class="input-full-width">
+            <mat-label>Connection type</mat-label>
+            <input matInput placeholder="Sql statement" value="Here should be a combobox or something ...">
+          </mat-form-field>
+          <mat-form-field class="input-full-width">
+            <mat-label>Sql statement</mat-label>
+            <input matInput placeholder="Sql statement" [(ngModel)]="itm.crudEndpoints.Create.SqlStatement">
+          </mat-form-field>
+
+        </mat-card>
+        <br/>
+        <mat-divider></mat-divider>
+        <br/>
+        <mat-card>
+          <mat-card-title>Update</mat-card-title>
+
+          <mat-form-field class="input-full-width">
+            <mat-label>Connection type</mat-label>
+            <input matInput placeholder="Sql statement" value="Here should be a combobox or something ...">
+          </mat-form-field>
+          <mat-form-field class="input-full-width">
+            <mat-label>Sql statement</mat-label>
+            <input matInput placeholder="Sql statement" [(ngModel)]="itm.crudEndpoints.Update.SqlStatement">
+          </mat-form-field>
+
+        </mat-card>
+        <br/>
+        <mat-divider></mat-divider>
+        <br/>
+        <mat-card>
+          <mat-card-title>Delete</mat-card-title>
+
+          <mat-form-field class="input-full-width">
+            <mat-label>Connection type</mat-label>
+            <input matInput placeholder="Sql statement" value="Here should be a combobox or something ...">
+          </mat-form-field>
+          <mat-form-field class="input-full-width">
+            <mat-label>Sql statement</mat-label>
+            <input matInput placeholder="Sql statement" [(ngModel)]="itm.crudEndpoints.Delete.SqlStatement">
+          </mat-form-field>
+
+        </mat-card>
+
       </mat-expansion-panel>
     </mat-accordion>
 
@@ -49,4 +117,4 @@
   </mat-card-actions>
 </mat-card>
 
-{{stepOneServerPayload | json}}
+{{stepOnePayload | json}}

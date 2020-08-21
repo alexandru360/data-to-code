@@ -18,6 +18,7 @@ import {AppAssistedStepsService} from './connection-wizard-steps/app-assisted-st
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTableModule} from '@angular/material/table';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import {MatTableModule} from '@angular/material/table';
     FormsModule,
     MatExpansionModule,
     MatTableModule,
+    MatDividerModule,
   ],
   providers: [
     AppAssistedStepsService
