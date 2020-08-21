@@ -9,12 +9,15 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFileUploadModule} from 'mat-file-upload';
 import {MatButtonModule} from '@angular/material/button';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatStepperModule} from '@angular/material/stepper';
 import {StepTwoChoseTablesComponent} from './components/chose-tables-step-two/step-two-chose-tables.component';
 import {MatRadioModule} from '@angular/material/radio';
 import {AppAssistedStepsService} from './connection-wizard-steps/app-assisted-steps.service';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,10 @@ import {AppAssistedStepsService} from './connection-wizard-steps/app-assisted-st
     MatInputModule,
     MatStepperModule,
     MatRadioModule,
+    MatCheckboxModule,
+    FormsModule,
+    MatExpansionModule,
+    MatTableModule,
   ],
   providers: [
     AppAssistedStepsService

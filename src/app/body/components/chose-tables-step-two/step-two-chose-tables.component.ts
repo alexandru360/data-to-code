@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import EntitiesDetails from '../class-and-types/entities-details';
 import {AppAssistedStepsService} from '../../connection-wizard-steps/app-assisted-steps.service';
@@ -10,35 +10,19 @@ import {AppAssistedStepsService} from '../../connection-wizard-steps/app-assiste
 })
 export class StepTwoChoseTablesComponent {
 
-  ceva: any;
+  stepOneServerPayload: Array<EntitiesDetails>;
 
-  addressForm = this.fb.group({
-    company: null,
-    firstName: [null, Validators.required],
-    lastName: [null, Validators.required],
-    address: [null, Validators.required],
-    address2: null,
-    city: [null, Validators.required],
-    state: [null, Validators.required],
-    postalCode: [null, Validators.compose([
-      Validators.required, Validators.minLength(5), Validators.maxLength(5)])
-    ],
-    shipping: ['free', Validators.required]
-  });
-
-  hasUnitNumber = false;
-  states = [];
-
-  constructor(private fb: FormBuilder,
-              private srvCommon: AppAssistedStepsService) {
+  constructor(private srvCommon: AppAssistedStepsService) {
     this.srvCommon.arrEntitiesDetails.subscribe(item => {
-      this.ceva = item;
+      this.stepOneServerPayload = item;
       console.log(item);
     });
   }
 
+  displayedColumns: string[] = ['name', 'type', 'selected'];
+
   onSubmit() {
-    console.log(this.ceva);
+    console.log(this.stepOneServerPayload);
   }
 
 }

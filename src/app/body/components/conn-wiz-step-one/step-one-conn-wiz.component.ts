@@ -88,7 +88,7 @@ export class StepOneConnWizComponent {
     this.payloadConn.connDatabase = this.oForm.controls.connDatabase.value;
 
     this.srvWiz.callEndpointMariaDb(this.payloadConn).subscribe(data => {
-        this.srvCommon.setEntitiesDetailsSubject(data.input);
+        this.srvCommon.arrEntityDetailsSubject.next(data.input);
         this.stepComplete.emit(Boolean(data.success));
         this.stepValid = Boolean(data.success);
       },
