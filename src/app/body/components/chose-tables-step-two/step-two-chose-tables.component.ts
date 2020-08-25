@@ -1,30 +1,43 @@
 import {Component} from '@angular/core';
-import EntitiesDetails from '../class-and-types/entities-details';
+import EntitiesDetails from '../class-and-types-and-tools/entities-details';
 import {AppAssistedStepsService} from '../../connection-wizard-steps/app-assisted-steps.service';
-import CrudEndpoints from '../class-and-types/crud-endpoints';
+import CrudEndpoints from '../class-and-types-and-tools/crud-endpoints';
+import {StepTwoConnWizService} from './step-two-conn-wiz.service';
+import {PayloadConn} from '../../../z-main/services/configuration';
+import StepTwoSendPayload, {Input, Table, Field} from '../class-and-types-and-tools/step-two-send-payload';
 
 @Component({
   selector: 'app-chose-tables-step-two',
   templateUrl: './step-two-chose-tables.component.html',
-  styleUrls: ['./step-two-chose-tables.component.css']
+  styleUrls: ['./step-two-chose-tables.component.css'],
+  providers: [StepTwoConnWizService]
 })
 export class StepTwoChoseTablesComponent {
 
   stepOnePayload: Array<EntitiesDetails>;
+  showSelection: any;
+  payloadConn: PayloadConn;
 
-  constructor(private srvCommon: AppAssistedStepsService) {
+  dataSent: any;
+  dataReceived: any;
+
+  constructor(private srvCommon: AppAssistedStepsService,
+              private srvStepTwo: StepTwoConnWizService) {
+
+    this.srvCommon.connPayloadDetails.subscribe(item => this.payloadConn = item);
+
     this.srvCommon.arrEntitiesDetails.subscribe(item => {
       this.stepOnePayload = item;
       const obj = this.stepOnePayload;
-
       if (obj) {
         obj.map(itm => {
+          itm.selected = true;
           if (!itm.hasOwnProperty('crudEndpoints')) {
             itm.crudEndpoints = new CrudEndpoints();
-            debugger;
-            itm.crudEndpoints.setDefault();
-            debugger;
           }
+          itm.fields.forEach(field => {
+            field.selected = true;
+          });
         });
       }
       console.log(item);
@@ -32,9 +45,49 @@ export class StepTwoChoseTablesComponent {
   }
 
   displayedColumns: string[] = ['name', 'type', 'selected'];
+  stepValid: boolean;
 
   onSubmit() {
-    console.log(this.stepOnePayload);
+    console.log('Data sent', this.stepOnePayload);
+    const payload: StepTwoSendPayload = new StepTwoSendPayload();
+    payload.payloadConn = this.payloadConn;
+    payload.input = [];
+    // This is for pushing input ...
+    this.stepOnePayload.forEach(el => {
+      if (el.selected) {
+        const newInput = new Input();
+        newInput.crudEndpoints = el.crudEndpoints;
+
+        // Table array now...
+        const newTable = new Table();
+        newTable.name = el.name;
+        newTable.fields = [];
+        el.fields.forEach(field => {
+
+          const newField = new Field();
+          if (field.selected) {
+            newField.name = field.name;
+            newField.type = field.type;
+            newTable.fields.push(newField); // Here we are loading the fields !
+          }
+        });
+        newInput.table = newTable; // Adding the table to the input object !
+        payload.input.push(newInput);
+      }
+    });
+
+    this.dataSent = payload;
+    this.srvStepTwo.callStepTwo(payload).subscribe(data => {
+      this.dataReceived = data;
+      this.stepValid = true;
+    });
   }
 
+  onFieldsSelectAll(idx: number) {
+    const els: any = this.stepOnePayload[idx];
+    this.showSelection = els;
+    els.fields.forEach(itm => {
+      itm.selected = !itm.selected;
+    });
+  }
 }

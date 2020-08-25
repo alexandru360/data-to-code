@@ -11,28 +11,47 @@
             <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.selected">{{itm.name}}</mat-checkbox>
           </mat-panel-title>
           <mat-panel-description>
-            <p>Endpoints & SQL</p>
+
           </mat-panel-description>
         </mat-expansion-panel-header>
-
+        <br/>
+        <div class="row">
+          <div class="col">
+            <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.List">Read</mat-checkbox>
+          </div>
+          <div class="col">
+            <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.Create">Create</mat-checkbox>
+          </div>
+          <div class="col">
+            <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.Update">Update</mat-checkbox>
+          </div>
+          <div class="col">
+            <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.Delete">Delete</mat-checkbox>
+          </div>
+          <div class="col">
+            <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.Upsert">Upsert</mat-checkbox>
+          </div>
+        </div>
+        <br/>
         <!-- Table columns !-->
         <mat-table [dataSource]="itm.fields" class="mat-elevation-z8">
           <!-- name Column -->
           <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
           </ng-container>
 
           <!-- type Column -->
           <ng-container matColumnDef="type">
-            <mat-header-cell *matHeaderCellDef> Type </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> Type</mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
           </ng-container>
 
           <!-- selected Column -->
           <ng-container matColumnDef="selected">
             <mat-header-cell *matHeaderCellDef>
-              <mat-checkbox class="checkbox-margin" >Index #{{idx}}</mat-checkbox>
+              <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.selected"
+                            (click)="onFieldsSelectAll(idx)">{{itm.selected ? 'Uncheck all' : 'Check all'}}</mat-checkbox>
             </mat-header-cell>
             <mat-cell *matCellDef="let element">
               <mat-checkbox class="checkbox-margin" [(ngModel)]="element.selected"></mat-checkbox>
@@ -43,78 +62,22 @@
           <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
         <!-- END - Table columns !-->
-        <br/>
-        <mat-divider></mat-divider>
-        <br/>
-        <mat-card>
-          <mat-card-title>Select</mat-card-title>
-
-          <mat-form-field class="input-full-width">
-            <mat-label>Connection type</mat-label>
-            <input matInput placeholder="Sql statement" value="Here should be a combobox or something ...">
-          </mat-form-field>
-          <mat-form-field class="input-full-width">
-            <mat-label>Sql statement</mat-label>
-            <input matInput placeholder="Sql statement" [(ngModel)]="itm.crudEndpoints.Read.SqlStatement">
-          </mat-form-field>
-
-        </mat-card>
-        <br/>
-        <mat-divider></mat-divider>
-        <br/>
-        <mat-card>
-          <mat-card-title>Create</mat-card-title>
-
-          <mat-form-field class="input-full-width">
-            <mat-label>Connection type</mat-label>
-            <input matInput placeholder="Sql statement" value="Here should be a combobox or something ...">
-          </mat-form-field>
-          <mat-form-field class="input-full-width">
-            <mat-label>Sql statement</mat-label>
-            <input matInput placeholder="Sql statement" [(ngModel)]="itm.crudEndpoints.Create.SqlStatement">
-          </mat-form-field>
-
-        </mat-card>
-        <br/>
-        <mat-divider></mat-divider>
-        <br/>
-        <mat-card>
-          <mat-card-title>Update</mat-card-title>
-
-          <mat-form-field class="input-full-width">
-            <mat-label>Connection type</mat-label>
-            <input matInput placeholder="Sql statement" value="Here should be a combobox or something ...">
-          </mat-form-field>
-          <mat-form-field class="input-full-width">
-            <mat-label>Sql statement</mat-label>
-            <input matInput placeholder="Sql statement" [(ngModel)]="itm.crudEndpoints.Update.SqlStatement">
-          </mat-form-field>
-
-        </mat-card>
-        <br/>
-        <mat-divider></mat-divider>
-        <br/>
-        <mat-card>
-          <mat-card-title>Delete</mat-card-title>
-
-          <mat-form-field class="input-full-width">
-            <mat-label>Connection type</mat-label>
-            <input matInput placeholder="Sql statement" value="Here should be a combobox or something ...">
-          </mat-form-field>
-          <mat-form-field class="input-full-width">
-            <mat-label>Sql statement</mat-label>
-            <input matInput placeholder="Sql statement" [(ngModel)]="itm.crudEndpoints.Delete.SqlStatement">
-          </mat-form-field>
-
-        </mat-card>
-
       </mat-expansion-panel>
     </mat-accordion>
 
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button color="primary" type="submit" (click)="onSubmit()">Submit</button>
+    <button mat-button *ngIf="!stepValid" (click)="onSubmit()">Send data</button>
+    <button mat-stroked-button *ngIf="stepValid" (click)="onSubmit()">Send data</button>
+    <button mat-button matStepperNext color="primary" *ngIf="stepValid">Next</button>
   </mat-card-actions>
 </mat-card>
-
-{{stepOnePayload | json}}
+<br><br>
+<mat-divider></mat-divider>
+<h2>Data sent: </h2>
+<mat-divider></mat-divider>
+{{dataSent | json}}
+<mat-divider></mat-divider>
+<h2>Data received: </h2>
+<mat-divider></mat-divider>
+{{dataReceived | json}}

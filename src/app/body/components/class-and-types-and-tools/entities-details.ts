@@ -12,4 +12,3 @@ export default class EntitiesDetails {
     this.crudEndpoints = new CrudEndpoints();
   }
 }
-

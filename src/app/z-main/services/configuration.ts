@@ -22,5 +22,6 @@ export class PayloadConn {
 }
 
 export class Urls {
-  findTables: string;
+  stepOneFindTables: string;
+  stepTwoUrlToBeRenamed: string;
 }

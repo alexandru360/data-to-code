@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AppConfigService} from '../../../z-main/services/app-config.service';
 import {ConfigConnTypes, PayloadConn} from '../../../z-main/services/configuration';
 import {StepOneConnWizService} from './step-one-conn-wiz.service';
-import EntitiesDetails from '../class-and-types/entities-details';
+import EntitiesDetails from '../class-and-types-and-tools/entities-details';
 import {AppAssistedStepsService} from '../../connection-wizard-steps/app-assisted-steps.service';
 
 @Component({
@@ -87,8 +87,10 @@ export class StepOneConnWizComponent {
     this.payloadConn.connPassword = this.oForm.controls.connPassword.value;
     this.payloadConn.connDatabase = this.oForm.controls.connDatabase.value;
 
-    this.srvWiz.callEndpointMariaDb(this.payloadConn).subscribe(data => {
+    this.srvWiz.callStepOne(this.payloadConn).subscribe(data => {
         this.srvCommon.arrEntityDetailsSubject.next(data.input);
+        this.srvCommon.connPayloadSubject.next(this.payloadConn);
+
         this.stepComplete.emit(Boolean(data.success));
         this.stepValid = Boolean(data.success);
       },

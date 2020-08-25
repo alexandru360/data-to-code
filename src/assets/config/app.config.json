@@ -35,6 +35,7 @@
     "connDatabase": null
   },
   "urls": {
-    "findTables": "http://demo.adces.ro:8080/home/FindTables"
+    "stepOneFindTables": "http://demo.adces.ro:8080/home/FindTables",
+    "stepTwoUrlToBeRenamed": "http://demo.adces.ro:8080/home/generateapp"
   }
 }
