@@ -4,7 +4,6 @@ export default class CrudEndpointType {
   SqlStatement: string;
 
   constructor() {
-    console.log('CrudEndpointType');
     this.Connection = 'conn';
     this.Type = 'type';
     this.SqlStatement = 'sqlStatement';

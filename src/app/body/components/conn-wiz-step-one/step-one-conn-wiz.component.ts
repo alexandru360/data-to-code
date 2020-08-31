@@ -73,7 +73,6 @@ export class StepOneConnWizComponent {
       this.oForm.get('connPassword').setValidators(Validators.required);
       this.oForm.get('connDatabase').setValidators(Validators.required);
     }
-    // console.log('this.oForm', this.oForm);
     if (this.oForm.controls.connType.value === 'MARIADB') {
       this.setValuesMariaDB();
     }

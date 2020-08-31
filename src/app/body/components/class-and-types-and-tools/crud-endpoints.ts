@@ -11,6 +11,6 @@ export default class CrudEndpoints {
     this.Create = true;
     this.Update = true;
     this.Delete = true;
-    this.Upsert = true;
+    this.Upsert = false;
   }
 }

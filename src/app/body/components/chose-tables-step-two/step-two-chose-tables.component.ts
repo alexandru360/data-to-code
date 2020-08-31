@@ -40,7 +40,6 @@ export class StepTwoChoseTablesComponent {
           });
         });
       }
-      console.log(item);
     });
   }
 
@@ -48,7 +47,6 @@ export class StepTwoChoseTablesComponent {
   stepValid: boolean;
 
   onSubmit() {
-    console.log('Data sent', this.stepOnePayload);
     const payload: StepTwoSendPayload = new StepTwoSendPayload();
     payload.payloadConn = this.payloadConn;
     payload.input = [];
@@ -84,10 +82,16 @@ export class StepTwoChoseTablesComponent {
   }
 
   onFieldsSelectAll(idx: number) {
-    const els: any = this.stepOnePayload[idx];
+    const els: EntitiesDetails = this.stepOnePayload[idx];
     this.showSelection = els;
     els.fields.forEach(itm => {
       itm.selected = !itm.selected;
     });
+  }
+
+  onUpsertChange(idx: number) {
+    // const els: EntitiesDetails = this.stepOnePayload[idx];
+    // els.crudEndpoints.Create = els.crudEndpoints.Upsert;
+    // els.crudEndpoints.Update = els.crudEndpoints.Upsert;
   }
 }

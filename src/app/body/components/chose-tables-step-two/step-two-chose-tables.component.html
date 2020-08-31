@@ -20,16 +20,20 @@
             <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.List">Read</mat-checkbox>
           </div>
           <div class="col">
-            <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.Create">Create</mat-checkbox>
+            <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.Create"
+                          [disabled]="itm.crudEndpoints.Upsert">Create</mat-checkbox>
           </div>
           <div class="col">
-            <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.Update">Update</mat-checkbox>
+            <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.Update"
+                          [disabled]="itm.crudEndpoints.Upsert">Update</mat-checkbox>
           </div>
           <div class="col">
             <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.Delete">Delete</mat-checkbox>
           </div>
           <div class="col">
-            <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.Upsert">Upsert</mat-checkbox>
+            <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.Upsert"
+                          [disabled]="itm.crudEndpoints.Create && itm.crudEndpoints.Create"
+            (mouseup)="onUpsertChange(idx)">Upsert</mat-checkbox>
           </div>
         </div>
         <br/>
@@ -41,7 +45,7 @@
             <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
           </ng-container>
 
-          <!-- type Column -->
+          <!-- Type Column -->
           <ng-container matColumnDef="type">
             <mat-header-cell *matHeaderCellDef> Type</mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
