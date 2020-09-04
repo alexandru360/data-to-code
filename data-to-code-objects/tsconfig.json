@@ -1,0 +1,25 @@
+{
+  "extends": "../tsconfig.settings.json",
+
+    "compilerOptions": {
+      "outDir": "dist",
+      "composite": true,
+      "baseUrl": ".",
+      "paths": {
+        "*": [
+          "node_modules/",
+        ],
+        "typings/*": [
+          "src/typings/*"
+        ]
+      },
+    },
+    "include": [
+      "**/*.ts"
+    ],
+    "exclude": [
+      "src/test/**/*.spec.ts",
+      "node_modules",
+      "dist"
+    ]
+  }
