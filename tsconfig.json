@@ -1,15 +1,17 @@
+/*
+  This is a "Solution Style" tsconfig.json file, and is used by editors and TypeScript’s language server to improve development experience.
+  It is not intended to be used to perform a compilation.
+
+  To learn more about this file see: https://angular.io/config/solution-tsconfig.
+*/
 {
-  "compilerOptions": {
-    "target": "ES6",
-    "experimentalDecorators": true
-  },
   "files": [],
   "references": [
     {
-      "path": "data-to-code-objects"
+      "path": "./tsconfig.app.json"
     },
     {
-      "path": "data-to-code-api"
+      "path": "./tsconfig.spec.json"
     }
-  ]
+]
 }

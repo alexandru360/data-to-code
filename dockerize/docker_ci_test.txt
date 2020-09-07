@@ -1,6 +1,0 @@
-FROM node:10 
-WORKDIR /app
-COPY . ./
-RUN yarn
-RUN yarn test --reporters default jest-stare jest-junit jest-stare
-CMD tail -f /dev/null

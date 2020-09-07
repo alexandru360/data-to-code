@@ -1,25 +1,27 @@
-[![Build Status](https://alexandru360.visualstudio.com/BingoCards/_apis/build/status/alexandru360.PresentationBingoCards?branchName=master)](https://alexandru360.visualstudio.com/BingoCards/_build/latest?definitionId=2&branchName=master)
-![Azure DevOps tests](https://img.shields.io/azure-devops/tests/alexandru360/BingoCards/2)
-![Azure DevOps releases](https://alexandru360.vsrm.visualstudio.com/_apis/public/Release/badge/ba6c7db7-574d-4c8f-adc3-d7aff9b43cf0/1/1)
-[![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest) 
+# DataToCode
 
-Azure Devops CI and artifacts:
-https://alexandru360.visualstudio.com/BingoCards/_build?definitionId=2
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.
 
+## Development server
 
-# PresentationBingoCards 
-Bingo cards for meetings :)
-## See demo at : https://alexandru360.github.io/PresentationBingoCards/
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## What it does: 
-Every time in a meeting that a participant hears a phrase (like “ Hi, can you hear me?” or “ can everyone see my screen?” or others …)  he can check one of the cards. In the final you can see for the meeting how many cards you have checked.
-More details at https://github.com/alexandru360/PresentationBingoCards/wiki
+## Code scaffolding
 
-## Heroku api link
-http://data-to-code-api.herokuapp.com/api
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Blog link:
-http://msprogrammer.serviciipeweb.ro/category/bingo/
+## Build
 
-## Project documentation link ( for programmers) 
-See project documentation at https://github.com/alexandru360/PresentationBingoCards/wiki
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+
+## Running unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
