@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 import EntitiesDetails from '../class-and-types-and-tools/entities-details';
-import {AppAssistedStepsService} from '../connection-wizard-steps/app-assisted-steps.service';
+import {AppAssistedStepsService} from '../../connection-wizard-steps/app-assisted-steps.service';
 import CrudEndpoints from '../class-and-types-and-tools/crud-endpoints';
 import {StepTwoConnWizService} from './step-two-conn-wiz.service';
-import {PayloadConn} from '../../../../../../data-to-code-prod-ui/src/app/z-main/services/configuration';
+import {PayloadConn} from '../../../z-main/services/configuration';
 import StepTwoSendPayload, {Field, Input, Table} from '../class-and-types-and-tools/step-two-send-payload';
 
 @Component({

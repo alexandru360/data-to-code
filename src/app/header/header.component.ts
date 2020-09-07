@@ -7,11 +7,21 @@ import {Component, OnInit} from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   title = 'Data to Code#';
-
   showSecondRow: boolean;
 
+  aaa = {
+    connDatabase: 'andreiTest',
+    connFileContent: null,
+    connFileName: null,
+    connHost: 'andreiTest',
+    connPassword: 'andreiTest',
+    connPort: '',
+    connType: 'MARIADB',
+    connUser: 'andreiTest',
+  };
+
   constructor() {
-    this.showSecondRow = true;
+    this.showSecondRow = false;
   }
 
   ngOnInit(): void {
@@ -20,10 +30,5 @@ export class HeaderComponent implements OnInit {
   onClickShowSecondRow() {
     this.showSecondRow = !this.showSecondRow;
   }
-
-  onClickLogin() {
-    alert('Login component ...');
-  }
-
 }
 

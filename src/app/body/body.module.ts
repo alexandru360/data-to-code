@@ -4,7 +4,6 @@ import {StepOneConnWizComponent} from './components/conn-wiz-step-one/step-one-c
 import {AppAssistedStepsComponent} from './connection-wizard-steps/app-assisted-steps.component';
 import {BodyRoutingModule} from './app-routing.module';
 import {MatCardModule} from '@angular/material/card';
-import {HeaderComponent} from '../header/header.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFileUploadModule} from 'mat-file-upload';

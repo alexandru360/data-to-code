@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AppConfigService} from '../../z-main/services/app-config.service';
 
 @Component({
   selector: 'app-connection-wizard-steps',

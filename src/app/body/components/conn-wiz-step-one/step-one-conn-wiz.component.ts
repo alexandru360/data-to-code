@@ -1,10 +1,9 @@
-import {StepOneConnWizService} from './step-one-conn-wiz.service';
-import {AppAssistedStepsService} from '../connection-wizard-steps/app-assisted-steps.service';
-import {ConfigConnTypes, PayloadConn} from '../../../z-main/services/configuration';
-import {AppConfigService} from '../../../z-main/services/app-config.service';
-import {Component, Output} from '@angular/core';
-import {EventEmitter} from 'events';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AppConfigService} from '../../../z-main/services/app-config.service';
+import {ConfigConnTypes, PayloadConn} from '../../../z-main/services/configuration';
+import {StepOneConnWizService} from './step-one-conn-wiz.service';
+import {AppAssistedStepsService} from '../../connection-wizard-steps/app-assisted-steps.service';
 
 @Component({
   selector: 'app-wizard-connection',

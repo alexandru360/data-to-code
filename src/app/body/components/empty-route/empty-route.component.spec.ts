@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { EmptyRouteComponent } from './empty-route.component';
+import {EmptyRouteComponent} from './empty-route.component';
 
 describe('EmptyRouteComponent', () => {
   let component: EmptyRouteComponent;

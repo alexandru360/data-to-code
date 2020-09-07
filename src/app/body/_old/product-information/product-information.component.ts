@@ -1,11 +1,8 @@
-import { OverlayContainer } from '@angular/cdk/overlay';
+import {OverlayContainer} from '@angular/cdk/overlay';
 import {Component, ElementRef, OnInit, QueryList, ViewChildren} from '@angular/core';
-import { ThemePalette } from '@angular/material/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import {
-  MatCarouselSlideComponent,
-  Orientation,
-} from '@ngmodule/material-carousel';
+import {ThemePalette} from '@angular/material/core';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatCarouselSlideComponent, Orientation,} from '@ngmodule/material-carousel';
 
 @Component({
   selector: 'app-product-description',
