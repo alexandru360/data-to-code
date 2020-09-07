@@ -5,7 +5,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AppConfigService} from './z-main/services/app-config.service';
 import {environment} from '../environments/environment';
 import {HttpClientModule} from '@angular/common/http';
-import {BodyModule} from './body/body.module';
+import {BodyPresentationModule} from './body/body-presentation.module';
 import {HeaderModule} from './header/header.module';
 
 // tslint:disable-next-line:typedef
@@ -22,7 +22,7 @@ export function ConfigLoader(configService: AppConfigService) {
     BrowserAnimationsModule,
     HttpClientModule,
     HeaderModule,
-    BodyModule,
+    BodyPresentationModule,
   ],
   providers: [AppConfigService,
     {

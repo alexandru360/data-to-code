@@ -1,0 +1,26 @@
+<mat-horizontal-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="formGroup1">
+    <ng-template matStepLabel>{{step1Head}}</ng-template>
+    <app-wizard-connection (stepComplete)="onStepComplete($event)"></app-wizard-connection>
+  </mat-step>
+  <mat-step [stepControl]="formGroup2">
+    <ng-template matStepLabel>{{step2Head}}</ng-template>
+    <app-chose-tables-step-two></app-chose-tables-step-two>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Step 3</ng-template>
+    <p>How your application looks ...</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <p>Download your application.</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
