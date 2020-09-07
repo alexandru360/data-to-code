@@ -1,0 +1,78 @@
+{
+    //tablesOrViews pentru ca poti selecta un singur camp din tabele si sa faci crud cu el pe api !
+    "input":[
+        {
+            "name": "table1/json/csv/whatever",
+            "fields": [{
+                "name": "field1",
+                "type": "string/bool/etc",
+                "validators": [{
+                    "length": 27
+                }, {
+                    "maxValue": 31
+                }]
+            },
+            {
+                "name": "field12",
+                "type": "string/bool/etc",
+                "validators": [{
+                    "length": 27
+                }, {
+                    "maxValue": 31
+                }]
+            }],
+            "crudEndponts": {
+                "read": {
+                    "connection": {},
+                    "type": "database/httpcall/json/csv... etc",
+                    "sql": "select * from tabela"
+                },
+                "create": {
+                    "connection": {},
+                    "type": "database/httpcall/json/csv... etc",
+                    "sql": "insert into tabela"
+                },
+                "update": {
+                    "connection": {},
+                    "type": "database/httpcall/json/csv... etc",
+                    "sql": "update tabela set ..."
+                },
+                "delete": {
+                    "connection": {},
+                    "type": "database/httpcall/json/csv... etc",
+                    "sql": "delete from tabela"
+                }
+            }
+        },
+        {
+            "name": "table2",
+            "fields": [{
+                "name": "field1",
+                "type": "string/bool/etc",
+                "validators": [{
+                    "length": 27
+                }, {
+                    "maxValue": 31
+                }]
+            },
+            {
+                "name": "field2",
+                "type": "string/bool/etc",
+                "validators": [{
+                    "length": 27
+                }]
+            }]
+        }
+    ],
+    "output":{
+        "backend": {
+            "generatorType": "dotnetcore3.1"
+            // to do cum sa se numeasca endpointurile pentru fiecare chestie ... controller/nume/{}
+        },
+        "frontend": {
+            // to do ... 
+            "generatorType": "angular"
+
+        }
+    }
+}

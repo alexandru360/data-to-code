@@ -1,0 +1,87 @@
+<mat-card class="shipping-card">
+  <mat-card-header>
+    <mat-card-title>Entities list</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let itm of stepOnePayload; index as idx;"> <!--hideToggle-->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.selected">{{itm.name}}</mat-checkbox>
+          </mat-panel-title>
+          <mat-panel-description>
+
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <br/>
+        <div class="row">
+          <div class="col">
+            <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.List">Read</mat-checkbox>
+          </div>
+          <div class="col">
+            <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.Create"
+                          [disabled]="itm.crudEndpoints.Upsert">Create</mat-checkbox>
+          </div>
+          <div class="col">
+            <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.Update"
+                          [disabled]="itm.crudEndpoints.Upsert">Update</mat-checkbox>
+          </div>
+          <div class="col">
+            <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.Delete">Delete</mat-checkbox>
+          </div>
+          <div class="col">
+            <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.Upsert"
+                          [disabled]="itm.crudEndpoints.Create && itm.crudEndpoints.Create"
+            (mouseup)="onUpsertChange(idx)">Upsert</mat-checkbox>
+          </div>
+        </div>
+        <br/>
+        <!-- Table columns !-->
+        <mat-table [dataSource]="itm.fields" class="mat-elevation-z8">
+          <!-- name Column -->
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+          </ng-container>
+
+          <!-- Type Column -->
+          <ng-container matColumnDef="type">
+            <mat-header-cell *matHeaderCellDef> Type</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
+          </ng-container>
+
+          <!-- selected Column -->
+          <ng-container matColumnDef="selected">
+            <mat-header-cell *matHeaderCellDef>
+              <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.selected"
+                            (click)="onFieldsSelectAll(idx)">{{itm.selected ? 'Uncheck all' : 'Check all'}}</mat-checkbox>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <mat-checkbox class="checkbox-margin" [(ngModel)]="element.selected"></mat-checkbox>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <!-- END - Table columns !-->
+      </mat-expansion-panel>
+    </mat-accordion>
+
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button *ngIf="!stepValid" (click)="onSubmit()">Send data</button>
+    <button mat-stroked-button *ngIf="stepValid" (click)="onSubmit()">Send data</button>
+    <button mat-button matStepperNext color="primary" *ngIf="stepValid">Next</button>
+  </mat-card-actions>
+</mat-card>
+<br><br>
+<mat-divider></mat-divider>
+<h2>Data sent: </h2>
+<mat-divider></mat-divider>
+{{dataSent | json}}
+<mat-divider></mat-divider>
+<h2>Data received: </h2>
+<mat-divider></mat-divider>
+{{dataReceived | json}}
