@@ -1,21 +1,18 @@
 {
   "private": true,
   "workspaces": [
-    "data-to-code-api",
-    "data-to-code-prod-ui",
-    "data-to-code-present-ui",
-    "data-to-code-objects"
+    "projects/*"
   ],
   "scripts": {
     "build": "tsc -b .",
-    "start": "yarn build && cd data-to-code-api && yarn start",
-    "start:api": "yarn build && cd data-to-code-api && yarn start",
-    "start:present:ui": "cd data-to-code-present-ui && yarn start",
-    "start:prod:ui": "cd data-to-code-prod-ui && yarn start"
+    "start": "yarn build && cd projects/data-to-code-api && yarn start",
+    "start:api": "yarn build && cd projects/data-to-code-api && yarn start",
+    "start:ui": "cd projects/data-to-code-present-ui && yarn start"
   },
   "dependencies": {
     "@angular/animations": "^8.2.3",
     "@angular/cdk": "^8.1.4",
     "@angular/material": "^8.1.4"
-  }
+  },
+  "devDependencies": {}
 }
