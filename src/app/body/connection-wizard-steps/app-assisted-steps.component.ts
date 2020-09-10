@@ -29,12 +29,21 @@ export class AppAssistedStepsComponent implements OnInit {
     });
   }
 
-  onStepComplete(stepComplete: boolean) {
+  onStepComplete1(stepComplete: boolean) {
     if (stepComplete) {
       this.formGroup1.get('form1').clearValidators();
       this.formGroup1.get('form1').setErrors(null);
     } else {
       this.formGroup1.get('form1').setValidators(Validators.required);
+    }
+  }
+
+  onStepComplete2(stepComplete: boolean) {
+    if (stepComplete) {
+      this.formGroup2.get('form2').clearValidators();
+      this.formGroup2.get('form2').setErrors(null);
+    } else {
+      this.formGroup2.get('form2').setValidators(Validators.required);
     }
   }
 }

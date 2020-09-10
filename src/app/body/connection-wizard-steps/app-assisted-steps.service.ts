@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 import EntitiesDetails from '../components/class-and-types-and-tools/entities-details';
-import {PayloadConn} from '../../z-main/services/configuration';
+import {PayloadConn} from '../../app.configuration';
 
 @Injectable({providedIn: 'root'})
 export class AppAssistedStepsService {

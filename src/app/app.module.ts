@@ -1,8 +1,8 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {APP_INITIALIZER, NgModule} from '@angular/core';
-import {AppComponent} from './z-main/main-component/app.component';
+import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {AppConfigService} from './z-main/services/app-config.service';
+import {AppConfigService} from './app.config.service';
 import {environment} from '../environments/environment';
 import {HttpClientModule} from '@angular/common/http';
 import {BodyModule} from './body/body.module';

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {AppConfigService} from '../../../z-main/services/app-config.service';
+import {AppConfigService} from '../../../app.config.service';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import StepOneResponse from '../class-and-types-and-tools/step-one-response';

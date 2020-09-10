@@ -1,4 +1,4 @@
-import {PayloadConn} from '../../../z-main/services/configuration';
+import {PayloadConn} from '../../../app.configuration';
 import CrudEndpoints from './crud-endpoints';
 
 export default class StepTwoSendPayload{

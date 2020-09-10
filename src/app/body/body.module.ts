@@ -27,11 +27,11 @@ import {MatDividerModule} from '@angular/material/divider';
   ],
   imports: [
     CommonModule,
+    MatFileUploadModule,
     BodyRoutingModule,
     MatCardModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatFileUploadModule,
     MatButtonModule,
     ReactiveFormsModule,
     MatInputModule,

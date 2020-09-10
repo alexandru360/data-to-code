@@ -8,7 +8,7 @@ import {ProductCardsComponent} from './_old/product-cards/product-cards.componen
 import {ProductComparisonComponent} from './_old/product-comparison/product-comparison.component';
 import {ProductCardItemComponent} from './_old/product-cards/product-card-item/product-card-item.component';
 import {EmptyRouteComponent} from './components/empty-route/empty-route.component';
-import {AppConfigService} from '../z-main/services/app-config.service';
+import {AppConfigService} from '../app.config.service';
 import {environment} from '../../environments/environment';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatCardModule} from '@angular/material/card';

@@ -1,4 +1,4 @@
-export class Configuration {
+export class AppConfiguration {
   constructor(public connTypes: Array<ConfigConnTypes>,
               public payloadConn: PayloadConn,
               public urls: Urls) {

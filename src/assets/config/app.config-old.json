@@ -5,6 +5,14 @@
       "connType": "XLS"
     },
     {
+      "name": "SqLite",
+      "connType": "SQLITE"
+    },
+    {
+      "name": "SqLite memory",
+      "connType": "SQLITEMEMO"
+    },
+    {
       "name": "Microsoft SQL Server",
       "connType": "MSSQL"
     },

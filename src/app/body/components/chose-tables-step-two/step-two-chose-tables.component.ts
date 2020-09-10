@@ -1,10 +1,11 @@
-import {Component} from '@angular/core';
+import {Component, Output} from '@angular/core';
 import EntitiesDetails from '../class-and-types-and-tools/entities-details';
 import {AppAssistedStepsService} from '../../connection-wizard-steps/app-assisted-steps.service';
 import CrudEndpoints from '../class-and-types-and-tools/crud-endpoints';
 import {StepTwoConnWizService} from './step-two-conn-wiz.service';
-import {PayloadConn} from '../../../z-main/services/configuration';
+import {PayloadConn} from '../../../app.configuration';
 import StepTwoSendPayload, {Field, Input, Table} from '../class-and-types-and-tools/step-two-send-payload';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-chose-tables-step-two',
@@ -14,6 +15,7 @@ import StepTwoSendPayload, {Field, Input, Table} from '../class-and-types-and-to
 })
 export class StepTwoChoseTablesComponent {
 
+  @Output() stepComplete = new EventEmitter<boolean>();
   stepOnePayload: Array<EntitiesDetails>;
   showSelection: any;
   payloadConn: PayloadConn;
@@ -23,9 +25,8 @@ export class StepTwoChoseTablesComponent {
 
   constructor(private srvCommon: AppAssistedStepsService,
               private srvStepTwo: StepTwoConnWizService) {
-
+    this.stepComplete.emit(false);
     this.srvCommon.connPayloadDetails.subscribe(item => this.payloadConn = item);
-
     this.srvCommon.arrEntitiesDetails.subscribe(item => {
       this.stepOnePayload = item;
       const obj = this.stepOnePayload;
@@ -78,6 +79,7 @@ export class StepTwoChoseTablesComponent {
     this.srvStepTwo.callStepTwo(payload).subscribe(data => {
       this.dataReceived = data;
       this.stepValid = true;
+      this.stepComplete.emit(true);
     });
   }
 
