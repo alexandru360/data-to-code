@@ -14,7 +14,15 @@ export class HeaderMenuComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  goHome() { this.router.navigate(['/home']); }
-  goProduct() { this.router.navigate(['/home']); }
-  goEmpty() { this.router.navigate(['/home']); }
+  goHome() {
+    this.router.navigate(['/home']);
+  }
+
+  goProduct() {
+    this.router.navigate(['/demo']);
+  }
+
+  goContact() {
+    this.router.navigate(['/contact']);
+  }
 }
