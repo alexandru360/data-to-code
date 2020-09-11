@@ -1,22 +1,10 @@
-<p>
-  <mat-toolbar color="primary">
-    <mat-toolbar-row>
-      <span>{{title}}</span>
-      <span class="example-spacer"></span>
-      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-        <mat-icon (click)="onClickShowSecondRow()">menu</mat-icon>
-      </button>
-    </mat-toolbar-row>
+<header class="mdl-layout__header mdl-layout__header--waterfall site-header">
+  <div class="mdl-layout__header-row site-logo-row">
+    <span class="mdl-layout__title">
+      <div class="site-logo"></div>
+      <span class="site-description" *ngIf="false">{{title}}</span>
+    </span>
+  </div>
+  <app-header-menu></app-header-menu>
+</header>
 
-    <mat-toolbar-row *ngIf="showSecondRow">
-      <span>Second Line</span>
-      <span class="example-spacer"></span>
-      <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-        <mat-icon>favorite</mat-icon>
-      </button>
-      <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-        <mat-icon>share</mat-icon>
-      </button>
-    </mat-toolbar-row>
-  </mat-toolbar>
-</p>
