@@ -56,7 +56,7 @@ export class AppAssistedStepsComponent implements OnInit {
   }
 
   onStepComplete2Data(event: any) {
-    console.log(event);
+    // console.log(event);
     // console.log((this.location as any).location);
     // console.log((this.location as any).location.href);
     // console.log((this.location as any).location.origin);
