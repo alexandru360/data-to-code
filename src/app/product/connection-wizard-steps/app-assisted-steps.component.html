@@ -21,7 +21,7 @@
     <ng-template matStepLabel>Done</ng-template>
     <p>Congratulations you can now download the generated application by pushing the Download button.</p>
     <div>
-      <a mat-stroked-button href="https://www.google.com/" [target]="downloadLink">Download</a>
+      <a mat-stroked-button href="https://www.google.com/" target="_blank" [href]="downloadLink">Download</a>
       <button mat-button (click)="stepper.reset()">Reset</button>
     </div>
   </mat-step>
