@@ -1,0 +1,9 @@
+.card {
+  /*max-width: 400px;*/
+  /*background-color: #c2e1ff;*/
+}
+
+.card-header-image {
+  background-image: url('/assets/img/folder_yellow_web.png');
+  background-size: cover;
+}

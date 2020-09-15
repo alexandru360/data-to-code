@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, isDevMode, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PlatformLocation} from '@angular/common';
+import {AppConfigService} from '../../app.config.service';
 
 @Component({
   selector: 'app-connection-wizard-steps',
@@ -15,9 +16,12 @@ export class AppAssistedStepsComponent implements OnInit {
   formGroup1: FormGroup;
   formGroup2: FormGroup;
   downloadLink: string;
+  sitePreviewLink: string;
+  sitePreviewSeed: string;
 
   constructor(private formBuilder: FormBuilder,
-              private location: PlatformLocation) {
+              private location: PlatformLocation,
+              private cfg: AppConfigService) {
     this.isLinear = true;
     this.step1Head = 'Chose a connection';
     this.step2Head = 'Chose and configure entities endpoints';
@@ -52,10 +56,16 @@ export class AppAssistedStepsComponent implements OnInit {
   }
 
   onStepComplete2Data(event: any) {
-    // console.log(event);
+    console.log(event);
     // console.log((this.location as any).location);
     // console.log((this.location as any).location.href);
     // console.log((this.location as any).location.origin);
+    this.sitePreviewSeed = event.site;
     this.downloadLink = `${(this.location as any).location.origin}/${event.zipGenerated}`;
+    if (isDevMode()) {
+      this.sitePreviewLink = `${this.cfg.getConfiguration().urls.apiRootUrl}/${event.site}`;
+    } else {
+      this.sitePreviewLink = `${(this.location as any).location.origin}/${event.site}`;
+    }
   }
 }

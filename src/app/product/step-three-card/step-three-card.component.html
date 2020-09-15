@@ -1,0 +1,22 @@
+<mat-card class="card">
+  <mat-card-header>
+    <div mat-card-avatar class="card-header-image"></div>
+    <mat-card-title>Congratulations !</mat-card-title>
+    <mat-card-subtitle>Random view seed {{randSeed}}</mat-card-subtitle>
+  </mat-card-header>
+  <!--<img mat-card-image src="/assets/img/application-complete.jpg" alt="Photo of a Shiba Inu">-->
+  <mat-card-content>
+    <p>
+      You can now download the generated application by pushing the Download button or visit the demo of your
+      application by pressing the corresponding link below.
+    </p>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <span class="material-icons icon-image-preview">
+      <a mat-stroked-button target="_blank" [href]="downloadLink">Download</a>
+    </span>
+    <a mat-button target="_blank" [href]="sitePreviewLink">Go to generated site</a>
+    <button mat-button (click)="stepper.reset()">Reset</button>
+  </mat-card-actions>
+</mat-card>

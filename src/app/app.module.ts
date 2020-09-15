@@ -13,9 +13,9 @@ import {ContactComponent} from './contact/contact.component';
 import {FooterComponent} from './footer/footer.component';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatListModule} from '@angular/material/list';
-import {StepOneConnWizComponent} from './product/conn-wiz-step-one/step-one-conn-wiz.component';
+import {StepOneConnWizComponent} from './product/step-one-conn-wiz/step-one-conn-wiz.component';
 import {AppAssistedStepsComponent} from './product/connection-wizard-steps/app-assisted-steps.component';
-import {StepTwoChoseTablesComponent} from './product/chose-tables-step-two/step-two-chose-tables.component';
+import {StepTwoChoseTablesComponent} from './product/step-two-chose-tables/step-two-chose-tables.component';
 import {LandingPageComponent} from './presentation/landing-page/landing-page.component';
 import {MatFileUploadModule} from 'mat-file-upload';
 import {MatCardModule} from '@angular/material/card';
@@ -29,6 +29,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTableModule} from '@angular/material/table';
 import {AppAssistedStepsService} from './product/connection-wizard-steps/app-assisted-steps.service';
+import { StepThreeCardComponent } from './product/step-three-card/step-three-card.component';
 
 // tslint:disable-next-line:typedef
 export function ConfigLoader(configService: AppConfigService) {
@@ -45,7 +46,8 @@ export function ConfigLoader(configService: AppConfigService) {
     StepOneConnWizComponent,
     AppAssistedStepsComponent,
     StepTwoChoseTablesComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    StepThreeCardComponent
   ],
   imports: [
     AppRoutingModule,

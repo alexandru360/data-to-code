@@ -19,10 +19,10 @@
   </mat-step> -->
   <mat-step>
     <ng-template matStepLabel>Done</ng-template>
-    <p>Congratulations you can now download the generated application by pushing the Download button.</p>
-    <div>
-      <a mat-stroked-button href="https://www.google.com/" target="_blank" [href]="downloadLink">Download</a>
-      <button mat-button (click)="stepper.reset()">Reset</button>
-    </div>
+    <app-step-three-card
+      [randSeed]="sitePreviewSeed"
+      [downloadLink]="downloadLink"
+      [sitePreviewLink]="sitePreviewLink"
+      [stepper]="stepper"></app-step-three-card>
   </mat-step>
 </mat-horizontal-stepper>

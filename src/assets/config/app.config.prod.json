@@ -35,6 +35,7 @@
     "connDatabase": null
   },
   "urls": {
+    "apiRootUrl": null,
     "stepOneFindTables": "data2code/api/Home/FindTables",
     "stepTwoUrlToBeRenamed": "data2code/api/Home/generateapp"
   }
