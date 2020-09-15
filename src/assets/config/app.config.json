@@ -28,6 +28,5 @@
   },
   "urls": {
     "stepOneFindTables": "http://www.data-to-code.eu/data2code/api/Home/FindTables",
-    "stepTwoUrlToBeRenamed": "http://www.data-to-code.eu/data2code/api/Home/generateapp"
-  }
+    "stepTwoUrlToBeRenamed": "http://www.data-to-code.eu/data2code/api/Home/generateapp"  }
 }

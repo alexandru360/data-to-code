@@ -5,7 +5,9 @@
   </mat-step>
   <mat-step [stepControl]="formGroup2">
     <ng-template matStepLabel>{{step2Head}}</ng-template>
-    <app-chose-tables-step-two (stepComplete)="onStepComplete2($event)"></app-chose-tables-step-two>
+    <app-chose-tables-step-two
+      (stepComplete)="onStepComplete2($event)"
+      (dataFromStepTwo)="onStepComplete2Data($event)"></app-chose-tables-step-two>
   </mat-step>
   <!-- <mat-step>
     <ng-template matStepLabel>Step 3</ng-template>
@@ -17,9 +19,9 @@
   </mat-step> -->
   <mat-step>
     <ng-template matStepLabel>Done</ng-template>
-    <p>Download your application.</p>
+    <p>Congratulations you can now download the generated application by pushing the Download button.</p>
     <div>
-      <button mat-button matStepperPrevious>Back</button>
+      <a mat-stroked-button href="https://www.google.com/" [target]="downloadLink">Download</a>
       <button mat-button (click)="stepper.reset()">Reset</button>
     </div>
   </mat-step>

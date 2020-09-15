@@ -5,7 +5,7 @@ import CrudEndpoints from '../class-and-types-and-tools/crud-endpoints';
 import {StepTwoConnWizService} from './step-two-conn-wiz.service';
 import {PayloadConn} from '../../app.configuration';
 import StepTwoSendPayload, {Field, Input, Table} from '../class-and-types-and-tools/step-two-send-payload';
-import { EventEmitter } from '@angular/core';
+import {EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-chose-tables-step-two',
@@ -16,15 +16,21 @@ import { EventEmitter } from '@angular/core';
 export class StepTwoChoseTablesComponent {
 
   @Output() stepComplete = new EventEmitter<boolean>();
+  @Output() dataFromStepTwo = new EventEmitter<any>();
+
+  displayedColumns: string[] = ['name', 'type', 'selected'];
   stepOnePayload: Array<EntitiesDetails>;
   showSelection: any;
   payloadConn: PayloadConn;
 
   dataSent: any;
-  dataReceived: any;
+
+  btnStepComplete: boolean;
+  btnDisableDataDebounce: boolean;
 
   constructor(private srvCommon: AppAssistedStepsService,
               private srvStepTwo: StepTwoConnWizService) {
+    this.btnDisableDataDebounce = false;
     this.stepComplete.emit(false);
     this.srvCommon.connPayloadDetails.subscribe(item => this.payloadConn = item);
     this.srvCommon.arrEntitiesDetails.subscribe(item => {
@@ -44,10 +50,8 @@ export class StepTwoChoseTablesComponent {
     });
   }
 
-  displayedColumns: string[] = ['name', 'type', 'selected'];
-  stepValid: boolean;
-
   onSubmit() {
+    this.btnDisableDataDebounce = true;
     const payload: StepTwoSendPayload = new StepTwoSendPayload();
     payload.payloadConn = this.payloadConn;
     payload.input = [];
@@ -76,11 +80,19 @@ export class StepTwoChoseTablesComponent {
     });
 
     this.dataSent = payload;
-    this.srvStepTwo.callStepTwo(payload).subscribe(data => {
-      this.dataReceived = data;
-      this.stepValid = true;
-      this.stepComplete.emit(true);
-    });
+    this.srvStepTwo.callStepTwo(payload).subscribe(
+      data => {
+        this.btnDisableDataDebounce = true;
+        this.btnStepComplete = true;
+        this.stepComplete.emit(true);
+        this.dataFromStepTwo.emit(data);
+      },
+      err => {
+        console.error(err);
+        this.btnDisableDataDebounce = false;
+      },
+      () => ''
+    );
   }
 
   onFieldsSelectAll(idx: number) {

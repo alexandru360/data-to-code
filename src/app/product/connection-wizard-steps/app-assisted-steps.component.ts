@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {PlatformLocation} from '@angular/common';
 
 @Component({
   selector: 'app-connection-wizard-steps',
@@ -13,11 +14,14 @@ export class AppAssistedStepsComponent implements OnInit {
   step2Head: string;
   formGroup1: FormGroup;
   formGroup2: FormGroup;
+  downloadLink: string;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private location: PlatformLocation) {
     this.isLinear = true;
     this.step1Head = 'Chose a connection';
     this.step2Head = 'Chose and configure entities endpoints';
+    this.downloadLink = '';
   }
 
   ngOnInit() {
@@ -45,5 +49,13 @@ export class AppAssistedStepsComponent implements OnInit {
     } else {
       this.formGroup2.get('form2').setValidators(Validators.required);
     }
+  }
+
+  onStepComplete2Data(event: any) {
+    // console.log(event);
+    // console.log((this.location as any).location);
+    // console.log((this.location as any).location.href);
+    // console.log((this.location as any).location.origin);
+    this.downloadLink = `${(this.location as any).location.origin}/${event.zipGenerated}`;
   }
 }

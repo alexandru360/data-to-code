@@ -71,17 +71,7 @@
 
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button *ngIf="!stepValid" (click)="onSubmit()">Send data</button>
-    <button mat-stroked-button *ngIf="stepValid" (click)="onSubmit()">Send data</button>
-    <button mat-button matStepperNext color="primary" *ngIf="stepValid">Next</button>
+    <button mat-button [disabled]="btnDisableDataDebounce" (click)="onSubmit()">Send data</button>
+    <button mat-button matStepperNext color="primary" *ngIf="btnStepComplete">Next</button>
   </mat-card-actions>
 </mat-card>
-<!--<br><br>-->
-<!--<mat-divider></mat-divider>-->
-<!--<h2>Data sent: </h2>-->
-<!--<mat-divider></mat-divider>-->
-<!--{{dataSent | json}}-->
-<!--<mat-divider></mat-divider>-->
-<!--<h2>Data received: </h2>-->
-<!--<mat-divider></mat-divider>-->
-<!--{{dataReceived | json}}-->
