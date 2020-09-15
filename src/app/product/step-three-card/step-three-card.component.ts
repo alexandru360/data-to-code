@@ -6,10 +6,10 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./step-three-card.component.css']
 })
 export class StepThreeCardComponent implements OnInit {
-  @Input randSeed: string;
-  @Input downloadLink: string;
-  @Input sitePreviewLink: string;
-  @Input stepper: any;
+  @Input() randSeed: string;
+  @Input() downloadLink: string;
+  @Input() sitePreviewLink: string;
+  @Input() stepper: any;
 
   constructor() { }
 
