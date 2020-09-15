@@ -86,9 +86,9 @@
 
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button *ngIf="!stepValid" (click)="onSubmit()">Send data</button>
-      <button mat-stroked-button *ngIf="stepValid" (click)="onSubmit()">Send data</button>
-      <button mat-button matStepperNext color="primary" *ngIf="stepValid">Next</button>
+      <button mat-stroked-button color="primary" *ngIf="!stepValid" (click)="onSubmit()">Send data</button>
+      <button mat-button color="primary" *ngIf="stepValid" (click)="onSubmit()">Send data</button>
+      <button mat-button color="primary" matStepperNext *ngIf="stepValid">Next</button>
     </mat-card-actions>
   </mat-card>
 </form>
