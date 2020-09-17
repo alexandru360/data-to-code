@@ -4,7 +4,7 @@
   </mat-card-header>
   <mat-card-content>
 
-    <mat-accordion>
+    <mat-accordion *ngIf="!btnDisableDataDebounce">
       <mat-expansion-panel *ngFor="let itm of stepOnePayload; index as idx;"> <!--hideToggle-->
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -68,6 +68,11 @@
         <!-- END - Table columns !-->
       </mat-expansion-panel>
     </mat-accordion>
+    <div class="flexbox-parent" *ngIf="btnDisableDataDebounce">
+      <div layout="row" layout-align="center center" style="min-height: 300px">
+        <mat-spinner></mat-spinner>
+      </div>
+    </div>
 
   </mat-card-content>
   <mat-card-actions>

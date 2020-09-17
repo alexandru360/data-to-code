@@ -29,7 +29,11 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTableModule} from '@angular/material/table';
 import {AppAssistedStepsService} from './product/connection-wizard-steps/app-assisted-steps.service';
-import { StepThreeCardComponent } from './product/step-three-card/step-three-card.component';
+import {StepThreeCardComponent} from './product/step-three-card/step-three-card.component';
+import {AboutComponent} from './about/about.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatIconModule} from '@angular/material/icon';
 
 // tslint:disable-next-line:typedef
 export function ConfigLoader(configService: AppConfigService) {
@@ -47,13 +51,15 @@ export function ConfigLoader(configService: AppConfigService) {
     AppAssistedStepsComponent,
     StepTwoChoseTablesComponent,
     LandingPageComponent,
-    StepThreeCardComponent
+    StepThreeCardComponent,
+    AboutComponent
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    MatProgressSpinnerModule,
     MatButtonModule,
     MatDividerModule,
     MatListModule,
@@ -72,6 +78,8 @@ export function ConfigLoader(configService: AppConfigService) {
     MatTableModule,
     MatDividerModule,
     MatListModule,
+    MatGridListModule,
+    MatIconModule,
   ],
   providers: [
     AppAssistedStepsService,
