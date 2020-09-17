@@ -1,6 +1,7 @@
 <mat-card class="shipping-card">
   <mat-card-header>
-    <mat-card-title>Entities list</mat-card-title>
+    <mat-card-title *ngIf="!btnDisableDataDebounce">Entities list</mat-card-title>
+    <mat-card-title *ngIf="btnDisableDataDebounce">Creating your application</mat-card-title>
   </mat-card-header>
   <mat-card-content>
 
@@ -68,11 +69,8 @@
         <!-- END - Table columns !-->
       </mat-expansion-panel>
     </mat-accordion>
-    <div class="flexbox-parent" *ngIf="btnDisableDataDebounce">
-      <div layout="row" layout-align="center center" style="min-height: 300px">
-        <mat-spinner></mat-spinner>
-      </div>
-    </div>
+
+    <mat-spinner *ngIf="btnDisableDataDebounce"></mat-spinner>
 
   </mat-card-content>
   <mat-card-actions>
