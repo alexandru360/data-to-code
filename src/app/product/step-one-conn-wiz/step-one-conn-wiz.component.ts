@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AppConfigService} from '../../app.config.service';
-import {ConfigConnTypes, PayloadConn} from '../../app.configuration';
+import {ConfigConnTypes, PayloadConn} from '../../app.config.model';
 import {StepOneConnWizService} from './step-one-conn-wiz.service';
 import {AppAssistedStepsService} from '../connection-wizard-steps/app-assisted-steps.service';
 
