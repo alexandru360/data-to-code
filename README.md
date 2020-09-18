@@ -1,6 +1,6 @@
-# DataToCode
-
 ![Build Angular](https://github.com/alexandru360/data-to-code/workflows/Build%20Angular/badge.svg?branch=master)
+
+# DataToCode
 
 ##### Selling points:
 1. genereaza cod automat api/html (angular)
