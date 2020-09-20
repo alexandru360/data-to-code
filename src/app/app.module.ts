@@ -7,7 +7,6 @@ import {environment} from '../environments/environment';
 import {HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
 import {HeaderComponent} from './header/header.component';
-import {HeaderMenuComponent} from './header/header-menu/header-menu.component';
 import {MatButtonModule} from '@angular/material/button';
 import {ContactComponent} from './contact/contact.component';
 import {FooterComponent} from './footer/footer.component';
@@ -34,6 +33,8 @@ import {AboutComponent} from './about/about.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatIconModule} from '@angular/material/icon';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 // tslint:disable-next-line:typedef
 export function ConfigLoader(configService: AppConfigService) {
@@ -44,7 +45,6 @@ export function ConfigLoader(configService: AppConfigService) {
   declarations: [
     AppComponent,
     HeaderComponent,
-    HeaderMenuComponent,
     ContactComponent,
     FooterComponent,
     StepOneConnWizComponent,
@@ -80,6 +80,8 @@ export function ConfigLoader(configService: AppConfigService) {
     MatListModule,
     MatGridListModule,
     MatIconModule,
+    MatToolbarModule,
+    MatSidenavModule,
   ],
   providers: [
     AppAssistedStepsService,

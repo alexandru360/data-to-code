@@ -1,4 +1,4 @@
-import {PayloadConn} from '../../app.configuration';
+import {PayloadConn} from '../../app.config.model';
 import CrudEndpoints from './crud-endpoints';
 
 export default class StepTwoSendPayload{
