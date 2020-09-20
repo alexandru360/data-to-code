@@ -34,3 +34,4 @@ jobs:
           password: data@3Code
           localDir: "dist/data-to-code"
           remoteDir: "/"
+          forceSsl: false
