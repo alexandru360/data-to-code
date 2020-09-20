@@ -29,9 +29,9 @@ jobs:
       - name: Upload ftp
         uses: sebastianpopp/ftp-action@releases/v2
         with:
-          host: www.data-to-code.eu
-          user: Administror
-          password: data@3Code
+          host: ${{ secrets.FTP_SERVER }}
+          user: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
           localDir: "dist/data-to-code"
           remoteDir: "/"
           forceSsl: false
