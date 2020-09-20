@@ -27,10 +27,10 @@ jobs:
           npm run build:prod
           ls -lh dist/
       - name: Upload ftp
-          uses: sebastianpopp/ftp-action@releases/v2
-          with:
-            host: www.data-to-code.eu
-            user: Administror
-            password: data@3Code
-            localDir: "dist/data-to-code"
-            remoteDir: "/"
+        uses: sebastianpopp/ftp-action@releases/v2
+        with:
+          host: www.data-to-code.eu
+          user: Administror
+          password: data@3Code
+          localDir: "dist/data-to-code"
+          remoteDir: "/"
