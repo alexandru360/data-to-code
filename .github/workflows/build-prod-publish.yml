@@ -28,5 +28,5 @@ jobs:
         ftp-server: ftp://${{ secrets.FTP_PASSWORD }}:${{ secrets.FTP_PORT }}//
         ftp-username: ${{ secrets.FTP_USERNAME }}
         ftp-password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: ./dist/data-to-code
+        local-dir: ./angular.json
         git-ftp-args: --insecure
