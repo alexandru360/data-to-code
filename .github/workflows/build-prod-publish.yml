@@ -26,12 +26,13 @@ jobs:
           npm i
           npm run build:prod
           ls -lh dist/
-      - name: Upload ftp
-        uses: sebastianpopp/ftp-action@releases/v2
-        with:
-          host: ${{ secrets.FTP_SERVER }}
-          user: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          localDir: "dist/data-to-code"
-          remoteDir: "/"
-          forceSsl: false
+      - name: FTP-Deploy-Action
+        uses: SamKirkland/FTP-Deploy-Action@3.1.1
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          LOCAL_DIR: /
+          METHOD: ftp
+          PORT: ${{ secrets.FTP_PORT }}
+          ARGS: --delete
