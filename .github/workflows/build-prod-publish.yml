@@ -20,7 +20,7 @@ jobs:
         npm run build --if-present
         
     - name: List output files
-      run: ls
+      run: ls -lh dist
       
     - name: FTP-Deploy-Action
       uses: SamKirkland/FTP-Deploy-Action@3.1.1
