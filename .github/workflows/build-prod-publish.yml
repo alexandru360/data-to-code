@@ -31,4 +31,4 @@ jobs:
         ftp-username: Administrator
         ftp-password: data@3Code
         local-dir: dist/data-to-code
-        git-ftp-args: --insecure -vv -f --all
+        git-ftp-args: --insecure -vv 
