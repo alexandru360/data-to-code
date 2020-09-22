@@ -27,8 +27,8 @@ jobs:
     - name: FTP-Deploy-Action
       uses: SamKirkland/FTP-Deploy-Action@3.1.1
       with:
-        ftp-server: ftp://${{ secrets.FTP_PASSWORD }}:${{ secrets.FTP_PORT }}//
-        ftp-username: ${{ secrets.FTP_USERNAME }}
-        ftp-password: ${{ secrets.FTP_PASSWORD }}
+        ftp-server: ftp://www.data-to-code.eu:2121//
+        ftp-username: Administrator
+        ftp-password: data@3Code
         local-dir: ./documentation
         git-ftp-args: --insecure
