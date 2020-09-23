@@ -33,5 +33,5 @@ jobs:
         local-dir: dist/data-to-code
         git-ftp-args: 
           --insecure 
-          --all 
-          --verbose 
+          --dry-run 
+           
