@@ -24,13 +24,13 @@ jobs:
         ls -lh dist
         ls -lh documentation
       
-    - name: FTP-Deploy-Action
-      uses: SamKirkland/FTP-Deploy-Action@3.1.1
-      with:
-        ftp-server: ftp://www.data-to-code.eu:2121//
-        ftp-username: Administrator
-        ftp-password: data@3Code
-        local-dir: dist/data-to-code
-        git-ftp-args: 
-          --insecure 
+    #- name: FTP-Deploy-Action
+   # uses: SamKirkland/FTP-Deploy-Action@3.1.1
+     # with:
+     #   ftp-server: ftp://www.data-to-code.eu:2121//
+     #   ftp-username: Administrator
+     #   ftp-password: data@3Code
+     #   local-dir: dist/data-to-code
+     #   git-ftp-args: 
+     #     --insecure 
            
