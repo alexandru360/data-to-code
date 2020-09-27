@@ -24,12 +24,14 @@ export class StepTwoChoseTablesComponent {
   payloadConn: PayloadConn;
 
   dataSent: any;
+  selectAllEntities: boolean;
 
   btnStepComplete: boolean;
   btnDisableDataDebounce: boolean;
 
   constructor(private srvCommon: AppAssistedStepsService,
               private srvStepTwo: StepTwoConnWizService) {
+    this.selectAllEntities = true;
     this.btnDisableDataDebounce = false;
     this.stepComplete.emit(false);
     this.srvCommon.connPayloadDetails.subscribe(item => this.payloadConn = item);
@@ -107,5 +109,11 @@ export class StepTwoChoseTablesComponent {
     // const els: EntitiesDetails = this.stepOnePayload[idx];
     // els.crudEndpoints.Create = els.crudEndpoints.Upsert;
     // els.crudEndpoints.Update = els.crudEndpoints.Upsert;
+  }
+
+  onClickCheckEntities() {
+    this.stepOnePayload.forEach(itm => {
+      itm.selected = !this.selectAllEntities;
+    });
   }
 }

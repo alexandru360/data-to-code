@@ -2,6 +2,14 @@
   <mat-card-header>
     <mat-card-title *ngIf="!btnDisableDataDebounce">Entities list</mat-card-title>
     <mat-card-title *ngIf="btnDisableDataDebounce">Creating your application</mat-card-title>
+    <mat-card-subtitle>
+      <mat-checkbox class="checkbox-margin"
+                    *ngIf="!btnDisableDataDebounce"
+                    [(ngModel)]="selectAllEntities"
+                    (click)="onClickCheckEntities()">
+        {{selectAllEntities ? 'Deselect all entities' : 'Select all entities'}}
+      </mat-checkbox>
+    </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
 
@@ -12,7 +20,7 @@
             <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.selected">{{itm.name}}</mat-checkbox>
           </mat-panel-title>
           <mat-panel-description>
-
+            <!--Something to be said here :)-->
           </mat-panel-description>
         </mat-expansion-panel-header>
         <br/>
@@ -22,11 +30,13 @@
           </div>
           <div class="col">
             <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.Create"
-                          [disabled]="itm.crudEndpoints.Upsert">Create</mat-checkbox>
+                          [disabled]="itm.crudEndpoints.Upsert">Create
+            </mat-checkbox>
           </div>
           <div class="col">
             <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.Update"
-                          [disabled]="itm.crudEndpoints.Upsert">Update</mat-checkbox>
+                          [disabled]="itm.crudEndpoints.Upsert">Update
+            </mat-checkbox>
           </div>
           <div class="col">
             <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.Delete">Delete</mat-checkbox>
@@ -34,7 +44,8 @@
           <div class="col">
             <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.Upsert"
                           [disabled]="itm.crudEndpoints.Create && itm.crudEndpoints.Create"
-            (mouseup)="onUpsertChange(idx)">Upsert</mat-checkbox>
+                          (mouseup)="onUpsertChange(idx)">Upsert
+            </mat-checkbox>
           </div>
         </div>
         <br/>
@@ -74,7 +85,8 @@
 
   </mat-card-content>
   <mat-card-actions>
-    <button mat-stroked-button color="primary" [disabled]="btnDisableDataDebounce" (click)="onSubmit()">Send data</button>
+    <button mat-stroked-button color="primary" [disabled]="btnDisableDataDebounce" (click)="onSubmit()">Send data
+    </button>
     <button mat-button color="primary" matStepperNext *ngIf="btnStepComplete">Next</button>
   </mat-card-actions>
 </mat-card>

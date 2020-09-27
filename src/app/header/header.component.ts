@@ -12,8 +12,8 @@ export class HeaderComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    console.log(event.target.innerWidth);
-    console.log(event.target.innerWidth >= 700);
+    // console.log(event.target.innerWidth);
+    // console.log(event.target.innerWidth >= 700);
     this.isPhoneView = event.target.innerWidth <= 700;
   }
 
