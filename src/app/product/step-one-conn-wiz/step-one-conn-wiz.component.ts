@@ -122,8 +122,8 @@ export class StepOneConnWizComponent {
   }
 
   private setValuesMariaDB() {
-    this.oForm.get('connHost').setValue('alex360.go.ro');
-    this.oForm.get('connPort').setValue('85');
+    this.oForm.get('connHost').setValue('19.19.19.111');
+    this.oForm.get('connPort').setValue('3306');
     this.oForm.get('connUser').setValue('root');
     this.oForm.get('connPassword').setValue('datatocode');
     this.oForm.get('connDatabase').setValue('test_schema');
