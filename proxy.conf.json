@@ -1,0 +1,7 @@
+{
+  "/data2code": {
+    "target": "https://www.data-to-code.eu/",
+    "secure": true,
+    "changeOrigin": true
+  }
+}

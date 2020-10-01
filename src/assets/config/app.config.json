@@ -27,9 +27,9 @@
     "connDatabase": null
   },
   "urls": {
-    "apiRootUrl": "http://www.data-to-code.eu/",
-    "stepOneFindTables": "http://www.data-to-code.eu/data2code/api/Home/FindTables",
-    "stepTwoUrlToBeRenamed": "http://www.data-to-code.eu/data2code/api/Home/generateapp"
+    "apiRootUrl": null,
+    "stepOneFindTables": "data2code/api/Home/FindTables",
+    "stepTwoUrlToBeRenamed": "data2code/api/Home/generateapp"
   },
   "demoConn": [
     {

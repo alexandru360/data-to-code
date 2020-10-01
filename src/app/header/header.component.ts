@@ -26,7 +26,3 @@ export class HeaderComponent implements OnInit {
   }
 
 }
-
-class evt {
-
-}

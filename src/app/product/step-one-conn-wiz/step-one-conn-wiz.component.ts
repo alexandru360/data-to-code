@@ -73,14 +73,17 @@ export class StepOneConnWizComponent {
       this.oForm.get('connDatabase').setValidators(Validators.required);
     }
 
-    const demoConn = this.cfg.getConfiguration().demoConn.filter(f => f.default === true);
-    console.log('demoConn', demoConn);
-    const selectedConnType = this.oForm.controls.connType.value;
-    console.log('selectedConnType', demoConn);
-    if (demoConn[0].connType === selectedConnType) {
-      this.setValuesMariaDB(demoConn[0]);
-    } else {
-      this.setValuesMariaDB(new DemoConn());
+    const demoConn =
+      this.cfg.getConfiguration() &&
+      this.cfg.getConfiguration().demoConn &&
+      this.cfg.getConfiguration().demoConn.filter(f => f.default === true) || null;
+    if (demoConn) {
+      const selectedConnType = this.oForm.controls.connType.value;
+      if (demoConn[0].connType === selectedConnType) {
+        this.setValuesMariaDB(demoConn[0]);
+      } else {
+        this.setValuesMariaDB(new DemoConn());
+      }
     }
   }
 
