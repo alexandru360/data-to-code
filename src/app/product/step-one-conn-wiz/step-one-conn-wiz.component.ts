@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AppConfigService} from '../../app.config.service';
-import {ConfigConnTypes, PayloadConn} from '../../app.config.model';
+import {ConfigConnTypes, DemoConn, PayloadConn} from '../../app.config.model';
 import {StepOneConnWizService} from './step-one-conn-wiz.service';
 import {AppAssistedStepsService} from '../connection-wizard-steps/app-assisted-steps.service';
 
@@ -72,8 +72,15 @@ export class StepOneConnWizComponent {
       this.oForm.get('connPassword').setValidators(Validators.required);
       this.oForm.get('connDatabase').setValidators(Validators.required);
     }
-    if (this.oForm.controls.connType.value === 'MARIADB') {
-      this.setValuesMariaDB();
+
+    const demoConn = this.cfg.getConfiguration().demoConn.filter(f => f.default === true);
+    console.log('demoConn', demoConn);
+    const selectedConnType = this.oForm.controls.connType.value;
+    console.log('selectedConnType', demoConn);
+    if (demoConn[0].connType === selectedConnType) {
+      this.setValuesMariaDB(demoConn[0]);
+    } else {
+      this.setValuesMariaDB(new DemoConn());
     }
   }
 
@@ -121,11 +128,17 @@ export class StepOneConnWizComponent {
     }
   }
 
-  private setValuesMariaDB() {
-    this.oForm.get('connHost').setValue('19.19.19.111');
-    this.oForm.get('connPort').setValue('3306');
-    this.oForm.get('connUser').setValue('root');
-    this.oForm.get('connPassword').setValue('datatocode');
-    this.oForm.get('connDatabase').setValue('test_schema');
+  private setValuesMariaDB(conn: DemoConn) {
+    this.oForm.get('connHost').setValue(conn.connHost);
+    this.oForm.get('connPort').setValue(conn.connPort);
+    this.oForm.get('connUser').setValue(conn.connUser);
+    this.oForm.get('connPassword').setValue(conn.connPassword);
+    this.oForm.get('connDatabase').setValue(conn.connDatabase);
+
+    // this.oForm.get('connHost').setValue('19.19.19.111');
+    // this.oForm.get('connPort').setValue('3306');
+    // this.oForm.get('connUser').setValue('root');
+    // this.oForm.get('connPassword').setValue('datatocode');
+    // this.oForm.get('connDatabase').setValue('test_schema');
   }
 }

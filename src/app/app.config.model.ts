@@ -1,7 +1,8 @@
 export class AppConfigModel {
   constructor(public connTypes: Array<ConfigConnTypes>,
               public payloadConn: PayloadConn,
-              public urls: Urls) {
+              public urls: Urls,
+              public demoConn: Array<DemoConn>) {
   }
 }
 
@@ -25,4 +26,8 @@ export class Urls {
   apiRootUrl: string;
   stepOneFindTables: string;
   stepTwoUrlToBeRenamed: string;
+}
+
+export class DemoConn extends PayloadConn {
+  default: boolean;
 }
