@@ -1,3 +1,7 @@
+.full-width {
+  width: 100%;
+}
+
 img {
   max-width: 100%;
 }
@@ -102,12 +106,6 @@ img {
   max-width: 700px;
 }
 
-.welcome-card > .mdl-card__title {
-  color: #fff;
-  height: 290px;
-  background: url("../img/cover.jpg") center/cover;
-}
-
 .event-card {
   background: #3E4EB8;
 }
@@ -118,7 +116,7 @@ img {
 
 .event-card .mdl-card__title {
   -ms-flex-align: start;
-      align-items: flex-start;
+  align-items: flex-start;
 }
 
 .event-card .mdl-card__title > h4 {
@@ -130,7 +128,7 @@ img {
   display: flex;
   box-sizing: border-box;
   -ms-flex-align: center;
-      align-items: center;
+  align-items: center;
 }
 
 .event-card .mdl-card__actions > .material-icons {
@@ -185,14 +183,6 @@ img.article-image {
   height: 192px;
 }
 
-.person1 {
-  background: url("../img/person1.jpg") center/cover;
-}
-
-.person2 {
-  background: url("../img/person2.jpg") center/cover;
-}
-
 .demo-card-image > .mdl-card__actions {
   height: 52px;
   padding: 16px;
@@ -227,4 +217,9 @@ footer .mdl-logo a {
 
 .footer-container {
   margin: 0 auto;
+}
+
+.card-content-center {
+  /*padding: 5em 3em 5em 3em;*/
+  margin: 5em 3em 5em 3em;
 }
