@@ -35,6 +35,10 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {AuthGuard} from './security/guards/auth.guard';
+import {PasswordComponent} from './security/password/password.component';
+import {PasswordRecoveryComponent} from './security/password-recovery/password-recovery.component';
+import {RegistrationComponent} from './security/registration/registration.component';
 
 // tslint:disable-next-line:typedef
 export function ConfigLoader(configService: AppConfigService) {
@@ -52,7 +56,10 @@ export function ConfigLoader(configService: AppConfigService) {
     StepTwoChoseTablesComponent,
     LandingPageComponent,
     StepThreeCardComponent,
-    AboutComponent
+    AboutComponent,
+    PasswordComponent,
+    PasswordRecoveryComponent,
+    RegistrationComponent
   ],
   imports: [
     AppRoutingModule,
@@ -84,6 +91,7 @@ export function ConfigLoader(configService: AppConfigService) {
     MatSidenavModule,
   ],
   providers: [
+    AuthGuard,
     AppAssistedStepsService,
     AppConfigService,
     {

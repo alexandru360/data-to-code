@@ -1,0 +1,71 @@
+<div class="page-wrapper">
+
+  <div class="content-area">
+    <div class="intro">
+      <div class="v-center">
+        <div class="row align-items-center">
+          <div class="col-md-4">
+            <p class="lead">Welcome to TripwithMojo.
+              <br>We are glad to have you here!
+              <br>Let’s experience group planning in a new way!</p>
+            <!--<a href="#" class="btn btn-outline-secondary">Ok</a>-->
+          </div>
+          <div class="col-md-4">
+            <img class="img-responsive" src="assets/img/mojo-hello.png" alt="" width="437">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="login-sidebar">
+    <div class="tab-links">
+      <a class="btn btn-link" routerLink="/login">Login</a>
+    </div>
+
+    <div class="classic-login">
+      <div class="hello">Hello there</div>
+      <h3>Register your account</h3>
+
+      <form [formGroup]="fg" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <input type="text" class="form-control" formControlName="FirstName" placeholder="First name">
+        </div>
+
+        <div class="form-group">
+          <input type="text" class="form-control" formControlName="LastName" placeholder="Last name">
+        </div>
+
+        <div class="form-group">
+          <input type="text" class="form-control" formControlName="UserName" placeholder="User name">
+        </div>
+
+        <div class="form-group">
+          <input type="email" class="form-control" formControlName="Email" placeholder="Email">
+        </div>
+
+        <div class="form-group">
+          <input type="password" class="form-control" formControlName="Password" placeholder="Password">
+        </div>
+
+        <div class="form-group">
+          <input type="password" class="form-control" formControlName="PasswordConfirmation" placeholder="Password">
+        </div>
+
+        <br/>
+
+        <div class="actions inline-btns">
+          <div class="btn btn-primary" (click)="onSubmit()">Register</div>
+        </div>
+      </form>
+    </div>
+
+    <!--<div class="social-login">-->
+    <!--<h4>Login with your <br>social credentials</h4>-->
+
+    <!--<button class="btn btn-secondary btn-social fb">Login with Facebook</button>-->
+    <!--<button class="btn btn-secondary btn-social google">Login with Facebook</button>-->
+    <!--</div>-->
+  </div>
+
+</div>
