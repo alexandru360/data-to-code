@@ -4,8 +4,8 @@ import {LoggedInUser, User, UserRegister} from '../../common/classes/user';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
-import {ConfigService} from '../../common/services/config.service';
 import {HelperService} from '../../common/_helper/helper';
+import {AppConfigService} from '../../app.config.service';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -22,7 +22,7 @@ export class AuthService {
   }
 
   constructor(
-    private cfgSrv: ConfigService,
+    private cfgSrv: AppConfigService,
     private helper: HelperService,
     private router: Router,
     private http: HttpClient) {
@@ -33,13 +33,13 @@ export class AuthService {
 
   register(user: UserRegister) {
     const payload = JSON.stringify(user);
-    return this.http.post<any>(this.cfgSrv.getConfiguration().LoginRoute,
+    return this.http.post<any>(this.cfgSrv.getConfiguration().securityConfig.loginRoute,
       payload, this.helper.headerOptions);
   }
 
   login(user: User) {
     return this.http.post<LoggedInUser>(
-      this.cfgSrv.getConfiguration().LoginRoute,
+      this.cfgSrv.getConfiguration().securityConfig.loginRoute,
       user, this.helper.headerOptions)
       // tslint:disable-next-line:no-shadowed-variable
       .pipe(map(user => user));

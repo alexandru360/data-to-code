@@ -1,8 +1,9 @@
-import {SecurityConfiguration} from './common/classes/config';
+import {SecurityConfig} from './common/classes/config';
 
 export class AppConfigModel {
   constructor(public connTypes: Array<ConnTypesCfg>,
               public payloadConn: PayloadConn,
+              public securityConfig: SecurityConfig,
               public urls: Urls,
               public demoConn: Array<DemoConn>) {
   }
@@ -26,7 +27,6 @@ export class PayloadConn {
 
 export class Urls {
   apiRootUrl: string;
-  securityConfiguration: SecurityConfiguration;
   stepOneFindTables: string;
   stepTwoUrlToBeRenamed: string;
 }
