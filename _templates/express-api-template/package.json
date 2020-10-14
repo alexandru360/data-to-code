@@ -1,0 +1,33 @@
+{
+    "name": "backend-api",
+    "version": "1.00.00",
+    "description": "Backend API generated with data-to-code.",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "keywords": [],
+    "author": "data-to-code.eu",
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "compression": "^1.7.4",
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "express-list-endpoints": "^5.0.0",
+        "express-sanitizer": "^1.0.5",
+        "express-validator": "^6.6.1",
+        "helmet": "^4.1.1",
+        "log4js": "^6.3.0",
+        "mysql2": "^2.2.5",
+        "nocache": "^2.1.0",
+        "node-guard": "^1.0.0",
+        "print-message": "^3.0.1",
+        "sequelize": "^6.3.5"
+    },
+    "publishConfig": {
+        "registry": ""
+    },
+    "devDependencies": {
+        "jshint": "^2.12.0"
+    }
+}
