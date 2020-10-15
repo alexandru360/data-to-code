@@ -1,51 +1,33 @@
 {
-  "name": "data-to-code",
-  "version": "0.1.2",
-  "scripts": {
-    "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json",
-    "start:proxy:ws": "ng serve --proxy-config proxy.conf.js",
-    "build": "ng build",
-    "build:prod": "ng build --prod",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
-  },
-  "private": true,
-  "dependencies": {
-    "@angular/animations": "^10.1.2",
-    "@angular/cdk": "^10.2.1",
-    "@angular/common": "^10.1.2",
-    "@angular/compiler": "^10.1.2",
-    "@angular/core": "^10.1.2",
-    "@angular/forms": "^10.1.2",
-    "@angular/material": "^10.2.1",
-    "@angular/platform-browser": "^10.1.2",
-    "@angular/platform-browser-dynamic": "^10.1.2",
-    "@angular/router": "^10.1.2",
-    "mat-file-upload": "^10.0.0",
-    "rxjs": "^6.6.3",
-    "tslib": "^2.0.0",
-    "zone.js": "~0.10.3"
-  },
-  "devDependencies": {
-    "@angular-devkit/build-angular": "^0.1001.2",
-    "@angular/cli": "^10.1.2",
-    "@angular/compiler-cli": "^10.1.2",
-    "@types/jasmine": "~3.5.0",
-    "@types/jasminewd2": "~2.0.3",
-    "@types/node": "^14.11.1",
-    "codelyzer": "^6.0.0",
-    "jasmine-core": "~3.5.0",
-    "jasmine-spec-reporter": "~5.0.0",
-    "karma": "~5.0.0",
-    "karma-chrome-launcher": "~3.1.0",
-    "karma-coverage-istanbul-reporter": "~3.0.2",
-    "karma-jasmine": "~3.3.0",
-    "karma-jasmine-html-reporter": "^1.5.0",
-    "protractor": "~7.0.0",
-    "ts-node": "^9.0.0",
-    "tslint": "^6.1.3",
-    "typescript": "^4.0.2"
-  }
+    "name": "backend-api",
+    "version": "1.00.00",
+    "description": "Backend API generated with data-to-code.",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "keywords": [],
+    "author": "data-to-code.eu",
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "compression": "^1.7.4",
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "express-list-endpoints": "^5.0.0",
+        "express-sanitizer": "^1.0.5",
+        "express-validator": "^6.6.1",
+        "helmet": "^4.1.1",
+        "log4js": "^6.3.0",
+        "mysql2": "^2.2.5",
+        "nocache": "^2.1.0",
+        "node-guard": "^1.0.0",
+        "print-message": "^3.0.1",
+        "sequelize": "^6.3.5"
+    },
+    "publishConfig": {
+        "registry": ""
+    },
+    "devDependencies": {
+        "jshint": "^2.12.0"
+    }
 }
