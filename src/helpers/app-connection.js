@@ -18,7 +18,7 @@ module.exports.appConn = (config, Logger) => {
                         host: connCfg.conn.host,
                         port: connCfg.conn.port,
                         dialect: connCfg.dialect,
-                        // timezone: config.timezone, // -->Add this line. for writing to database
+                        timezone: connCfg.timezone, // -->Add this line. for writing to database
                         logging: msg => {
                             if (connCfg.conn.logging) {
                                 Logger && Logger.debug(msg);
