@@ -6,11 +6,11 @@
       "dialect": "mysql",
       "timestamps": false,
       "conn": {
-        "host": "19.19.19.111",
+        "host": "alex360.go.ro",
         "user": "user4code",
         "password": "user4code",
         "database": "4data-to-code",
-        "port": 3306,
+        "port": 85,
         "logging": true
       },
       "schema": "",
