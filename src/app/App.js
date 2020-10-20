@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Menu from '../navigation/demo-navigation-menu';
+import Menu from '../navigation/app-menu';
 
 function App() {
     return (

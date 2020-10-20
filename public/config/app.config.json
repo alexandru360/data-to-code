@@ -1,0 +1,56 @@
+{
+  "connTypes": [
+    {
+      "name": "Excel",
+      "connType": "XLS"
+    },
+    {
+      "name": "Microsoft SQL Server",
+      "connType": "MSSQL"
+    },
+    {
+      "name": "MySql",
+      "connType": "MYSQL"
+    },
+    {
+      "name": "MariaDB",
+      "connType": "MARIADB"
+    }
+  ],
+  "payloadConn": {
+    "connType": null,
+    "connFileName": null,
+    "connFileContent": null,
+    "connHost": null,
+    "connUser": null,
+    "connPassword": null,
+    "connDatabase": null
+  },
+  "securityConfig": {
+    "useSecurity": false,
+    "defaultAuthenticatedRoute": "/demo",
+    "loginRoute": "security/api/login",
+    "registerRoute": "security/api/register",
+    "recoverPasswordRoute": "security/api/recover",
+    "userStatsLogins": "security/api/userStats",
+    "userStatsOtherMetrics": "security/api/userMetrics"
+  },
+  "urls": {
+    "apiRootUrl": null,
+    "stepOneFindTables": "data2code/api/Home/FindTables",
+    "stepTwoUrlToBeRenamed": "data2code/api/Home/generateapp"
+  },
+  "demoConn": [
+    {
+      "connType": "MARIADB",
+      "connFileName": null,
+      "connFileContent": null,
+      "connHost": "19.19.19.111",
+      "connPort": "3306",
+      "connUser": "demo_user",
+      "connDatabase": "test_schema",
+      "connPassword": "demo_user",
+      "default": true
+    }
+  ]
+}
