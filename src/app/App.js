@@ -1,11 +1,22 @@
 import React from 'react';
-import './App.css';
-import Menu from '../navigation/demo-navigation-menu';
+import Login from "../security/login";
+import HomePage from "../home-page";
 
-function App() {
-    return (
-        <Menu />
-    );
+export default class App extends React.Component {
+    constructor() {
+        super();
+
+        this.state = {isLoggedIn: false};
+    }
+
+    render() {
+        if(this.state.isLoggedIn){
+            return <HomePage />
+        }else{
+            return (
+                <div>
+                    <Login />
+                </div>);
+        }
+    }
 }
-
-export default App;
