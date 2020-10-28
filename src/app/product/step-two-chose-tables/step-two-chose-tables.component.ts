@@ -1,11 +1,11 @@
-import {Component, Output} from '@angular/core';
+import {Component, EventEmitter, isDevMode, Output} from '@angular/core';
 import EntitiesDetails from '../class-and-types-and-tools/entities-details';
 import {AppAssistedStepsService} from '../connection-wizard-steps/app-assisted-steps.service';
 import CrudEndpoints from '../class-and-types-and-tools/crud-endpoints';
 import {StepTwoConnWizService} from './step-two-conn-wiz.service';
-import {PayloadConn} from '../../app.config.model';
+import {KeyValueCfg, PayloadConn} from '../../app.config.model';
 import StepTwoSendPayload, {Field, Input, Table} from '../class-and-types-and-tools/step-two-send-payload';
-import {EventEmitter} from '@angular/core';
+import {OutputToGenerateItem} from '../../common/classes/outputToGenerate';
 
 @Component({
   selector: 'app-chose-tables-step-two',
@@ -26,13 +26,21 @@ export class StepTwoChoseTablesComponent {
   dataSent: any;
   selectAllEntities: boolean;
 
+  selectWhatIsGeneratedApi: Array<KeyValueCfg>;
+  selectWhatIsGeneratedUi: Array<KeyValueCfg>;
+
   btnStepComplete: boolean;
   btnDisableDataDebounce: boolean;
 
+  showTablesList: boolean;
+  showWhatIsGenerated: boolean;
+  whatIsGenerated: OutputToGenerateItem;
+
   constructor(private srvCommon: AppAssistedStepsService,
               private srvStepTwo: StepTwoConnWizService) {
-    this.selectAllEntities = true;
-    this.btnDisableDataDebounce = false;
+
+    this.setDefaultValues();
+
     this.stepComplete.emit(false);
     this.srvCommon.connPayloadDetails.subscribe(item => this.payloadConn = item);
     this.srvCommon.arrEntitiesDetails.subscribe(item => {
@@ -52,11 +60,29 @@ export class StepTwoChoseTablesComponent {
     });
   }
 
+  setDefaultValues() {
+    this.whatIsGenerated = new OutputToGenerateItem();
+    this.whatIsGenerated.Api = true;
+    this.whatIsGenerated.ApiType = this.srvStepTwo.generateTypesList.Api[0].Key;
+    this.whatIsGenerated.Ui = true;
+    this.whatIsGenerated.UiType = this.srvStepTwo.generateTypesList.Ui[0].Key;
+
+    this.showTablesList = true;
+    this.showWhatIsGenerated = false;
+    this.selectAllEntities = true;
+    this.btnDisableDataDebounce = false;
+
+    this.selectWhatIsGeneratedUi = this.srvStepTwo.generateTypesList.Ui;
+    this.selectWhatIsGeneratedApi = this.srvStepTwo.generateTypesList.Api;
+  }
+
   onSubmit() {
     this.btnDisableDataDebounce = true;
     const payload: StepTwoSendPayload = new StepTwoSendPayload();
     payload.payloadConn = this.payloadConn;
     payload.input = [];
+    payload.output = [];
+
     // This is for pushing input ...
     this.stepOnePayload.forEach(el => {
       if (el.selected) {
@@ -82,6 +108,8 @@ export class StepTwoChoseTablesComponent {
     });
 
     this.dataSent = payload;
+    payload.output.push(this.whatIsGenerated);
+
     this.srvStepTwo.callStepTwo(payload).subscribe(
       data => {
         this.btnDisableDataDebounce = true;
@@ -115,5 +143,10 @@ export class StepTwoChoseTablesComponent {
     this.stepOnePayload.forEach(itm => {
       itm.selected = !this.selectAllEntities;
     });
+  }
+
+  onNextAfterTables() {
+    this.showTablesList = false;
+    this.showWhatIsGenerated = true;
   }
 }

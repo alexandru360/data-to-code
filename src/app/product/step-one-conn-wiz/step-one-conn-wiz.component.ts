@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AppConfigService} from '../../app.config.service';
-import {ConnTypesCfg, DemoConn, PayloadConn} from '../../app.config.model';
+import {DemoConn, KeyValueCfg, PayloadConn} from '../../app.config.model';
 import {StepOneConnWizService} from './step-one-conn-wiz.service';
 import {AppAssistedStepsService} from '../connection-wizard-steps/app-assisted-steps.service';
 
@@ -18,7 +18,7 @@ export class StepOneConnWizComponent {
 
   oForm: FormGroup;
   mustUploadFile = false;
-  connTypes: Array<ConnTypesCfg>;
+  connTypes: Array<KeyValueCfg>;
   payloadConn: PayloadConn;
 
   constructor(private fb: FormBuilder,

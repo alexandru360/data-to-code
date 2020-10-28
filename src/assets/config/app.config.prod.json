@@ -1,18 +1,44 @@
 {
   "connTypes": [
     {
-      "name": "Microsoft SQL Server",
-      "connType": "MSSQL"
+      "Name": "Microsoft SQL Server",
+      "Key": "MSSQL"
     },
     {
-      "name": "MySql",
-      "connType": "MYSQL"
+      "Name": "MySql",
+      "Key": "MYSQL"
     },
     {
-      "name": "MariaDB",
-      "connType": "MARIADB"
+      "Name": "MariaDB",
+      "Key": "MARIADB"
     }
   ],
+  "generateTypes": {
+    "Api": [
+      {
+        "Name": "NodeJS Express API",
+        "Key": "EXPRESS",
+        "Message": null
+      },
+      {
+        "Name": ".Net Core",
+        "Key": "DOTNETCORE",
+        "Message": null
+      }
+    ],
+    "Ui": [
+      {
+        "Name": "Angular",
+        "Key": "ANGULAR",
+        "Message": null
+      },
+      {
+        "Name": "React",
+        "Key": "REACT",
+        "Message": "Soon "
+      }
+    ]
+  },
   "payloadConn": {
     "connType": null,
     "connFileName": null,

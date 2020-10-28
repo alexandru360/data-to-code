@@ -1,19 +1,19 @@
-<mat-card class="shipping-card">
+<mat-card class="shipping-card" *ngIf="showTablesList">
   <mat-card-header>
-    <mat-card-title *ngIf="!btnDisableDataDebounce">Entities list</mat-card-title>
-    <mat-card-title *ngIf="btnDisableDataDebounce">Creating your application</mat-card-title>
+    <mat-card-title>Entities list</mat-card-title>
     <mat-card-subtitle>
       <mat-checkbox class="checkbox-margin"
-                    *ngIf="!btnDisableDataDebounce"
                     [(ngModel)]="selectAllEntities"
                     (click)="onClickCheckEntities()">
         {{selectAllEntities ? 'Deselect all entities' : 'Select all entities'}}
       </mat-checkbox>
     </mat-card-subtitle>
   </mat-card-header>
-  <mat-card-content>
 
-    <mat-accordion *ngIf="!btnDisableDataDebounce">
+  <!-- Chose tables -->
+  <mat-card-content >
+
+    <mat-accordion>
       <mat-expansion-panel *ngFor="let itm of stepOnePayload; index as idx;"> <!--hideToggle-->
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -80,10 +80,65 @@
         <!-- END - Table columns !-->
       </mat-expansion-panel>
     </mat-accordion>
+    <br/>
+    <button mat-stroked-button color="primary"
+            [disabled]="btnDisableDataDebounce"
+            (click)="onNextAfterTables()">
+      Next
+    </button>
+  </mat-card-content>
+</mat-card>
 
-    <mat-spinner *ngIf="btnDisableDataDebounce"></mat-spinner>
+<mat-card class="shipping-card" *ngIf="showWhatIsGenerated">
+  <!-- Chose api / UI -->
+  <mat-card-content>
+
+    <mat-card class="shipping-card">
+      <mat-card-header>
+        <mat-card-title>Chose what you want generated</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+
+        <mat-grid-list cols="2" rowHeight="2:1">
+          <mat-grid-tile>
+            <mat-checkbox class="checkbox-margin" [(ngModel)]="whatIsGenerated.Api">
+              Generate API
+            </mat-checkbox>
+          </mat-grid-tile>
+          <mat-grid-tile>
+
+            <mat-form-field appearance="fill" *ngIf="whatIsGenerated.Api">
+              <mat-select [(ngModel)]="whatIsGenerated.ApiType">
+                <mat-option *ngFor="let itm of selectWhatIsGeneratedApi" [value]="itm.Key">
+                  {{itm.Name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-checkbox class="checkbox-margin" [(ngModel)]="whatIsGenerated.Ui">
+              Generate UI
+            </mat-checkbox>
+          </mat-grid-tile>
+          <mat-grid-tile>
+
+            <mat-form-field appearance="fill" *ngIf="whatIsGenerated.Ui">
+              <mat-select [(ngModel)]="whatIsGenerated.UiType">
+                <mat-option *ngFor="let itm of selectWhatIsGeneratedUi" [value]="itm.Key">
+                  {{itm.Name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </mat-grid-tile>
+        </mat-grid-list>
+
+      </mat-card-content>
+    </mat-card>
 
   </mat-card-content>
+
   <mat-card-actions>
     <button mat-stroked-button color="primary" [disabled]="btnDisableDataDebounce" (click)="onSubmit()">Send data
     </button>

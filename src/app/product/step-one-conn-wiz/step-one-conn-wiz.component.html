@@ -5,8 +5,8 @@
         <div class="col">
           <mat-form-field class="full-width">
             <mat-select placeholder="Connection type" formControlName="connType" (selectionChange)="onConnTypeChange()">
-              <mat-option *ngFor="let connType of connTypes" [value]="connType.connType">
-                {{ connType.name }}
+              <mat-option *ngFor="let connType of connTypes" [value]="connType.Key">
+                {{ connType.Name }}
               </mat-option>
             </mat-select>
             <mat-error *ngIf="oForm.controls['connType'].hasError('required')">
