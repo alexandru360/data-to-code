@@ -1,11 +1,12 @@
-import {Component, EventEmitter, isDevMode, Output} from '@angular/core';
+import {Component, EventEmitter, Input, isDevMode, Output} from '@angular/core';
 import EntitiesDetails from '../class-and-types-and-tools/entities-details';
 import {AppAssistedStepsService} from '../connection-wizard-steps/app-assisted-steps.service';
 import CrudEndpoints from '../class-and-types-and-tools/crud-endpoints';
 import {StepTwoConnWizService} from './step-two-conn-wiz.service';
 import {KeyValueCfg, PayloadConn} from '../../app.config.model';
-import StepTwoSendPayload, {Field, Input, Table} from '../class-and-types-and-tools/step-two-send-payload';
+import StepTwoSendPayload, {Field, Table} from '../class-and-types-and-tools/step-two-send-payload';
 import {OutputToGenerateItem} from '../../common/classes/outputToGenerate';
+import {MatStepper} from '@angular/material/stepper';
 
 @Component({
   selector: 'app-chose-tables-step-two',
@@ -14,6 +15,7 @@ import {OutputToGenerateItem} from '../../common/classes/outputToGenerate';
   providers: [StepTwoConnWizService]
 })
 export class StepTwoChoseTablesComponent {
+  @Input() wizStepper: MatStepper;
 
   @Output() stepComplete = new EventEmitter<boolean>();
   @Output() dataFromStepTwo = new EventEmitter<any>();
@@ -61,6 +63,7 @@ export class StepTwoChoseTablesComponent {
   }
 
   setDefaultValues() {
+
     this.whatIsGenerated = new OutputToGenerateItem();
     this.whatIsGenerated.Api = true;
     this.whatIsGenerated.ApiType = this.srvStepTwo.generateTypesList.Api[0].Key;
@@ -116,6 +119,8 @@ export class StepTwoChoseTablesComponent {
         this.btnStepComplete = true;
         this.stepComplete.emit(true);
         this.dataFromStepTwo.emit(data);
+
+        this.goForward();
       },
       err => {
         console.error(err);
@@ -148,5 +153,9 @@ export class StepTwoChoseTablesComponent {
   onNextAfterTables() {
     this.showTablesList = false;
     this.showWhatIsGenerated = true;
+  }
+
+  goForward() {
+    this.wizStepper.next();
   }
 }

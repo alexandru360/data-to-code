@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
 import {AppConfigService} from '../../app.config.service';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {COMMON_HEADER} from '../class-and-types-and-tools/constants';
 import StepTwoResponse from '../class-and-types-and-tools/step-two-response';
 import {GenerateTypes} from '../../app.config.model';
+import {timeout, catchError} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,6 @@ export class StepTwoConnWizService {
     return this.httpClient.post<StepTwoResponse>(
       this.stepTwoUrl,
       body,
-      {headers: COMMON_HEADER});
+      {headers: COMMON_HEADER}).pipe(timeout(300000), catchError(e => of(null)));
   }
 }

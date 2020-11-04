@@ -1,7 +1,8 @@
-import {Component, isDevMode, OnInit} from '@angular/core';
+import {Component, isDevMode, OnInit, Output, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PlatformLocation} from '@angular/common';
 import {AppConfigService} from '../../app.config.service';
+import {MatStepper} from '@angular/material/stepper';
 
 @Component({
   selector: 'app-connection-wizard-steps',
@@ -9,7 +10,7 @@ import {AppConfigService} from '../../app.config.service';
   styleUrls: ['./app-assisted-steps.component.css']
 })
 export class AppAssistedStepsComponent implements OnInit {
-
+  // @Output() @ViewChild('stepper') wizStepper: MatStepper;
   isLinear: boolean;
   step1Head: string;
   step2Head: string;

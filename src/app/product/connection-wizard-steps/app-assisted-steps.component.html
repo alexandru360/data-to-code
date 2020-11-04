@@ -6,6 +6,7 @@
   <mat-step [stepControl]="formGroup2">
     <ng-template matStepLabel>{{step2Head}}</ng-template>
     <app-chose-tables-step-two
+      [wizStepper]="this.stepper"
       (stepComplete)="onStepComplete2($event)"
       (dataFromStepTwo)="onStepComplete2Data($event)"></app-chose-tables-step-two>
   </mat-step>

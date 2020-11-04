@@ -1,97 +1,108 @@
-<mat-card class="shipping-card" *ngIf="showTablesList">
-  <mat-card-header>
-    <mat-card-title>Entities list</mat-card-title>
-    <mat-card-subtitle>
-      <mat-checkbox class="checkbox-margin"
-                    [(ngModel)]="selectAllEntities"
-                    (click)="onClickCheckEntities()">
-        {{selectAllEntities ? 'Deselect all entities' : 'Select all entities'}}
-      </mat-checkbox>
-    </mat-card-subtitle>
-  </mat-card-header>
+<div *ngIf="!btnDisableDataDebounce">
+  <mat-card class="shipping-card" *ngIf="showTablesList">
+    <mat-card-header>
+      <mat-card-title>Entities list</mat-card-title>
+      <mat-card-subtitle>
+        <mat-checkbox class="checkbox-margin"
+                      [(ngModel)]="selectAllEntities"
+                      (click)="onClickCheckEntities()">
+          {{selectAllEntities ? 'Deselect all entities' : 'Select all entities'}}
+        </mat-checkbox>
+      </mat-card-subtitle>
+    </mat-card-header>
 
-  <!-- Chose tables -->
-  <mat-card-content >
+    <!-- Chose tables -->
+    <mat-card-content>
 
-    <mat-accordion>
-      <mat-expansion-panel *ngFor="let itm of stepOnePayload; index as idx;"> <!--hideToggle-->
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.selected">{{itm.name}}</mat-checkbox>
-          </mat-panel-title>
-          <mat-panel-description>
-            <!--Something to be said here :)-->
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <br/>
-        <div class="row">
-          <div class="col">
-            <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.List">Read</mat-checkbox>
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let itm of stepOnePayload; index as idx;"> <!--hideToggle-->
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.selected">{{itm.name}}</mat-checkbox>
+            </mat-panel-title>
+            <mat-panel-description>
+              <!--Something to be said here :)-->
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <br/>
+          <div class="row">
+            <div class="col">
+              <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.List">Read</mat-checkbox>
+            </div>
+            <div class="col">
+              <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.Create"
+                            [disabled]="itm.crudEndpoints.Upsert">Create
+              </mat-checkbox>
+            </div>
+            <div class="col">
+              <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.Update"
+                            [disabled]="itm.crudEndpoints.Upsert">Update
+              </mat-checkbox>
+            </div>
+            <div class="col">
+              <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.Delete">Delete</mat-checkbox>
+            </div>
+            <div class="col">
+              <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.Upsert"
+                            [disabled]="itm.crudEndpoints.Create && itm.crudEndpoints.Create"
+                            (mouseup)="onUpsertChange(idx)">Upsert
+              </mat-checkbox>
+            </div>
           </div>
-          <div class="col">
-            <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.Create"
-                          [disabled]="itm.crudEndpoints.Upsert">Create
-            </mat-checkbox>
-          </div>
-          <div class="col">
-            <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.Update"
-                          [disabled]="itm.crudEndpoints.Upsert">Update
-            </mat-checkbox>
-          </div>
-          <div class="col">
-            <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.Delete">Delete</mat-checkbox>
-          </div>
-          <div class="col">
-            <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.Upsert"
-                          [disabled]="itm.crudEndpoints.Create && itm.crudEndpoints.Create"
-                          (mouseup)="onUpsertChange(idx)">Upsert
-            </mat-checkbox>
-          </div>
-        </div>
-        <br/>
-        <!-- Table columns !-->
-        <mat-table [dataSource]="itm.fields" class="mat-elevation-z8">
-          <!-- name Column -->
-          <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-          </ng-container>
+          <br/>
+          <!-- Table columns !-->
+          <mat-table [dataSource]="itm.fields" class="mat-elevation-z8">
+            <!-- name Column -->
+            <ng-container matColumnDef="name">
+              <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+            </ng-container>
 
-          <!-- Type Column -->
-          <ng-container matColumnDef="type">
-            <mat-header-cell *matHeaderCellDef> Type</mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
-          </ng-container>
+            <!-- Type Column -->
+            <ng-container matColumnDef="type">
+              <mat-header-cell *matHeaderCellDef> Type</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
+            </ng-container>
 
-          <!-- selected Column -->
-          <ng-container matColumnDef="selected">
-            <mat-header-cell *matHeaderCellDef>
-              <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.selected"
-                            (click)="onFieldsSelectAll(idx)">{{itm.selected ? 'Uncheck all' : 'Check all'}}</mat-checkbox>
-            </mat-header-cell>
-            <mat-cell *matCellDef="let element">
-              <mat-checkbox class="checkbox-margin" [(ngModel)]="element.selected"></mat-checkbox>
-            </mat-cell>
-          </ng-container>
+            <!-- selected Column -->
+            <ng-container matColumnDef="selected">
+              <mat-header-cell *matHeaderCellDef>
+                <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.selected"
+                              (click)="onFieldsSelectAll(idx)">{{itm.selected ? 'Uncheck all' : 'Check all'}}</mat-checkbox>
+              </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <mat-checkbox class="checkbox-margin" [(ngModel)]="element.selected"></mat-checkbox>
+              </mat-cell>
+            </ng-container>
 
-          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-        </mat-table>
-        <!-- END - Table columns !-->
-      </mat-expansion-panel>
-    </mat-accordion>
-    <br/>
-    <button mat-stroked-button color="primary"
-            [disabled]="btnDisableDataDebounce"
-            (click)="onNextAfterTables()">
-      Next
-    </button>
-  </mat-card-content>
-</mat-card>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+          <!-- END - Table columns !-->
+        </mat-expansion-panel>
+      </mat-accordion>
+      <br/>
+      <button mat-stroked-button color="primary"
+              (click)="onNextAfterTables()">
+        Next
+      </button>
+    </mat-card-content>
+
+  </mat-card>
+</div>
 
 <mat-card class="shipping-card" *ngIf="showWhatIsGenerated">
+  <mat-card-header>
+    <mat-card-title *ngIf="!btnDisableDataDebounce">Chose the UI & Backend</mat-card-title>
+    <mat-card-title *ngIf="btnDisableDataDebounce">Creating your application</mat-card-title>
+  </mat-card-header>
+
   <!-- Chose api / UI -->
-  <mat-card-content>
+  <mat-card-content *ngIf="btnDisableDataDebounce">
+    <mat-spinner></mat-spinner>
+  </mat-card-content>
+
+  <mat-card-content *ngIf="!btnDisableDataDebounce">
 
     <mat-card class="shipping-card">
       <mat-card-header>
@@ -138,6 +149,7 @@
     </mat-card>
 
   </mat-card-content>
+
 
   <mat-card-actions>
     <button mat-stroked-button color="primary" [disabled]="btnDisableDataDebounce" (click)="onSubmit()">Send data
