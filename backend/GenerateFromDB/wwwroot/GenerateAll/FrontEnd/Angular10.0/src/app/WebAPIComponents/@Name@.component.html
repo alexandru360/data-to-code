@@ -1,0 +1,125 @@
+@model Stankins.Interfaces.IDataToSent
+@{
+	
+	var angular="@angular";
+	var Injectable = "@Injectable";
+	string ClassNameFromTableName(string tableName){
+		return tableName.Replace(" ","").Replace(".","").Replace("(","").Replace(")","");
+	}
+
+	var dtRels= Model.FindAfterName("@@Relations@@").Value;
+	var rowsRelParent =dtRels.Select("parent_object='@Name@'" );
+	var rowsRelChild =dtRels.Select("referenced_object='@Name@'" );
+
+
+	var dt= Model.FindAfterName("@Name@").Value;
+	var nameTable =dt.TableName;
+	var nameClass = ClassNameFromTableName(nameTable);
+	var dtOptions= Model.FindAfterName("@@Options@@").Value;
+	var havePK = (dtOptions.Rows.Find(dt.TableName +"_PK") != null);
+    string idTable ="", idType = "";
+    if(havePK){
+		idTable = dtOptions.Rows.Find(dt.TableName +"_PK")[1].ToString();
+		idTable = nameProperty(idTable,nameClass);
+	}
+	
+	var routeName = nameClass.ToLower();
+	var nrCols= dt.Columns.Count;
+	string lowerCaseFirst(string s){
+		return char.ToLower(s[0]) + s.Substring(1);
+	}
+	string nameProperty(string original, string nameClass){
+		var name = original.ToLower().Replace(" ","").Replace("event","event1").Replace("class","class1").Replace("object","object1").Replace("<","").Replace("/","").Replace(">","").Replace("(","").Replace(")","").ToLower();
+		if(!IsIdentifier(name))
+			name = "generated_"+name;
+			if(nameClass.ToLower() == name)
+			name= "generated_"+name;
+		return name.Trim();
+	}
+	bool IsIdentifier(string text)
+	{
+     if (string.IsNullOrEmpty(text))
+        return false;
+     if (!char.IsLetter(text[0]) && text[0] != '_')
+        return false;
+     for (int ix = 1; ix < text.Length; ++ix)
+        if (!char.IsLetterOrDigit(text[ix]) && text[ix] != '_')
+           return false;
+     return true;
+	}
+}
+
+
+<br />
+<h1>
+List of @(nameTable) 
+</h1>
+
+<mat-form-field>
+	<mat-label>Filter</mat-label>
+	<input matInput (keyup)="applyFilter($event)" placeholder="filter text" #input>
+  </mat-form-field>
+  
+  <div class="mat-elevation-z8">
+	<table mat-table [dataSource]="dataSource" matSort>
+		<ng-container matColumnDef="rowIndex">
+			<th mat-header-cell *matHeaderCellDef> Index </th>
+			<td mat-cell *matCellDef="let row;index as i;"> {{ i+1   + (paginator.pageIndex * paginator.pageSize) }} </td>
+		</ng-container>
+	
+		@for(int iCol = 0;iCol < nrCols; iCol++){
+			var col = dt.Columns[iCol];
+			var colName= col.ColumnName ;
+			
+			string display="{{row." + lowerCaseFirst(nameProperty(colName,nameClass))+"}}";
+
+			if(rowsRelParent.Length>0){
+				foreach(var row in rowsRelParent){
+					if(row["referenced_column"].ToString() == colName){
+						var refTableName =ClassNameFromTableName(row["referenced_object"].ToString()).ToLower();
+						display +="<a mat-list-item [routerLink]=\"['/" + refTableName + "/edit', row." + lowerCaseFirst(nameProperty(colName,nameClass)) + "]\" routerLinkActive=\"active\">Go=></a>";
+					}
+				}
+			}
+
+			<text>
+
+	  <ng-container matColumnDef="@(lowerCaseFirst(nameProperty(colName,nameClass)))">
+		<th mat-header-cell *matHeaderCellDef mat-sort-header> @(colName) </th>
+		<td mat-cell *matCellDef="let row"> @Raw(display) </td>
+	  </ng-container>
+		  </text>
+		}
+	@{
+		if(havePK){
+			<text>
+	  <ng-container matColumnDef="operations">
+		<th mat-header-cell *matHeaderCellDef mat-sort-header> Operations </th>
+		<td mat-cell *matCellDef="let row" > <a routerLink="/@(routeName)/edit/{{row.@(idTable)}}" >Edit</a>
+		
+			&nbsp;
+			<button (click)="deleteData(row.@(idTable))">Delete</button>
+			
+		</td>
+	  </ng-container>
+		</text>
+		}
+	}
+	  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+	  <tr mat-row *matRowDef="let row;let index = renderIndex; columns: displayedColumns;"></tr>
+  
+	  <!-- Row shown when there is no matching data. -->
+	  <tr class="mat-row" *matNoDataRow>
+		<td class="mat-cell" colspan="4">No data in @(nameTable) matching the filter "{{input.value}}"</td>
+	  </tr>
+	</table>
+  
+	<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+  @{
+	if(havePK){
+		<text>
+  <button (click)="add()">Add new @(nameTable)</button>
+			</text>
+		}
+	}

@@ -1,0 +1,20 @@
+# FROM beevelop/cordova:latest
+
+FROM walterwhites/docker-cordova:latest
+WORKDIR /app
+
+# RUN npm install -g cordova
+
+RUN cordova create MyApplication com.demo.adces.MyApplication MyApplication
+
+RUN cd MyApplication && cordova platform add android
+
+RUN cd MyApplication && cordova requirements
+
+COPY wwwroot/*.* MyApplication/www/ 
+RUN cd MyApplication &&   cordova build android
+
+RUN mkdir /app/out
+
+RUN cp /app/MyApplication/platforms/android/app/build/outputs/apk/debug/app-debug.apk /app/out/myapp.apk
+CMD tail -f /dev/null
