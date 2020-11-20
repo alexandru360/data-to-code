@@ -60,7 +60,7 @@ jobs:
         dotnet-version: 5.0.100 #3.1.301
 
     - run: | 
-          copy /Y buildAngular/*.* backend/GenerateFromDB/wwwroot/ 
+          copy /Y buildAngular/ backend/GenerateFromDB/wwwroot/ 
           cd backend
           dotnet restore
           dotnet build
