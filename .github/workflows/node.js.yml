@@ -65,20 +65,27 @@ jobs:
           dotnet restore
           dotnet build
           cd GenerateFromDB
-          dotnet publish -r win-x64 -c release --self-contained -o publish
-          tar.exe -a -c -f publish.zip publish
-
+          #dotnet publish -r win-x64 -c release --self-contained -o publish
+          dotnet publish -r win-x64 -c release -o publish
+          tar.exe -a -c -f publish.zip GenerateFromDB.zip
+          
     - run: dir 
 
     - uses: actions/upload-artifact@v2
       with:
-        name: backend
+        name: aspnetCore
         path: backend/GenerateFromDB/publish 
+        retention-days: 1
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: unzipThis
+        path: backend/GenerateFromDB/GenerateFromDB.zip 
         retention-days: 1
 
     - run: | 
           
           cd backend
-          dotnet tool restore
-          cd GenerateAppWPF
-          dotnet publish -r win-x64 -c release --self-contained -o publish
+          xcopy GenerateFromDB\GenerateFromDB.zip GenerateAppWPF\GenerateFromDB.zip
+          cd GenerateAppWPF          
+          dotnet publish -r win-x64 -c release -o WPF
