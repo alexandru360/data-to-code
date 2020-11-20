@@ -25,6 +25,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+
     - run: | 
           npm install -g @angular/cli
           npm i
@@ -40,4 +41,10 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.100 #3.1.301
+
+    - run: | 
+          cd backend
+          dotnet restore
+          dotnet build
+
 
