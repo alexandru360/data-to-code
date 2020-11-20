@@ -20,6 +20,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
@@ -29,9 +30,14 @@ jobs:
           npm i
           ng build --buildOptimizer=true --aot=true --outputPath=buildAngular  --prod=true
     - run: ls -lh buildAngular
-    
+
     - uses: actions/upload-artifact@v2
       with:
         name: angularBuild
         path: buildAngular/ 
+    
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.301
 
