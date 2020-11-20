@@ -49,8 +49,9 @@ jobs:
     - uses: actions/download-artifact@v2
       with:
         name: angularBuild
+        path: buildAngular
 
-    - run: dir angularBuild
+    - run: dir 
     
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
@@ -61,3 +62,7 @@ jobs:
           cd backend
           dotnet restore
           dotnet build
+          cd GenerateFromDB
+          dotnet publish -r win-x64 -c release --self-contained -o publish
+
+    - run: dir 
