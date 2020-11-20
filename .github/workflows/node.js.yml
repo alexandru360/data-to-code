@@ -10,7 +10,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  buildAngular:
 
     runs-on: ubuntu-latest
 
@@ -30,12 +30,27 @@ jobs:
           npm install -g @angular/cli
           npm i
           ng build --buildOptimizer=true --aot=true --outputPath=buildAngular  --prod=true
+    
     - run: ls -lh buildAngular
 
     - uses: actions/upload-artifact@v2
       with:
         name: angularBuild
         path: buildAngular/ 
+  
+  buildNetCore:
+    
+    runs-on: windows-latest
+    needs: buildAngular
+    
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: actions/download-artifact@v2
+      with:
+        name: angularBuild
+
+    - run: ls -lh angularBuild/
     
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
@@ -46,5 +61,3 @@ jobs:
           cd backend
           dotnet restore
           dotnet build
-
-
