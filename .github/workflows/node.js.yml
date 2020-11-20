@@ -37,6 +37,7 @@ jobs:
       with:
         name: angularBuild
         path: buildAngular/ 
+        retention-days: 1
   
   buildNetCore:
     
@@ -59,6 +60,7 @@ jobs:
         dotnet-version: 5.0.100 #3.1.301
 
     - run: | 
+          copy /Y buildAngular/*.* backend/GenerateFromDB/wwwroot/ 
           cd backend
           dotnet restore
           dotnet build
@@ -66,3 +68,9 @@ jobs:
           dotnet publish -r win-x64 -c release --self-contained -o publish
 
     - run: dir 
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: backend
+        path: backend/GenerateFromDB/publish 
+        retention-days: 1
