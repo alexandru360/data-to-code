@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <StartupObject>GenerateAppWPF.App</StartupObject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="GenerateFromDB.zip" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="GenerateFromDB.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup> 
+</Project>
