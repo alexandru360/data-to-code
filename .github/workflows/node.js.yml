@@ -74,3 +74,10 @@ jobs:
         name: backend
         path: backend/GenerateFromDB/publish 
         retention-days: 1
+
+    - run: | 
+          
+          cd backend
+          dotnet tool restore
+          cd GenerateAppWPF
+          dotnet publish -r win-x64 -c release --self-contained -o publish

@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "powershell": {
+      "version": "7.0.3",
+      "commands": [
+        "pwsh"
+      ]
+    },
+    "dotnet-property": {
+      "version": "2.0.0.60",
+      "commands": [
+        "dotnet-property"
+      ]
+    },
+    "dotnetthx": {
+      "version": "0.2.0",
+      "commands": [
+        "dotnet-thx"
+      ]
+    },
+    "dotnet-outdated": {
+      "version": "2.11.0",
+      "commands": [
+        "dotnet-outdated"
+      ]
+    },
+    "moniker.cli": {
+      "version": "1.0.0",
+      "commands": [
+        "moniker"
+      ]
+    }
+  }
+}
