@@ -11,8 +11,8 @@
             <ColumnDefinition Width="163*"/>
             <ColumnDefinition Width="36*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="btnClose" Content="Close" HorizontalAlignment="Left" Margin="56,292,0,0" VerticalAlignment="Top" Width="181" Height="70" Click="btnClose_Click" IsCancel="True" AutomationProperties.AcceleratorKey="C"/>
-        <Button x:Name="btnOpenBrowser" Content="Browser" HorizontalAlignment="Left" Margin="460,292,0,0" VerticalAlignment="Top" Height="70" Width="161" Click="btnOpenBrowser_Click"/>
+        <Button x:Name="btnClose" Content="Close" HorizontalAlignment="Left" Margin="30,303,0,0" VerticalAlignment="Top" Width="181" Height="70" Click="btnClose_Click" IsCancel="True" AutomationProperties.AcceleratorKey="C"/>
+        <Button x:Name="btnOpenBrowser" Content="Open Application" HorizontalAlignment="Left" Margin="30,64,0,0" VerticalAlignment="Top" Height="70" Width="181" Click="btnOpenBrowser_Click"/>
 
     </Grid>
 </Window>
