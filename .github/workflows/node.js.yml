@@ -59,13 +59,14 @@ jobs:
       with:
         dotnet-version: 5.0.100 #3.1.301
 
-    - run: | 
+    - name: build backend
+      run: | 
           xcopy buildAngular\*.* backend\GenerateFromDB\wwwroot\ /Y  
           cd backend
           dotnet restore
           dotnet build
           cd GenerateFromDB
-          #dotnet publish -r win-x64 -c release --self-contained -o publish
+          # dotnet publish -r win-x64 -c release --self-contained -o publish
           dotnet publish -r win-x64 -c release -o publish
           tar.exe -a -c -f GenerateFromDB.zip publish
           
@@ -83,8 +84,8 @@ jobs:
         path: backend/GenerateFromDB/GenerateFromDB.zip 
         retention-days: 1
 
-    - run: | 
-          
+    - name: build WPF
+      run: | 
           cd backend
           xcopy GenerateFromDB\GenerateFromDB.zip GenerateAppWPF\GenerateFromDB.zip
           cd GenerateAppWPF          
