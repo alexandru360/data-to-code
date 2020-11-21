@@ -39,15 +39,16 @@ namespace GenerateAppWPF
             Task.Run(() =>
             // GenerateFromDB.Program.Main(new string[1] { "--urls http://localhost:9100" })
             {
-                 try
-                 {
-                    var dir = Path.Combine(Environment.CurrentDirectory, "publish");
-                    var psi = new ProcessStartInfo(Path.Combine(dir, "GenerateFromDb.exe"));
-                    psi.WorkingDirectory = dir;
-                    psi.CreateNoWindow = true;
-                    process = Process.Start(psi);
-                     //GenerateFromDB.Program.Main(e.Args);
-                 }
+              try
+              {
+                var dir = Path.Combine(Environment.CurrentDirectory, "publish");
+                var psi = new ProcessStartInfo(Path.Combine(dir, "GenerateFromDb.exe"));
+                psi.WorkingDirectory = dir;
+                psi.CreateNoWindow = true;
+                process = Process.Start(psi);
+
+                
+              }              
                  catch (Exception ex)
                  {
                      Console.WriteLine(ex.ToString());
