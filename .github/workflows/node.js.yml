@@ -67,7 +67,7 @@ jobs:
           cd GenerateFromDB
           #dotnet publish -r win-x64 -c release --self-contained -o publish
           dotnet publish -r win-x64 -c release -o publish
-          tar.exe -a -c -f publish.zip GenerateFromDB.zip
+          tar.exe -a -c -f GenerateFromDB.zip publish
           
     - run: dir 
 
