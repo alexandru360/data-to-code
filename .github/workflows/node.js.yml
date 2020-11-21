@@ -61,7 +61,7 @@ jobs:
 
     - name: build backend
       run: | 
-          xcopy buildAngular\*.* backend\GenerateFromDB\wwwroot\ /Y  
+          xcopy buildAngular\*.* backend\GenerateFromDB\wwwroot\ /Y /S
           cd backend
           dotnet restore
           dotnet build
