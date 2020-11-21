@@ -10,6 +10,13 @@
 </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\GenerateAll\**" />
+    <Content Remove="wwwroot\GenerateAll\**" />
+    <EmbeddedResource Remove="wwwroot\GenerateAll\**" />
+    <None Remove="wwwroot\GenerateAll\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Hellang.Middleware.ProblemDetails" Version="5.1.1" />
     <PackageReference Include="NetCore2Blockly" Version="1.1.2020.20667251" />
   </ItemGroup>
