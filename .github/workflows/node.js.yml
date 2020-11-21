@@ -47,12 +47,13 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - uses: actions/download-artifact@v2
+    - name: download angular build
+      uses: actions/download-artifact@v2
       with:
         name: angularBuild
         path: buildAngular
 
-    - run: dir 
+    #- run: dir 
     
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
@@ -68,18 +69,22 @@ jobs:
           cd GenerateFromDB
           # dotnet publish -r win-x64 -c release --self-contained -o publish
           dotnet publish -r win-x64 -c release -o publish -p:PublishSingleFile=true -p:PublishTrimmed=true
-          xcopy wwwroot\GenerateAll publish\wwwroot\ /S
+          mkdir publish\wwwroot\GenerateAll\
+          xcopy wwwroot\GenerateAll\ publish\wwwroot\GenerateAll\ /S
           tar.exe -a -c -f GenerateFromDB.zip publish
           
-    - run: dir 
+    #- run: dir 
 
-    - uses: actions/upload-artifact@v2
+    
+    - name: upload asp.net core 
+      uses: actions/upload-artifact@v2
       with:
         name: aspnetCore
         path: backend/GenerateFromDB/publish 
         retention-days: 1
 
-    - uses: actions/upload-artifact@v2
+    - name: upload zip with .net core
+      uses: actions/upload-artifact@v2
       with:
         name: preparedForWPF
         path: backend/GenerateFromDB/GenerateFromDB.zip 
@@ -93,7 +98,8 @@ jobs:
           dotnet publish -r win-x64 -c release -o WPF
 
 
-    - uses: actions/upload-artifact@v2
+    - name: upload wpf
+      uses: actions/upload-artifact@v2
       with:
         name: WPF
         path: backend/GenerateAppWPF
