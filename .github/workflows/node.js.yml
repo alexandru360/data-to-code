@@ -95,7 +95,8 @@ jobs:
     - name: build WPF
       run: | 
           cd backend
-          xcopy GenerateFromDB\GenerateFromDB.zip GenerateAppWPF\GenerateFromDB.zip
+          # del GenerateAppWPF\GenerateFromDB.zip 
+          xcopy GenerateFromDB\GenerateFromDB.zip GenerateAppWPF\GenerateFromDB.zip /Y
           cd GenerateAppWPF          
           dotnet publish -r win-x64 -c release -o WPF
 
@@ -104,5 +105,5 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: WPF
-        path: backend/GenerateAppWPF
+        path: backend/GenerateAppWPF/WPF
         retention-days: 1
