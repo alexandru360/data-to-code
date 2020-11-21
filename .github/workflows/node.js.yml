@@ -100,7 +100,6 @@ jobs:
           cd GenerateAppWPF          
           dotnet publish -r win-x64 -c release -o WPF
 
-
     - name: upload wpf
       uses: actions/upload-artifact@v2
       with:
