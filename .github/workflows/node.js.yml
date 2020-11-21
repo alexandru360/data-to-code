@@ -67,7 +67,8 @@ jobs:
           dotnet build
           cd GenerateFromDB
           # dotnet publish -r win-x64 -c release --self-contained -o publish
-          dotnet publish -r win-x64 -c release -o publish
+          dotnet publish -r win-x64 -c release -o publish -p:PublishSingleFile=true -p:PublishTrimmed=true
+          xcopy wwwroot/GenerateAll publish/wwwroot/ /S
           tar.exe -a -c -f GenerateFromDB.zip publish
           
     - run: dir 
