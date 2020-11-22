@@ -80,10 +80,14 @@ export class StepOneConnWizComponent {
     if (demoConn) {
       const selectedConnType = this.oForm.controls.connType.value;
       if(demoConn.length>0)
-      if (demoConn[0].connType === selectedConnType) {
-        this.setValuesMariaDB(demoConn[0]);
-      } else {
-        this.setValuesMariaDB(new DemoConn());
+      {
+        for(var i=0;i<demoConn.length;i++){
+          if (demoConn[i].connType === selectedConnType) {
+            this.setValuesToConnection(demoConn[i]);
+          } else {
+            this.setValuesToConnection(new DemoConn());
+          }
+      }
       }
     }
   }
@@ -132,7 +136,7 @@ export class StepOneConnWizComponent {
     }
   }
 
-  private setValuesMariaDB(conn: DemoConn) {
+  private setValuesToConnection(conn: DemoConn) {
     this.oForm.get('connHost').setValue(conn.connHost);
     this.oForm.get('connPort').setValue(conn.connPort);
     this.oForm.get('connUser').setValue(conn.connUser);

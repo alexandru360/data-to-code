@@ -70,6 +70,17 @@
       "connDatabase": "test_schema",
       "connPassword": "demo_user",
       "default": true
+    },
+    {
+      "connType": "MSSQL",
+      "connFileName": null,
+      "connFileContent": null,
+      "connHost": ".",
+      "connPort": "1433",
+      "connUser": "sa",
+      "connDatabase": "tests",
+      "connPassword": "yourStrong(!)Password",
+      "default": true
     }
   ]
 }
