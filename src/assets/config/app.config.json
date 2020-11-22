@@ -21,19 +21,19 @@
     "Api": [      
       {
         "Name": ".Net Core",
-        "Key": "DOTNETCORE",
+        "Key": "NETCore3.1",
         "Message": null
       },
       {
         "Name": "NodeJS Express API",
-        "Key": "EXPRESS",
+        "Key": "express-api-template",
         "Message": null
       }
     ],
     "Ui": [
       {
         "Name": "Angular",
-        "Key": "ANGULAR",
+        "Key": "Angular10.0",
         "Message": null
       },
       {

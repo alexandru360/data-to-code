@@ -18,7 +18,7 @@
 
   <ItemGroup>
     <PackageReference Include="Hellang.Middleware.ProblemDetails" Version="5.1.1" />
-    <PackageReference Include="NetCore2Blockly" Version="1.1.2020.20667251" />
+    <PackageReference Include="NetCore2Blockly" Version="1.1.2020.27937388" />
   </ItemGroup>
 
   <ItemGroup>

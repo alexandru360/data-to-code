@@ -1,4 +1,4 @@
-﻿using NPOI.SS.Formula.Functions;
+using NPOI.SS.Formula.Functions;
 using StankinsObjects;
 using System;
 using System.Collections.Generic;
@@ -189,7 +189,7 @@ namespace GenerateApp.Controllers
 
             if ((this.output?.Length ?? 0) == 0)
             {
-                yield return new ValidationResult("do not have teplates in output");
+                yield return new ValidationResult("do not have templates in output");
                 yield break;
             }
         }
