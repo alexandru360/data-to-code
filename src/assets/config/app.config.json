@@ -20,7 +20,7 @@
   "generateTypes": {
     "Api": [      
       {
-        "Name": ".Net Core",
+        "Name": ".Net Core 3.1",
         "Key": "NETCore3.1",
         "Message": null
       },
@@ -32,7 +32,7 @@
     ],
     "Ui": [
       {
-        "Name": "Angular",
+        "Name": "Angular 10",
         "Key": "Angular10.0",
         "Message": null
       },
