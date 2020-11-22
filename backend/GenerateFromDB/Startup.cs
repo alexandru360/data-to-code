@@ -23,7 +23,7 @@ namespace GenerateFromDB
             Configuration = configuration;
             var c = (IConfigurationRoot)configuration;
             var s = c.GetDebugView();
-            var x = 1;
+            // var x = 1;
         }
 
         public IConfiguration Configuration { get; }
