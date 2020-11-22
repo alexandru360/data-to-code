@@ -20,7 +20,7 @@
         "Name": ".Net Core 3.1",
         "Key": "NETCore3.1",
         "Message": null
-      }
+      },
       {
         "Name": "NodeJS Express API",
         "Key": "express-api-template",

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, isDevMode, Output} from '@angular/core';
+import {Component, EventEmitter, Inp`ut, isDevMode, Output} from '@angular/core';
 import EntitiesDetails from '../class-and-types-and-tools/entities-details';
 import {AppAssistedStepsService} from '../connection-wizard-steps/app-assisted-steps.service';
 import CrudEndpoints from '../class-and-types-and-tools/crud-endpoints';
@@ -123,7 +123,7 @@ export class StepTwoChoseTablesComponent {
         this.goForward();
       },
       err => {
-        console.error(err);
+        window.alert(err);
         this.btnDisableDataDebounce = false;
       },
       () => ''

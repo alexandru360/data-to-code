@@ -79,6 +79,7 @@ export class StepOneConnWizComponent {
       this.cfg.getConfiguration().demoConn.filter(f => f.default === true) || null;
     if (demoConn) {
       const selectedConnType = this.oForm.controls.connType.value;
+      if(demoConn.length>0)
       if (demoConn[0].connType === selectedConnType) {
         this.setValuesMariaDB(demoConn[0]);
       } else {
@@ -103,7 +104,7 @@ export class StepOneConnWizComponent {
         this.stepValid = Boolean(data.success);
       },
       error => {
-        console.log(error);
+        window.alert(error);
       });
   }
 
