@@ -31,13 +31,16 @@ jobs:
           npm install -g @angular/cli
           npm i          
           ng build --buildOptimizer=true --aot=true --outputPath=buildAngular  --prod=true
-    
-    - run: ls -lh buildAngular
+          ls -lh buildAngular
+
+    - run: |
+           cp frontend/angular/buildAngular buildAngular
+           ls -lh buildAngular
 
     - uses: actions/upload-artifact@v2
       with:
         name: angularBuild
-        path: frontend/angular/buildAngular/ 
+        path: buildAngular/ 
         retention-days: 1
   
   buildNetCore:
