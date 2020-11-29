@@ -25,6 +25,9 @@ export class StepTwoConnWizService {
     return this.httpClient.post<StepTwoResponse>(
       this.stepTwoUrl,
       body,
-      {headers: COMMON_HEADER}).pipe(timeout(300000)));
+      {headers: COMMON_HEADER})
+        .pipe(
+            timeout(300000)
+            );
   }
 }
