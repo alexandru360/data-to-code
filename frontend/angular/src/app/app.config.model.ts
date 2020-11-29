@@ -42,7 +42,7 @@ export class Urls {
   apiRootUrl: string;
   stepOneFindTables: string;
   stepTwoUrlToBeRenamed: string;
-  versionUrl:string;
+  versionUrl: string;
   
 }
 

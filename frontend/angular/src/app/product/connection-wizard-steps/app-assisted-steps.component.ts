@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PlatformLocation} from '@angular/common';
 import {AppConfigService} from '../../app.config.service';
 import {MatStepper} from '@angular/material/stepper';
+import {  realApiRootUrl } from '../class-and-types-and-tools/constants';
 
 @Component({
   selector: 'app-connection-wizard-steps',
@@ -63,7 +64,7 @@ export class AppAssistedStepsComponent implements OnInit {
     // console.log((this.location as any).location.origin);
     
     this.sitePreviewSeed = event.site;
-    this.downloadLink = `${this.cfg.getConfiguration().urls.apiRootUrl}/${event.zipGenerated}`;
+    this.downloadLink = `${realApiRootUrl(this.cfg.getConfiguration().urls.apiRootUrl)}/${event.zipGenerated}`;
     if (isDevMode()) {
       this.sitePreviewLink = `${this.cfg.getConfiguration().urls.apiRootUrl}/${event.site}`;
     } else {

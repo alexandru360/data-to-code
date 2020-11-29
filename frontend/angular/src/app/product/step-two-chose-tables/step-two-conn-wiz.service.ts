@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {AppConfigService} from '../../app.config.service';
 import {HttpClient} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
-import {COMMON_HEADER} from '../class-and-types-and-tools/constants';
+import {COMMON_HEADER, realApiRootUrl} from '../class-and-types-and-tools/constants';
 import StepTwoResponse from '../class-and-types-and-tools/step-two-response';
 import {GenerateTypes} from '../../app.config.model';
 import {timeout, catchError} from 'rxjs/operators';
@@ -17,7 +17,7 @@ export class StepTwoConnWizService {
 
   constructor(private httpClient: HttpClient,
               private cfg: AppConfigService) {
-    this.stepTwoUrl = this.cfg.getConfiguration().urls.stepTwoUrlToBeRenamed;
+    this.stepTwoUrl = realApiRootUrl(this.cfg.getConfiguration().urls.apiRootUrl) + '/' + this.cfg.getConfiguration().urls.stepTwoUrlToBeRenamed;
     this.generateTypesList = this.cfg.getConfiguration().generateTypes;
   }
 
