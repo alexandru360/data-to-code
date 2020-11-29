@@ -26,18 +26,21 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - run: | 
+    - name: build angular
+      run: | 
           cd frontend/angular
           npm install -g @angular/cli
           npm i          
           ng build --buildOptimizer=true --aot=true --outputPath=buildAngular  --prod=true
           ls -lh buildAngular
 
-    - run: |
+    - name: copy angular output
+      run: |
            cp -r frontend/angular/buildAngular buildAngular
            ls -lh buildAngular
 
-    - uses: actions/upload-artifact@v2
+    - name: make artifact angular
+      uses: actions/upload-artifact@v2
       with:
         name: angularBuild
         path: buildAngular/ 
@@ -66,7 +69,7 @@ jobs:
 
     - name: build backend
       run: | 
-          ls -lh
+          dir
           xcopy buildAngular\*.* backend\GenerateFromDB\wwwroot\ /Y /S
           cd backend
           dotnet restore
