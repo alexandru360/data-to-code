@@ -29,6 +29,7 @@ jobs:
     - run: | 
           npm install -g @angular/cli
           npm i
+          cd frontend/angular
           ng build --buildOptimizer=true --aot=true --outputPath=buildAngular  --prod=true
     
     - run: ls -lh buildAngular
@@ -36,7 +37,7 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: angularBuild
-        path: buildAngular/ 
+        path: frontend/angular/buildAngular/ 
         retention-days: 1
   
   buildNetCore:
@@ -62,6 +63,7 @@ jobs:
 
     - name: build backend
       run: | 
+          ls -lh
           xcopy buildAngular\*.* backend\GenerateFromDB\wwwroot\ /Y /S
           cd backend
           dotnet restore
