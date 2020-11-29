@@ -5,7 +5,7 @@
     <!--<UserSecretsId>4b35ebaf-6be0-420d-940b-d49258ebb257</UserSecretsId>-->
     <!--<PublishSingleFile>true</PublishSingleFile>-->
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-    <Version>2020.11.29.2126</Version>
+    <Version>2020.111.130.10026</Version>
   
 </PropertyGroup>
 

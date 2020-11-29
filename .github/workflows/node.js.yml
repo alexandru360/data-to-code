@@ -124,5 +124,5 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: WPFApp
-        path: backend/GenerateAppWPF/WPFAPP
+        path: backend/GenerateAppWPF/WPFAPPapp.publish
         retention-days: 1
