@@ -34,7 +34,7 @@ jobs:
           ls -lh buildAngular
 
     - run: |
-           cp frontend/angular/buildAngular buildAngular
+           cp -r frontend/angular/buildAngular buildAngular
            ls -lh buildAngular
 
     - uses: actions/upload-artifact@v2
