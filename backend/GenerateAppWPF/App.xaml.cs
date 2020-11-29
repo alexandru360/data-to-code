@@ -57,7 +57,7 @@ namespace GenerateAppWPF
         private void App_Startup(object sender, StartupEventArgs e)
         {
 
-            Task.Run(() =>{ StartApp();});  
+            StartApp();  
             
         }
     }
