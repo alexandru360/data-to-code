@@ -77,7 +77,7 @@ jobs:
           cd GenerateFromDB
           # dotnet publish -r win-x64 -c release --self-contained -o publish
           # dotnet publish -r win-x64 -c release -o publish -p:PublishSingleFile=true -p:PublishTrimmed=true
-          dotnet publish -r win-x64 -c release -o publish -p:PublishTrimmed=true
+          dotnet publish -r win-x64 -c release -o publish --self-contained 
           mkdir publish\wwwroot\GenerateAll\
           dir wwwroot\
           dir wwwroot\GenerateAll\
