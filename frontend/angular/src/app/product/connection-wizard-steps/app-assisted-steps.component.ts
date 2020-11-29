@@ -20,7 +20,7 @@ export class AppAssistedStepsComponent implements OnInit {
   downloadLink: string;
   sitePreviewLink: string;
   sitePreviewSeed: string;
-
+  @ViewChild(MatStepper) stepper: MatStepper;
   constructor(private formBuilder: FormBuilder,
               private location: PlatformLocation,
               private cfg: AppConfigService) {
@@ -40,9 +40,11 @@ export class AppAssistedStepsComponent implements OnInit {
   }
 
   onStepComplete1(stepComplete: boolean) {
+    
     if (stepComplete) {
       this.formGroup1.get('form1').clearValidators();
       this.formGroup1.get('form1').setErrors(null);
+      this.stepper.next();
     } else {
       this.formGroup1.get('form1').setValidators(Validators.required);
     }
