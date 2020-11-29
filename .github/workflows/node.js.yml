@@ -61,7 +61,10 @@ jobs:
         path: buildAngular
 
     #- run: dir 
-    
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.2
+      with:
+        vs-version: '[16.8.2,]'
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
@@ -108,10 +111,18 @@ jobs:
           xcopy GenerateFromDB\GenerateFromDB.zip GenerateAppWPF\GenerateFromDB.zip /Y
           cd GenerateAppWPF          
           dotnet publish -r win-x64 -c release -o WPF
-
+          msbuild  /target:publish /p:PublishProfile=Properties\PublishProfiles\DataToCode.pubxml /p:OutputPath=WPFAPP
+          
     - name: upload wpf
       uses: actions/upload-artifact@v2
       with:
         name: WPF
         path: backend/GenerateAppWPF/WPF
+        retention-days: 1
+
+    - name: upload wpf app
+      uses: actions/upload-artifact@v2
+      with:
+        name: WPF
+        path: backend/GenerateAppWPF/WPFAPP
         retention-days: 1
