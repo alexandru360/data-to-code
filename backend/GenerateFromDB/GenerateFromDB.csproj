@@ -5,7 +5,7 @@
     <UserSecretsId>4b35ebaf-6be0-420d-940b-d49258ebb257</UserSecretsId>
     <PublishSingleFile>true</PublishSingleFile>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-    
+    <Version>2020.11.29.856</Version>
   
 </PropertyGroup>
 
@@ -20,6 +20,8 @@
     <PackageReference Include="Hellang.Middleware.ProblemDetails" Version="5.1.1" />
     <PackageReference Include="NetCore2Blockly" Version="1.1.2020.27937388" />
     <PackageReference Include="ThisAssembly" Version="1.0.0" />
+    <PackageReference Include="ThisAssembly.AssemblyInfo" Version="1.0.0" />
+    <PackageReference Include="ThisAssembly.Project" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>

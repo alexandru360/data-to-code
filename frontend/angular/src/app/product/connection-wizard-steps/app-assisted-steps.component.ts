@@ -61,9 +61,9 @@ export class AppAssistedStepsComponent implements OnInit {
     // console.log((this.location as any).location);
     // console.log((this.location as any).location.href);
     // console.log((this.location as any).location.origin);
-    var prefix= this.cfg.getConfiguration().urls.prefix;
+    
     this.sitePreviewSeed = event.site;
-    this.downloadLink = `${(this.location as any).location.origin}/${prefix}${event.zipGenerated}`;
+    this.downloadLink = `${this.cfg.getConfiguration().urls.apiRootUrl}/${event.zipGenerated}`;
     if (isDevMode()) {
       this.sitePreviewLink = `${this.cfg.getConfiguration().urls.apiRootUrl}/${event.site}`;
     } else {

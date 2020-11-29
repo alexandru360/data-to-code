@@ -13,7 +13,7 @@ export class StepOneConnWizService {
   stepOneUrl: string;
   constructor(private httpClient: HttpClient,
               private cfg: AppConfigService) {
-    this.stepOneUrl = this.cfg.getConfiguration().urls.stepOneFindTables;
+    this.stepOneUrl = this.cfg.getConfiguration().urls.apiRootUrl + '/' + this.cfg.getConfiguration().urls.stepOneFindTables;
   }
 
   callStepOne(body: any): Observable<StepOneResponse> {

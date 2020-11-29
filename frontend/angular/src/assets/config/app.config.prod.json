@@ -55,9 +55,10 @@
   },
   "urls": {
     "apiRootUrl": null,
-    "stepOneFindTables": "/api/Home/FindTables",
-    "stepTwoUrlToBeRenamed": "/api/Home/generateapp",
-    "prefix":"/"
+    "stepOneFindTables": "api/Home/FindTables",
+    "stepTwoUrlToBeRenamed": "api/Home/generateapp",
+    "versionUrl":"api/Home/Version"
+    
   },
   "demoConn": [
     {

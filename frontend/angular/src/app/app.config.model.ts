@@ -42,7 +42,8 @@ export class Urls {
   apiRootUrl: string;
   stepOneFindTables: string;
   stepTwoUrlToBeRenamed: string;
-  prefix:string;
+  versionUrl:string;
+  
 }
 
 export class DemoConn extends PayloadConn {

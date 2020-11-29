@@ -1,9 +1,9 @@
-import {Component, HostListener, OnInit} from '@angular/core';
-
+import { Component, HostListener, OnInit } from '@angular/core';
+import { SiteDetailsService } from '../site-details.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
   title = 'Data to Code#';
@@ -17,12 +17,11 @@ export class HeaderComponent implements OnInit {
     this.isPhoneView = event.target.innerWidth <= 700;
   }
 
-  constructor() {
+  constructor(public  st: SiteDetailsService) {
     this.isMenuOpen = false;
-    this.onResize({target: {innerWidth: window.screen.width}});
+    this.onResize({ target: { innerWidth: window.screen.width } });
   }
-
   ngOnInit(): void {
+   
   }
-
 }
