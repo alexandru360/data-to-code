@@ -27,9 +27,9 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - run: | 
-          npm install -g @angular/cli
-          npm i
           cd frontend/angular
+          npm install -g @angular/cli
+          npm i          
           ng build --buildOptimizer=true --aot=true --outputPath=buildAngular  --prod=true
     
     - run: ls -lh buildAngular
