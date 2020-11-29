@@ -54,7 +54,7 @@
     "userStatsOtherMetrics": "security/api/userMetrics"
   },
   "urls": {
-    "apiRootUrl": null,
+    "apiRootUrl": '',
     "stepOneFindTables": "api/Home/FindTables",
     "stepTwoUrlToBeRenamed": "api/Home/generateapp",
     "versionUrl":"api/Home/Version"
