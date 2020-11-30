@@ -123,6 +123,6 @@ jobs:
     - name: upload wpf app
       uses: actions/upload-artifact@v2
       with:
-        name: WPFApp
+        name: WPFAppToDeploy
         path: backend/GenerateAppWPF/WPFAPPapp.publish
         retention-days: 1
