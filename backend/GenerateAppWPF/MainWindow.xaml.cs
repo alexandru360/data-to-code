@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -28,7 +29,8 @@ namespace GenerateAppWPF
 
         private void MainWnd_Loaded(object sender, RoutedEventArgs e)
         {
-            Title = ThisAssembly.Info.Version;
+            //does not work for now !Title = ThisAssembly.Info.Version;
+            Title =Title +"=>" +Assembly.GetExecutingAssembly().GetName().Version.ToString();
             OpenBrowser();
         }
 
