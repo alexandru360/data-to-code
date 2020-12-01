@@ -39,6 +39,7 @@ import {AuthGuard} from './security/guards/auth.guard';
 import {PasswordComponent} from './security/password/password.component';
 import {PasswordRecoveryComponent} from './security/password-recovery/password-recovery.component';
 import {RegistrationComponent} from './security/registration/registration.component';
+import { MoreComponent } from './more/more.component';
 
 // tslint:disable-next-line:typedef
 export function ConfigLoader(configService: AppConfigService) {
@@ -59,7 +60,8 @@ export function ConfigLoader(configService: AppConfigService) {
     AboutComponent,
     PasswordComponent,
     PasswordRecoveryComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    MoreComponent
   ],
   imports: [
     AppRoutingModule,
