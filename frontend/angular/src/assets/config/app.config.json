@@ -1,9 +1,6 @@
 {
   "connTypes": [
-    {
-      "Name": "Excel",
-      "Key": "XLS"
-    },
+    
     {
       "Name": "Microsoft SQL Server",
       "Key": "MSSQL"

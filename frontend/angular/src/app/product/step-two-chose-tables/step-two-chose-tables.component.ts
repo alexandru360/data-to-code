@@ -123,7 +123,7 @@ export class StepTwoChoseTablesComponent {
         this.goForward();
       },
       err => {
-        window.alert(err);
+        window.alert("error:" + JSON.stringify(err));
         this.btnDisableDataDebounce = false;
       },
       () => ''

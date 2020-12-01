@@ -99,7 +99,7 @@ export class StepOneConnWizComponent {
     this.payloadConn.connUser = this.oForm.controls.connUser.value;
     this.payloadConn.connPassword = this.oForm.controls.connPassword.value;
     this.payloadConn.connDatabase = this.oForm.controls.connDatabase.value;
-
+    
     this.srvWiz.callStepOne(this.payloadConn).subscribe(data => {
         this.srvCommon.arrEntityDetailsSubject.next(data.input);
         this.srvCommon.connPayloadSubject.next(this.payloadConn);
@@ -108,7 +108,7 @@ export class StepOneConnWizComponent {
         this.stepValid = Boolean(data.success);
       },
       error => {
-        window.alert(error);
+        window.alert("error connecting:"+ JSON.stringify(error));
       });
   }
 

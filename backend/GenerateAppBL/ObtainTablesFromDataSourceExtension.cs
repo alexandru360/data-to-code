@@ -131,7 +131,8 @@ namespace GenerateApp.Controllers
                 var res = new TablesFromDataSource();
                 res.Success = false;
                 res.error = connection + "!!!" + ex.Message + "!!" + ex.StackTrace;
-                return res;
+                throw new ArgumentException(res.error);
+                //return res;
             }
         }
 
@@ -207,7 +208,8 @@ namespace GenerateApp.Controllers
             catch
             {
                 ret.error = $" cannot parse conn type {val} ";
-                return ret;
+                throw new ArgumentException(ret.error);
+                //return ret;
             }
             try
             {
@@ -241,7 +243,8 @@ namespace GenerateApp.Controllers
             {
                 ret.error = connection;
                 ret.error += "!!!" + ex.Message + "!!!" + ex.StackTrace;
-                return ret;
+                throw;
+                //return ret;
             }
         }
     }
