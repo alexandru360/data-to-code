@@ -75,6 +75,8 @@ jobs:
           dir
           xcopy buildAngular\*.* backend\GenerateFromDB\wwwroot\ /Y /S
           cd backend
+          dotnet tool restore
+          dotnet pwsh -File ./configuration.ps1
           dotnet restore
           dotnet build
           cd GenerateFromDB
@@ -110,6 +112,7 @@ jobs:
           # del GenerateAppWPF\GenerateFromDB.zip 
           xcopy GenerateFromDB\GenerateFromDB.zip GenerateAppWPF\GenerateFromDB.zip /Y
           cd GenerateAppWPF          
+          dotnet build
           dotnet publish -r win-x64 -c release -o WPF
           msbuild  /target:publish /p:PublishProfile=Properties\PublishProfiles\DataToCode.pubxml /p:OutputPath=WPFAPP
           
