@@ -17,5 +17,9 @@
     <Content Include="GenerateFromDB.zip">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ThisAssembly.AssemblyInfo" Version="1.0.0" />
   </ItemGroup> 
 </Project>
