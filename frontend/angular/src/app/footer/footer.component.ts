@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { SiteDetailsService } from '../site-details.service';
+import {SiteDetailsService} from '../site-details.service';
 
 @Component({
   selector: 'app-footer',
@@ -9,19 +9,21 @@ import { SiteDetailsService } from '../site-details.service';
 export class FooterComponent implements OnInit {
 
   public version = '';
-  constructor(public  st: SiteDetailsService) { }
+
+  constructor(public  st: SiteDetailsService) {
+  }
 
   ngOnInit(): void {
     this.st.versionApp().subscribe({
       next: (result: string) => {
-        this.version=result;
+        this.version = result;
       },
       error: (err: any) => {
         console.log(err);
-        window.alert('no backend available');
+        // window.alert('no backend available');
       },
       complete: () => {
-        console.log('complete');
+        // console.log('complete');
       },
     });
   }

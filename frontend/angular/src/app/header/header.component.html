@@ -1,15 +1,4 @@
 <mat-toolbar color="primary">
-  <!--  <mat-toolbar-row>-->
-  <!--    <button mat-button class="menu-button" (click)="sidenav.toggle()">-->
-  <!--      <mat-icon>{{ isMenuOpen ? 'menu_open' : 'menu' }}</mat-icon>-->
-  <!--    </button>-->
-
-  <!--    <a mat-flat-button color="primary" routerLink="/">-->
-  <!--      <span>{{title}}</span>-->
-  <!--    </a>-->
-
-  <!--  </mat-toolbar-row>-->
-
   <mat-toolbar-row
     [style.height]="!isPhoneView ? '130px' : '95px'">
     <span class="menu-spacer"></span>
@@ -28,8 +17,8 @@
     <div *ngIf="!isPhoneView">
       <a mat-button routerLink="/home">Home</a>
       <a mat-button routerLink="/demo">Demo</a>
+      <a mat-button routerLink="/more">More</a>
       <a mat-button routerLink="/about">About</a>
-      <a mat-button routerLink="/more">More</a>      
       <a mat-button *ngIf="false" routerLink="/contact">Contact</a>
     </div>
 
@@ -43,7 +32,7 @@
     <a mat-button routerLink="/home">Home</a>
     <a mat-button routerLink="/demo">Demo</a>
     <a mat-button routerLink="/about">About</a>
-    <a mat-button routerLink="/more">More</a> 
+    <a mat-button routerLink="/more">More</a>
     <a mat-button *ngIf="false" routerLink="/contact">Contact</a>
 
   </mat-sidenav>

@@ -1,3 +1,14 @@
+.row-line{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+}
+
+.card-border {
+  width: fit-content;
+  margin: 10px;
+}
+
 .full-width {
   width: 100%;
 }
