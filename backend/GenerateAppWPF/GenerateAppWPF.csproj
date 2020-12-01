@@ -6,6 +6,7 @@
     <UseWPF>true</UseWPF>
     <StartupObject>GenerateAppWPF.App</StartupObject>
     <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
+    <Version>2020.12.1.1638</Version>
   </PropertyGroup>
 
   <ItemGroup>

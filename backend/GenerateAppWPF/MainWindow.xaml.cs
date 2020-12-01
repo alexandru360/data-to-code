@@ -28,6 +28,7 @@ namespace GenerateAppWPF
 
         private void MainWnd_Loaded(object sender, RoutedEventArgs e)
         {
+            Title = ThisAssembly.Info.Version;
             OpenBrowser();
         }
 
