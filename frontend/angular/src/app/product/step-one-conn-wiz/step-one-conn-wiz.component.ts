@@ -50,6 +50,7 @@ export class StepOneConnWizComponent {
     this.mustUploadFile = mustUpload;
     if (mustUpload) {
       this.oForm.get('connFile').setValidators(Validators.required);
+
       // Other controls have no validation
       this.oForm.get('connHost').clearValidators();
       this.oForm.get('connHost').setErrors(null);
@@ -79,15 +80,13 @@ export class StepOneConnWizComponent {
       this.cfg.getConfiguration().demoConn.filter(f => f.default === true) || null;
     if (demoConn) {
       const selectedConnType = this.oForm.controls.connType.value;
-      if(demoConn.length>0)
-      {
-        for(var i=0;i<demoConn.length;i++){
-          if (demoConn[i].connType === selectedConnType) {
-            this.setValuesToConnection(demoConn[i]);
-          } else {
-            this.setValuesToConnection(new DemoConn());
-          }
-      }
+      if (demoConn.length > 0) {
+        const cnn: DemoConn[] = demoConn.filter(f => f.connType === selectedConnType);
+        if (cnn.length > 0) {
+          this.setValuesToConnection(cnn[0]);
+        } else {
+          this.setValuesToConnection(new DemoConn());
+        }
       }
     }
   }
@@ -99,7 +98,7 @@ export class StepOneConnWizComponent {
     this.payloadConn.connUser = this.oForm.controls.connUser.value;
     this.payloadConn.connPassword = this.oForm.controls.connPassword.value;
     this.payloadConn.connDatabase = this.oForm.controls.connDatabase.value;
-    
+
     this.srvWiz.callStepOne(this.payloadConn).subscribe(data => {
         this.srvCommon.arrEntityDetailsSubject.next(data.input);
         this.srvCommon.connPayloadSubject.next(this.payloadConn);
@@ -108,7 +107,7 @@ export class StepOneConnWizComponent {
         this.stepValid = Boolean(data.success);
       },
       error => {
-        window.alert("error connecting:"+ JSON.stringify(error));
+        window.alert('error connecting: ' + JSON.stringify(error));
       });
   }
 
@@ -142,11 +141,5 @@ export class StepOneConnWizComponent {
     this.oForm.get('connUser').setValue(conn.connUser);
     this.oForm.get('connPassword').setValue(conn.connPassword);
     this.oForm.get('connDatabase').setValue(conn.connDatabase);
-
-    // this.oForm.get('connHost').setValue('19.19.19.111');
-    // this.oForm.get('connPort').setValue('3306');
-    // this.oForm.get('connUser').setValue('root');
-    // this.oForm.get('connPassword').setValue('datatocode');
-    // this.oForm.get('connDatabase').setValue('test_schema');
   }
 }
