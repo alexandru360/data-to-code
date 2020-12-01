@@ -1,25 +1,21 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <StartupObject>GenerateAppWPF.App</StartupObject>
     <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
-    <Version>2020.12.1.1638</Version>
+    <Version>2020.12.1.2131</Version>
   </PropertyGroup>
-
   <ItemGroup>
     <None Remove="GenerateFromDB.zip" />
   </ItemGroup>
-
   <ItemGroup>
     <Content Include="GenerateFromDB.zip">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="ThisAssembly.AssemblyInfo" Version="1.0.0" />
-  </ItemGroup> 
+  </ItemGroup>
 </Project>

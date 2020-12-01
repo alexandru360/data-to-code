@@ -1,1 +1,1 @@
-wt --maximized --title DataToCode -d frontend/angular ; split-pane -d backend/GenerateFromDB      
+wt --title DataToCode -d frontend/angular ; split-pane -d backend/GenerateFromDB      
