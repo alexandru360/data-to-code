@@ -18,6 +18,13 @@ namespace GenerateAppWPF
     /// </summary>
     public partial class App : Application
     {
+        internal static string version;
+        static string folderAspNet;
+        static App()
+        {
+            version = Assembly.GetExecutingAssembly().GetName().Version.ToString(); ;
+            folderAspNet = Path.Combine(Path.GetTempPath(), version);
+        }
         private static Process process;
         public static void StartApp()
         {
@@ -27,7 +34,7 @@ namespace GenerateAppWPF
                 {
                     process.Kill(true);
                 }
-                var dir = Path.Combine(Environment.CurrentDirectory, "publish");
+                var dir = Path.Combine(folderAspNet, "publish");
                 var psi = new ProcessStartInfo(Path.Combine(dir, "GenerateFromDb.exe"));
                 psi.WorkingDirectory = dir;
                 psi.CreateNoWindow = true;
@@ -42,8 +49,11 @@ namespace GenerateAppWPF
         }
         public App()
         {
-            Console.WriteLine("start");
-            ZipFile.ExtractToDirectory("GenerateFromDB.zip", ".", true);
+
+            if (!Directory.Exists(folderAspNet))
+            {
+                ZipFile.ExtractToDirectory("GenerateFromDB.zip", folderAspNet, true);
+            }
             this.Startup += App_Startup;
             this.Exit += App_Exit;
         }

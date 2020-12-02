@@ -30,7 +30,7 @@ namespace GenerateAppWPF
         private void MainWnd_Loaded(object sender, RoutedEventArgs e)
         {
             //does not work for now !Title = ThisAssembly.Info.Version;
-            Title =Title +"=>" +Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            Title =Title +"=>" + App.version;
             OpenBrowser();
         }
 
@@ -48,9 +48,10 @@ namespace GenerateAppWPF
             Process.Start(psi);
 
         }
-        private void btnOpenBrowser_Click(object sender, RoutedEventArgs e)
+        private async void btnOpenBrowser_Click(object sender, RoutedEventArgs e)
         {
             App.StartApp();
+            await Task.Delay(1000);
             OpenBrowser();
         }
     }
