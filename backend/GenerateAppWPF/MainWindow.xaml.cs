@@ -42,7 +42,7 @@ namespace GenerateAppWPF
         }
         private void btnAbout_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(" Made by Andrei Ignat & Alexandru Badita.Please visit https://data-to-code.eu/about ")
+            MessageBox.Show(" Made by Andrei Ignat & Alexandru Badita.Please visit https://data-to-code.eu/about ");
         }
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {

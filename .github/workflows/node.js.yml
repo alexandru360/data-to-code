@@ -88,17 +88,6 @@ jobs:
           
     #- run: dir 
 
-    - name: build backend mac
-      run: | 
-          dir
-          cd backend
-          cd GenerateFromDB
-          dotnet build -r osx-x64
-          dotnet publish -r osx-x64 -c release -o publishMac --self-contained 
-          mkdir publishMac\wwwroot\GenerateAll\
-          dir wwwroot\
-          dir wwwroot\GenerateAll\
-          xcopy wwwroot\GenerateAll publishMac\wwwroot\GenerateAll /S
     
     - name: upload asp.net core  Win
       uses: actions/upload-artifact@v2
@@ -107,12 +96,6 @@ jobs:
         path: backend/GenerateFromDB/publish 
         retention-days: 1
 
-    - name: upload asp.net core Mac
-      uses: actions/upload-artifact@v2
-      with:
-        name: aspnetCoreMac
-        path: backend/GenerateFromDB/publishMac 
-        retention-days: 1
 
     - name: upload zip with .net core
       uses: actions/upload-artifact@v2
@@ -143,4 +126,23 @@ jobs:
       with:
         name: WPFAppToDeploy
         path: backend/GenerateAppWPF/WPFAPPapp.publish
+        retention-days: 1
+
+    - name: build backend mac
+      run: | 
+          dir
+          cd backend
+          cd GenerateFromDB
+          dotnet build -r osx-x64
+          dotnet publish -r osx-x64 -c release -o publishMac --self-contained 
+          mkdir publishMac\wwwroot\GenerateAll\
+          dir wwwroot\
+          dir wwwroot\GenerateAll\
+          xcopy wwwroot\GenerateAll publishMac\wwwroot\GenerateAll /S
+
+    - name: upload asp.net core Mac
+      uses: actions/upload-artifact@v2
+      with:
+        name: aspnetCoreMac
+        path: backend/GenerateFromDB/publishMac 
         retention-days: 1
