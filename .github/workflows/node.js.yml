@@ -80,6 +80,18 @@ jobs:
           # dotnet publish -r win-x64 -c release --self-contained -o publish
           # dotnet publish -r win-x64 -c release -o publish -p:PublishSingleFile=true -p:PublishTrimmed=true
           dotnet publish -r win-x64 -c release -o publish --self-contained 
+
+          dotnet publish -r osx-x64 -c release -o publishMac --self-contained 
+          
+          # add template to mac
+          
+          mkdir publishMac\wwwroot\GenerateAll\
+          dir wwwroot\
+          dir wwwroot\GenerateAll\
+          xcopy wwwroot\GenerateAll publishMac\wwwroot\GenerateAll /S
+
+          # add template to win
+
           mkdir publish\wwwroot\GenerateAll\
           dir wwwroot\
           dir wwwroot\GenerateAll\
@@ -128,17 +140,17 @@ jobs:
         path: backend/GenerateAppWPF/WPFAPPapp.publish
         retention-days: 1
 
-    - name: build backend mac
-      run: | 
-          dir
-          cd backend
-          cd GenerateFromDB
-          dotnet build -r osx-x64
-          dotnet publish -r osx-x64 -c release -o publishMac --self-contained 
-          mkdir publishMac\wwwroot\GenerateAll\
-          dir wwwroot\
-          dir wwwroot\GenerateAll\
-          xcopy wwwroot\GenerateAll publishMac\wwwroot\GenerateAll /S
+    # - name: build backend mac
+    #   run: | 
+    #       dir
+    #       cd backend
+    #       cd GenerateFromDB
+    #       dotnet build -r osx-x64
+    #       dotnet publish -r osx-x64 -c release -o publishMac --self-contained 
+    #       mkdir publishMac\wwwroot\GenerateAll\
+    #       dir wwwroot\
+    #       dir wwwroot\GenerateAll\
+    #       xcopy wwwroot\GenerateAll publishMac\wwwroot\GenerateAll /S
 
     - name: upload asp.net core Mac
       uses: actions/upload-artifact@v2
