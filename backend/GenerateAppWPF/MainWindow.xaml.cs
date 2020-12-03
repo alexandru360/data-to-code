@@ -29,11 +29,21 @@ namespace GenerateAppWPF
 
         private void MainWnd_Loaded(object sender, RoutedEventArgs e)
         {
-            //does not work for now !Title = ThisAssembly.Info.Version;
-            Title =Title +"=>" + App.version;
-            OpenBrowser();
+            try
+            {
+                //does not work for now !Title = ThisAssembly.Info.Version;
+                Title = Title + "=>" + App.version;
+                OpenBrowser();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Exception {ex.Message}");
+            }
         }
-
+        private void btnAbout_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(" Made by Andrei Ignat & Alexandru Badita.Please visit https://data-to-code.eu/about ")
+        }
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -50,9 +60,16 @@ namespace GenerateAppWPF
         }
         private async void btnOpenBrowser_Click(object sender, RoutedEventArgs e)
         {
-            App.StartApp();
-            await Task.Delay(1000);
-            OpenBrowser();
+            try
+            {
+                App.StartApp();
+                await Task.Delay(1000);
+                OpenBrowser();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Exception {ex.Message}");
+            }
         }
     }
 }

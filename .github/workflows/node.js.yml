@@ -1,7 +1,4 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
-name: Node.js CI
+name: Automatic Build Generator
 
 on:
   push:
@@ -70,7 +67,7 @@ jobs:
       with:
         dotnet-version: 5.0.100 #3.1.301
 
-    - name: build backend
+    - name: build backend windows
       run: | 
           dir
           xcopy buildAngular\*.* backend\GenerateFromDB\wwwroot\ /Y /S
@@ -91,12 +88,30 @@ jobs:
           
     #- run: dir 
 
+    - name: build backend mac
+      run: | 
+          dir
+          cd backend
+          dotnet build -r osx-x64
+          cd GenerateFromDB
+          dotnet publish -r osx-x64 -c release -o publishMac --self-contained 
+          mkdir publishMac\wwwroot\GenerateAll\
+          dir wwwroot\
+          dir wwwroot\GenerateAll\
+          xcopy wwwroot\GenerateAll publishMac\wwwroot\GenerateAll /S
     
-    - name: upload asp.net core 
+    - name: upload asp.net core  Win
       uses: actions/upload-artifact@v2
       with:
-        name: aspnetCore
+        name: aspnetCoreWindows
         path: backend/GenerateFromDB/publish 
+        retention-days: 1
+
+    - name: upload asp.net core Mac
+      uses: actions/upload-artifact@v2
+      with:
+        name: aspnetCoreMac
+        path: backend/GenerateFromDB/publishMac 
         retention-days: 1
 
     - name: upload zip with .net core
