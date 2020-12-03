@@ -22,9 +22,15 @@ namespace GenerateAppWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        public Options options;
         public MainWindow()
         {
             InitializeComponent();
+            options = new Options();
+            options.PathApp = App.folderAspNet;
+            options.Url = "http://localhost:5000/";
+            this.DataContext = options;
+            
         }
 
         private void MainWnd_Loaded(object sender, RoutedEventArgs e)
@@ -33,7 +39,7 @@ namespace GenerateAppWPF
             {
                 //does not work for now !Title = ThisAssembly.Info.Version;
                 Title = Title + "=>" + App.version;
-                OpenBrowser();
+                btnOpenBrowser_Click(btnOpenBrowser, e);
             }
             catch (Exception ex)
             {
@@ -48,9 +54,9 @@ namespace GenerateAppWPF
         {
             this.Close();
         }
-        private void OpenBrowser()
+        private void OpenBrowser(Options opt)
         {
-            var psi = new ProcessStartInfo("http://localhost:5000/index.html")
+            var psi = new ProcessStartInfo(opt.Url)
             {
                 UseShellExecute = true,
                 Verb = "open"
@@ -62,9 +68,9 @@ namespace GenerateAppWPF
         {
             try
             {
-                App.StartApp();
+                App.StartApp(options);
                 await Task.Delay(1000);
-                OpenBrowser();
+                OpenBrowser(options);
             }
             catch (Exception ex)
             {

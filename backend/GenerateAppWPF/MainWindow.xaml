@@ -13,7 +13,14 @@
         </Grid.ColumnDefinitions>
         <Button x:Name="btnClose" Content="Close" HorizontalAlignment="Left" Margin="30,303,0,0" VerticalAlignment="Top" Width="181" Height="70" Click="btnClose_Click" IsCancel="True" AutomationProperties.AcceleratorKey="C"/>
         <Button x:Name="btnAbout" Content="About" HorizontalAlignment="Left" Margin="400,303,0,0" VerticalAlignment="Top" Width="181" Height="70" Click="btnAbout_Click" IsCancel="False" AutomationProperties.AcceleratorKey="A"/>
-        <Button x:Name="btnOpenBrowser" Content="Open Application" HorizontalAlignment="Left" Margin="30,64,0,0" VerticalAlignment="Top" Height="70" Width="181" Click="btnOpenBrowser_Click" AutomationProperties.AcceleratorKey="O"/>
+        <Button x:Name="btnOpenBrowser" Content="Open Application" HorizontalAlignment="Left" Margin="400,88,0,0" VerticalAlignment="Top" Height="70" Width="181" Click="btnOpenBrowser_Click" AutomationProperties.AcceleratorKey="O"/>
+        <TextBox x:Name="txtPath" 
+                 Text="{Binding Path=PathApp}"
+                 HorizontalAlignment="Left" Margin="39,128,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="268" IsReadOnly="True"/>
+        <TextBox x:Name="txtUrl" 
+                 Text="{Binding Path=Url}"
+                 HorizontalAlignment="Left" Margin="39,94,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="268"/>
+        <Label Content="Settings" HorizontalAlignment="Left" Margin="39,59,0,0" VerticalAlignment="Top" Width="185"/>
 
 
     </Grid>
