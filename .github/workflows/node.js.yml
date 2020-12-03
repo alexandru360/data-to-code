@@ -81,7 +81,7 @@ jobs:
           # dotnet publish -r win-x64 -c release -o publish -p:PublishSingleFile=true -p:PublishTrimmed=true
           dotnet publish -r win-x64 -c release -o publish --self-contained 
 
-          dotnet publish -r osx-x64 -c release -o publishMac --self-contained 
+          dotnet publish -r osx-x64 -c debug -o publishMac --self-contained -p:UseAppHost=true
           
           # add template to mac
           
