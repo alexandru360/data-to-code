@@ -92,8 +92,8 @@ jobs:
       run: | 
           dir
           cd backend
-          dotnet build -r osx-x64
           cd GenerateFromDB
+          dotnet build -r osx-x64
           dotnet publish -r osx-x64 -c release -o publishMac --self-contained 
           mkdir publishMac\wwwroot\GenerateAll\
           dir wwwroot\
