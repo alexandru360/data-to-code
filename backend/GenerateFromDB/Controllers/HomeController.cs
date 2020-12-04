@@ -34,7 +34,8 @@ namespace GenerateFromDB.Controllers
     [HttpPost]
     public async Task<TablesFromDataSource> FindTables([FromBody] PayLoadConn payLoadConn)
     {
-      return await payLoadConn.FromPayloadConn();
+            var q=await payLoadConn.FromPayloadConn();
+            return q;
     }
     [HttpGet]
     public Output[] Templates()

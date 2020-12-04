@@ -12,8 +12,9 @@
     var host =  dtOptions.Rows.Find("DataSourceConnectionHost")?[1]?.ToString();
     var user =  dtOptions.Rows.Find("DataSourceConnectionUser")?[1]?.ToString();
     var pwd =  dtOptions.Rows.Find("DataSourceConnectionPassword")?[1]?.ToString();
-    var db =  dtOptions.Rows.Find("DataSourceConnectionDatabase")?[1]?.ToString();
+    var db =  dtOptions.Rows.Find("DataSourceConectionDatabase")?[1]?.ToString();
     var port =  dtOptions.Rows.Find("DataSourceConnectionPort")?[1]?.ToString();
+    var integratedSecurity =  dtOptions.Rows.Find("DataSourceIntegratedSecurity")?[1]?.ToString();
     
 
     var nrRowsDS=ds.Rows.Count;
@@ -84,7 +85,8 @@
         "password": "@(pwd)",
         "database": "@(db)",
         "port": @(port),
-        "logging": true
+        "logging": true,
+        "trustedConnection": @(integratedSecurity)
       },
       "schema": "",
       "timezone": "+02:00"

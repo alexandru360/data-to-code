@@ -206,19 +206,19 @@ namespace GenerateApp.Controllers
                         dtOptions.Rows.Add("DataSourceConnectionUser", this.GenerateAppV1.payLoadConn.connUser);
                         dtOptions.Rows.Add("DataSourceConnectionPassword", this.GenerateAppV1.payLoadConn.connPassword);
                         dtOptions.Rows.Add("DataSourceConnectionDatabase", this.GenerateAppV1.payLoadConn.connDatabase);
+                        dtOptions.Rows.Add("DataSourceIntegratedSecurity", this.GenerateAppV1.payLoadConn.connIntegratedSecurity);
                         string port = this.GenerateAppV1.payLoadConn.connPort;
-                        if (string.IsNullOrWhiteSpace(port))
-                        {
-                            switch (sourceData)
-                            {
-                                case connTypes.MSSQL:
-                                    port = "1433";
-                                    break;
-                                default:
-                                    port = $"unknown default port for {sourceData}";
-                                    break;
-                            }
-                        }
+                        //if (string.IsNullOrWhiteSpace(port))
+                        //{
+                        //    switch (sourceData)
+                        //    {
+                        //        case connTypes.MSSQL:                                    
+                        //            break;
+                        //        default:
+                        //            port = $"unknown default port for {sourceData}";
+                        //            break;
+                        //    }
+                        //}
                         dtOptions.Rows.Add("DataSourceConnectionPort", port);
                         // make here the generated id
                         for (int iRowDS = nrRowsDS - 1; iRowDS > -1; iRowDS--)

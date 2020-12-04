@@ -38,6 +38,7 @@ namespace GenerateApp.Controllers
                 null => "does not exist ",
                 string s when s.Contains("int",StringComparison.InvariantCultureIgnoreCase) => "number",
                 string s when s.Contains("double", StringComparison.InvariantCultureIgnoreCase) => "number",
+                
                 string s when s.Contains("varchar", StringComparison.InvariantCultureIgnoreCase) => "string",
                 string s when s.Contains("text", StringComparison.InvariantCultureIgnoreCase) => "string",
                 string s when s.Contains("mediumtext", StringComparison.InvariantCultureIgnoreCase) => "string",
@@ -48,7 +49,7 @@ namespace GenerateApp.Controllers
                 string s when s.Contains("blob", StringComparison.InvariantCultureIgnoreCase) => "byte[]",
                 string s when s.Contains("timestamp", StringComparison.InvariantCultureIgnoreCase) => "date",
                 string s when s.Contains("decimal", StringComparison.InvariantCultureIgnoreCase) => "number",
-
+                string s when s.Contains("char", StringComparison.InvariantCultureIgnoreCase) => "string",
                 _ => notFoundType(originalType)
             };
         private string notFoundType(string t)
