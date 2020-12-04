@@ -82,7 +82,7 @@ jobs:
           dotnet publish -r win-x64 -c release -o publish --self-contained 
           
           echo 'publish mac'
-          dotnet publish -r osx-x64 -c debug -o publishMac --self-contained -p:UseAppHost=true
+          dotnet publish -r osx-x64 -c debug -o publishMac -p:UseAppHost=true
           
           # add template to mac
           
