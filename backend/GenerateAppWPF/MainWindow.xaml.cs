@@ -52,7 +52,7 @@ namespace GenerateAppWPF
             {
                 var msg = $@"
                 Made by Andrei Ignat & Alexandru Badita.
-                Please visit https://github.com/alexandru360/data-to-code"
+                Please visit https://github.com/alexandru360/data-to-code";
 
                 var res = MessageBox.Show(msg, "Do you want to give us a star on the github repo ?", MessageBoxButton.YesNo);
                 if (res != MessageBoxResult.Yes)
