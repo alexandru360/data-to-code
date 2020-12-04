@@ -82,7 +82,7 @@
       "connFileName": null,
       "connFileContent": null,
       "connHost": ".",
-      "connPort": "1433",
+      "connPort": "",
       "connUser": "sa",
       "connDatabase": "tests",
       "connPassword": "yourStrong(!)Password",
