@@ -67,7 +67,7 @@ jobs:
       with:
         dotnet-version: 5.0.100 #3.1.301
 
-    - name: build backend windows
+    - name: build backend 
       run: | 
           dir
           xcopy buildAngular\*.* backend\GenerateFromDB\wwwroot\ /Y /S
@@ -80,7 +80,8 @@ jobs:
           # dotnet publish -r win-x64 -c release --self-contained -o publish
           # dotnet publish -r win-x64 -c release -o publish -p:PublishSingleFile=true -p:PublishTrimmed=true
           dotnet publish -r win-x64 -c release -o publish --self-contained 
-
+          
+          echo 'publish mac'
           dotnet publish -r osx-x64 -c debug -o publishMac --self-contained -p:UseAppHost=true
           
           # add template to mac
@@ -122,10 +123,12 @@ jobs:
           # del GenerateAppWPF\GenerateFromDB.zip 
           xcopy GenerateFromDB\GenerateFromDB.zip GenerateAppWPF\GenerateFromDB.zip /Y
           cd GenerateAppWPF          
+          
           dotnet build
           dotnet publish -r win-x64 -c release -o WPF
           msbuild  /target:publish /p:PublishProfile=Properties\PublishProfiles\DataToCode.pubxml /p:OutputPath=WPFAPP
-          
+          copy WPFAPP\GenerateAppWPF.application WPFAPP\GenerateAppWPF_.application
+
     - name: upload wpf
       uses: actions/upload-artifact@v2
       with:

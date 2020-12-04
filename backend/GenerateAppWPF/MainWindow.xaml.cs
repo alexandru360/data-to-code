@@ -30,7 +30,7 @@ namespace GenerateAppWPF
             options.PathApp = App.folderAspNet;
             options.Url = "http://localhost:5000/";
             this.DataContext = options;
-            
+
         }
 
         private void MainWnd_Loaded(object sender, RoutedEventArgs e)
@@ -48,7 +48,26 @@ namespace GenerateAppWPF
         }
         private void btnAbout_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(" Made by Andrei Ignat & Alexandru Badita.Please visit https://data-to-code.eu/about ");
+            try
+            {
+                var msg = $@"
+                Made by Andrei Ignat & Alexandru Badita.
+                Please visit https://github.com/alexandru360/data-to-code"
+
+                var res = MessageBox.Show(msg, "Do you want to give us a star on the github repo ?", MessageBoxButton.YesNo);
+                if (res != MessageBoxResult.Yes)
+                    return;
+                var psi = new ProcessStartInfo("https://github.com/alexandru360/data-to-code")
+                {
+                    UseShellExecute = true,
+                    Verb = "open"
+                };
+                Process.Start(psi);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Exception {ex.Message}");
+            }
         }
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
