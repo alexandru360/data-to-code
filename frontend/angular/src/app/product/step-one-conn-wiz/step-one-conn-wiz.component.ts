@@ -37,6 +37,7 @@ export class StepOneConnWizComponent {
       connHost: [null, Validators.required],
       connPort: [null, Validators.required],
       connUser: [null, Validators.required],
+      connIntegratedSecurity:[false],
       connPassword: [null, Validators.required],
       connDatabase: [null, Validators.compose([
         Validators.required, Validators.minLength(3),
@@ -98,7 +99,8 @@ export class StepOneConnWizComponent {
     this.payloadConn.connUser = this.oForm.controls.connUser.value;
     this.payloadConn.connPassword = this.oForm.controls.connPassword.value;
     this.payloadConn.connDatabase = this.oForm.controls.connDatabase.value;
-
+    this.payloadConn.connIntegratedSecurity=this.oForm.controls.connIntegratedSecurity.value || false;
+    
     this.srvWiz.callStepOne(this.payloadConn).subscribe(data => {
         this.srvCommon.arrEntityDetailsSubject.next(data.input);
         this.srvCommon.connPayloadSubject.next(this.payloadConn);

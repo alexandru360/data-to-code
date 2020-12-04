@@ -36,6 +36,7 @@ export class PayloadConn {
   connUser: string;
   connPassword: string;
   connDatabase: string;
+  connIntegratedSecurity: boolean;
 }
 
 export class Urls {

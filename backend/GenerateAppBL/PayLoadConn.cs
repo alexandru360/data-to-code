@@ -260,7 +260,7 @@ namespace GenerateApp.Controllers
         public string connPassword { get; set; }
         public string connDatabase { get; set; }
         public string connPort { get; set; }
-        public bool IntegratedSecurity { get; set; }
+        public bool connIntegratedSecurity { get; set; }
     }
     public enum connTypes
     {

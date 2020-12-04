@@ -184,7 +184,7 @@ namespace GenerateApp.Controllers
                         sqlConStr.InitialCatalog = payLoadConn.connDatabase;
                         sqlConStr.UserID = payLoadConn.connUser;
                         sqlConStr.Password = payLoadConn.connPassword;
-                        sqlConStr.IntegratedSecurity = payLoadConn.IntegratedSecurity;           
+                        sqlConStr.IntegratedSecurity = payLoadConn.connIntegratedSecurity;           
                         return sqlConStr.ConnectionString;
                     }
 
