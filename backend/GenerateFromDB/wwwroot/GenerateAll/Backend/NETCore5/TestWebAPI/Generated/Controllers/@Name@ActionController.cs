@@ -135,7 +135,11 @@ namespace TestWebAPI.Controllers
 
             return id;
         }
-
+        [HttpPost]
+        public Task<(long,@(nameClass)[])> SearchPaginated(@(nameClass)_Search search)
+        {
+            return _repository.SearchPaginated(search);
+        }
        
     }
 }

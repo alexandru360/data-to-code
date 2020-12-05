@@ -326,9 +326,13 @@ namespace TestWEBAPI_DAL
             await databaseContext.SaveChangesAsync();
             return p;
         }
-        public Task<(int numberRecordsFound, @(nameClass)[] results)> SearchPaginated(SearchModel<@(nameClass)> search)
+        public async Task<(long numberRecordsFound, @(nameClass)[] results)> SearchPaginated(SearchModel<@(nameClass)> search)
         {
-            throw new NotImplementedException();
+            var query = search.GetSearch(databaseContext.@(nameClass));
+            var nr = await query.LongCountAsync();
+            var data = await query.ToArrayAsync();
+            return (nr, data);
+         
         }
        
     }
