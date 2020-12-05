@@ -55,6 +55,47 @@ using TestWebAPI_BL;
 
 namespace TestWEBAPI_DAL
 {
+    public partial class (@nameClass)_Search: SearchModel
+    {
+
+        
+        protected override void ArrangeDefaults()
+        {
+            base.ArrangeDefaults();
+            if ((OrderBys?.Length ?? 0) == 0)
+            {
+                OrderBys = new OrderBy[1]
+                {
+                    new OrderBy()
+                    {
+                        Ascending=false,
+                        Field = "id"
+                    }
+                };
+            }
+        }
+        public IQueryable<(@nameClass)> GetSearch(IQueryable<(@nameClass)> data)
+        {
+            if(this.SearchFields?.Length > 0)
+            {
+                foreach(var sf in this.SearchFields)
+                {
+                    switch (sf.Field)
+                    {
+                        case "iddepartment":
+                            var val = int.Parse(sf.Value);
+                            data = data.Where(it => it.iddepartment == val);
+                            break;
+                        default:
+                            throw new ArgumentException($"cannot find {sf.Field} in search at {nameof(dboDepartment_Search)} ");
+                    }
+                }
+            }
+            return null;
+        }
+    }
+
+
     public partial class @repoName @Raw(repoInterface)
     {
         private readonly DatabaseContext databaseContext;

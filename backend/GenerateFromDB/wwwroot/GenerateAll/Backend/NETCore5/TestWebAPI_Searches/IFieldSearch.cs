@@ -1,6 +1,6 @@
 ﻿namespace TestWebAPI_Searches
 {
-    public interface IFieldSearch
+    public interface IField
 
     {
         string Name { get; }

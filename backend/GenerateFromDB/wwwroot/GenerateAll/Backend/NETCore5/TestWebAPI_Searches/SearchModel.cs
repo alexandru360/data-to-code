@@ -8,11 +8,11 @@ namespace TestWebAPI_Searches
 {
     public class SearchModel
     {
-        public IFieldSearch[] SearchFields { get; set; }
+        public SearchField[] SearchFields { get; set; }
         public Pagination Pagination { get; set; }
         public OrderBy[] OrderBys { get; set; }
 
-        internal protected void ArrangeDefaults()
+        protected virtual void  ArrangeDefaults()
         {
             Pagination ??= Pagination.Default();
         }

@@ -88,7 +88,7 @@ namespace TestWEBAPI_DAL
 {
     
     
-    public record Field(string Name, FieldTypeSearch fieldTypeSearch) : IFieldSearch
+    public record Field(string Name, FieldTypeSearch fieldTypeSearch) : IField
     {
         public SearchCriteria[] Searches {
             get
@@ -184,6 +184,13 @@ namespace TestWEBAPI_DAL
             {
                 return tables.Values.ToArray();
             }
+        }
+        public TablesDescription GetTable(string name)
+        {
+            if (!tables.ContainsKey(name))
+                throw new ArgumentException($"cannot find table {name}");
+
+            return tables[name];
         }
     }
 }
