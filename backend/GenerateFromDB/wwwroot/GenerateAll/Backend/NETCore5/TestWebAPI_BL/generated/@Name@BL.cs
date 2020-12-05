@@ -68,7 +68,7 @@ namespace TestWebAPI_BL
             }
                 </text>
                 <text>
-                var x="";
+                // var x="";
                 </text>
                 }
             }

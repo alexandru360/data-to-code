@@ -117,6 +117,7 @@ namespace TestWebAPI
                 textToRender="services.AddTransient<IRepositoryView<"+nameClass +">, "+nameClass+"_Repository>();";
             }
             <text>
+            services.AddSingleton<AllTables>(); 
 			@Raw(textToRender)
             </text>
         }
