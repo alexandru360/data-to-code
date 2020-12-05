@@ -50,7 +50,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TestWEBAPI_DAL;
 using TestWebAPI_BL;
-
+using TestWebAPI_Searches;
 
 namespace TestWebAPI.Controllers
 {
