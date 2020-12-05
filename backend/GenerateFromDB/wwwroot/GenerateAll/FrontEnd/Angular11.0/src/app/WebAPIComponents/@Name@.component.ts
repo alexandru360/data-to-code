@@ -105,6 +105,11 @@ import { Title, Meta } from '@angular/platform-browser';
 import{ @(nameClass) } from './../WebAPIClasses/@(nameClass)';
 import {@(nameClass)Service} from './../services/@(nameClass).service';
 
+import { metadataService } from './../services/metadata.service';
+import { MetadataTables } from '../services/MetadataTables';
+import { KeyValue } from '../services/KeyValue';
+
+
 @(Component)({
   selector: 'app-@(nameClass)-component',
   templateUrl: './@(nameClass).component.html',
@@ -119,9 +124,30 @@ export class @(nameClass)Component implements OnInit {
   @(ViewChild)(MatSort, {static: true}) sort: MatSort;
 
   
+  private selectedFieldSearchValue : string;
+  public get selectedFieldSearch() : string {
+    return this.selectedFieldSearchValue ;
+  }
+  public set selectedFieldSearch(v : string) {
+    console.log("!!!"+v);
+    this.selectedFieldSearchValue  = v;
+    this.searches = this.MetadataTable.fields.find(it=>it.name === v).searches;
+  }
+  
+  public operation: number;
+  public searchValue: string='';
+
+  public searches: KeyValue[] =[];
+
+  public totalNumber: number;
+  
+
+  public MetadataTable: MetadataTables;
 
   public rows:@(nameClass)[]=[];
-  constructor(private mainService: @(nameClass)Service, private router: Router,private titleService: Title,  private metaService: Meta  ) {
+  constructor(private mainService: @(nameClass)Service, 
+    private metadata: metadataService, 
+    private router: Router,private titleService: Title,  private metaService: Meta  ) {
       this.titleService.setTitle('List of @(nameTable)');
       this.metaService.addTags([
         {name: 'keywords', content: '@(nameTable)'},
@@ -132,6 +158,13 @@ export class @(nameClass)Component implements OnInit {
    }
 
   ngOnInit(): void {
+    this.metadata.GetTables().subscribe(it=>{
+      this.MetadataTable = it.filter(it => it.nameTable.toLowerCase() == "dbo.department")[0];
+       //window.alert(JSON.stringify(this.MetadataTable));
+      // window.alert(JSON.stringify(it));
+    });
+    this.mainService.Count().subscribe(it=> this.totalNumber = it);
+	
 	  this.mainService.GetAll().subscribe(it=>{
     this.rows=it;
     this.dataSource = new MatTableDataSource(it);

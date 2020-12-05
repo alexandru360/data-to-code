@@ -57,8 +57,28 @@ List of @(nameTable)
 
 <mat-form-field>
 	<mat-label>Filter</mat-label>
-	<input matInput (keyup)="applyFilter($event)" placeholder="filter text" #input>
-  </mat-form-field>
+  <mat-select [(ngModel)]="selectedFieldSearch">
+	<mat-option *ngFor="let field of MetadataTable?.fields" [value]="field.name">
+		{{field.name}}
+	  </mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field>
+	<mat-label>Operation</mat-label>
+ 
+  <mat-select [(ngModel)]="operation">
+	<mat-option *ngFor="let s of searches" [value]="s.key">
+		{{s.value}}
+	  </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-form-field>
+	<mat-label>Value</mat-label>
+ 
+  <input matInput [value]="searchValue" />
+</mat-form-field>
+
   
   <div class="mat-elevation-z8">
 	<table mat-table [dataSource]="dataSource" matSort>
@@ -110,11 +130,11 @@ List of @(nameTable)
   
 	  <!-- Row shown when there is no matching data. -->
 	  <tr class="mat-row" *matNoDataRow>
-		<td class="mat-cell" colspan="4">No data in @(nameTable) matching the filter "{{input.value}}"</td>
+		<td class="mat-cell" colspan="4">No data in @(nameTable) matching the filter</td>
 	  </tr>
 	</table>
   
-	<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+	<mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
   </div>
   @{
 	if(havePK){
