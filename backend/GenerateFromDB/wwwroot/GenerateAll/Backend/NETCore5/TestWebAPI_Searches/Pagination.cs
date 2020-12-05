@@ -10,22 +10,18 @@ namespace TestWebAPI_Searches
     {
         public int PageSize { get; set; }
         public int PageNo { get; set; }
-        internal int SkipRecords
+        public int SkipRecords()
         {
-            get
-            {
-                return Math.Abs((PageNo - 1) * PageSize);
-            }
+            
+            return Math.Abs((PageNo - 1) * PageSize);
+            
         }
-        internal int PageSizeAbsolute
+        public int PageSizeAbsolute()
         {
-            get
-            {
-                var data = Math.Abs(PageSize);
-                if (data == 0)
-                    data = 10;
-                return data;
-            }
+            var data = Math.Abs(PageSize);
+            if (data == 0)
+                data = 10;
+            return data;        
         }
 
         public static Pagination Default()

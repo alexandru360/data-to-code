@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TestWebAPI_Searches
 {
-    public class SearchModel
+    public abstract class SearchModel<T>
     {
         public SearchField[] SearchFields { get; set; }
         public Pagination Pagination { get; set; }
@@ -16,6 +16,8 @@ namespace TestWebAPI_Searches
         {
             Pagination ??= Pagination.Default();
         }
+
+        public abstract IQueryable<T> GetSearch(IQueryable<T> data);
 
     }
 }

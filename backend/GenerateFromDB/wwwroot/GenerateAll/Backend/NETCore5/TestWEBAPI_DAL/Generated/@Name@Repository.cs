@@ -94,7 +94,7 @@ using TestWebAPI_Searches;
 
 namespace TestWEBAPI_DAL
 {
-    public partial class @(nameClass)_Search: SearchModel
+    public partial class @(nameClass)_Search: SearchModel<@(nameClass)>
     {
 
         
@@ -120,7 +120,7 @@ namespace TestWEBAPI_DAL
                 }
             }
         }
-        public IQueryable<@(nameClass)> GetSearch(IQueryable<@(nameClass)> data)
+        public override IQueryable<@(nameClass)> GetSearch(IQueryable<@(nameClass)> data)
         {
             if(this.SearchFields?.Length > 0)
             {
@@ -250,7 +250,14 @@ namespace TestWEBAPI_DAL
 
 
             }
-
+            //pagination
+            if (nrOrderBys > 0 && Pagination?.PageSizeAbsolute() > 0)
+            {
+                var skip = Pagination.SkipRecords();
+                var page = Pagination.PageSizeAbsolute();
+                if (skip > 0) data = data.Skip(skip);
+                if (page > 1) data = data.Take(page);
+            }
             return data;
         }
     }
@@ -318,6 +325,10 @@ namespace TestWEBAPI_DAL
             databaseContext.@(nameClass).Remove(original);
             await databaseContext.SaveChangesAsync();
             return p;
+        }
+        public Task<(int numberRecordsFound, @(nameClass)[] results)> SearchPaginated(SearchModel<@(nameClass)> search)
+        {
+            throw new NotImplementedException();
         }
        
     }
