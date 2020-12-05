@@ -82,20 +82,51 @@ using System.Collections.Generic;
 using System.Text;
 using TestWebAPI_BL;
 using System.Linq;
+using TestWebAPI_Searches;
 
 namespace TestWEBAPI_DAL
 {
     
-    public enum FieldTypeSearch
-    {
-        None=0,
-        stringType,
-        numberType,        
-        booleanType
-
-    }
     
-    public record Field(string name,FieldTypeSearch fieldTypeSearch);
+    public record Field(string Name, FieldTypeSearch fieldTypeSearch) : IFieldSearch
+    {
+        public SearchCriteria[] Searches {
+            get
+            {
+                switch (fieldTypeSearch)
+                {
+                    case FieldTypeSearch.booleanType:
+                        return new[]
+                        {
+                            SearchCriteria.Equal,
+                            SearchCriteria.Different
+                        };
+                    case FieldTypeSearch.numberType:
+                        return new[]
+                        {
+                            SearchCriteria.Equal,
+                            SearchCriteria.Different,
+                            SearchCriteria.Greater,
+                            SearchCriteria.Less
+                        };
+                    case FieldTypeSearch.stringType:
+                        return new[]
+                        {
+                            SearchCriteria.Equal,
+                            SearchCriteria.Different,
+                            SearchCriteria.StartsWith,
+                            SearchCriteria.EndsWith,
+                            SearchCriteria.Contains
+                        };
+
+                    default:
+                        throw new ArgumentException($"cannot find searches for {fieldTypeSearch}");
+                }
+            }
+        }
+        
+    }
+
 
     public record TablesDescription(string nameTable, Field[] fields);
 

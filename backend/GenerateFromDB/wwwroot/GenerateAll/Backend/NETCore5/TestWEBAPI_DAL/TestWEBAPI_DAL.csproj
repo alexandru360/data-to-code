@@ -45,6 +45,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TestWebAPI_BL\TestWebAPI_BL.csproj" />
+	<ProjectReference Include="..\TestWebAPI_Searches\TestWebAPI_Searches.csproj" />
+
   </ItemGroup>
 
 </Project>
