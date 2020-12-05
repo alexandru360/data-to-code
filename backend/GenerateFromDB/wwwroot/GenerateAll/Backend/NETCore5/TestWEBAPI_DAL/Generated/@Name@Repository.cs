@@ -185,10 +185,72 @@ namespace TestWEBAPI_DAL
                             }
                         }
                         default:
-                            throw new ArgumentException($"cannot find {sf.Field} in search at {nameof(dboDepartment_Search)} ");
+                            throw new ArgumentException($"cannot find {sf.Field} in search at {nameof(@(nameClass)_Search)} ");
                     }
                 }
             }
+
+            //order by
+            var nrOrderBys = OrderBys?.Length;
+            if (nrOrderBys> 0)
+            {
+                IOrderedQueryable<@(nameClass)> order=null;
+                var ord = OrderBys[0];
+                switch (ord.Field) {
+                    @{
+                        for(int iCol = 0;iCol < nrCols; iCol++){
+                            var col = dt.Columns[iCol];
+                            var colName= nameProperty(col.ColumnName,nameClass) ;
+                            var nameType=  nameTypeForSearch(col.DataType.Name);
+                            <text>
+                                case "@(col.ColumnName)":
+                                    switch (ord.Ascending)
+                                    {
+                                        case true:
+                                            order = data.OrderBy(it => it.@(colName));
+                                            break;
+                                        case false:
+                                            order = data.OrderByDescending(it => it.@(colName));
+                                            break;
+                                        
+                                    }
+                                    break;
+                            </text>
+                        }
+                    }
+                }
+                for(var i = 1; i < nrOrderBys.Value; i++)
+                {
+                    ord = OrderBys[i];
+                    switch (ord.Field) {
+                    @{
+                    for(int iCol = 0;iCol < nrCols; iCol++){
+                        var col = dt.Columns[iCol];
+                        var colName= nameProperty(col.ColumnName,nameClass) ;
+                        var nameType=  nameTypeForSearch(col.DataType.Name);
+                        <text>
+                            case "@(col.ColumnName)":
+                                switch (ord.Ascending)
+                                {
+                                    case true:
+                                        order = data.OrderBy(it => it.@(colName));
+                                        break;
+                                    case false:
+                                        order = data.OrderByDescending(it => it.@(colName));
+                                        break;
+                                    
+                                }
+                                break;
+                        </text>
+                    }
+                    }
+                }   
+
+                }
+
+
+            }
+
             return data;
         }
     }
