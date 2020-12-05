@@ -81,6 +81,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TestWebAPI_BL;
+using System.Linq;
 
 namespace TestWEBAPI_DAL
 {
@@ -88,21 +89,22 @@ namespace TestWEBAPI_DAL
     public enum FieldTypeSearch
     {
         None=0,
-        string=1,
-        decimal=2,
-        number=3,
-        boolean=b
+        stringType,
+        numberType,        
+        booleanType
 
     }
     
     public record Field(string name,FieldTypeSearch fieldTypeSearch);
 
-    public record TablesDescription(string nameTable, Fields[] fields);
+    public record TablesDescription(string nameTable, Field[] fields);
 
     
     
-    public class AllTables
+    public partial class AllTables
     {
+        partial void ConstructorLastLine();
+
         private Dictionary<string, TablesDescription> tables;
         public AllTables()
         {
@@ -119,20 +121,38 @@ namespace TestWEBAPI_DAL
                     if(string.IsNullOrWhiteSpace(typeField))
                         continue;
 
-                    colFields+=",new Field(\""+nameColumn +"\",FieldTypeSearch."+ typeField + ")";
+                    colFields+=",new Field(\""+nameColumn +"\",FieldTypeSearch."+ typeField + "Type)";
                 }
             <text>
                 this.Add("@nameTable" @Raw(colFields));
             </text>
             }
+            <text>
+            ConstructorLastLine();
+            </text>
         }
         }
-
-        public TablesDescription Add(string name, params Fields[] fields)
+        
+        public TablesDescription Add(string name, params Field[] fields)
         {
-            var f = new TablesDescription(name, fields);
-            tables.Add(name, f);
-            return f;
+            var t = new TablesDescription(name, fields);
+            tables.Add(name, t);
+            return t;
+
+        }
+        public string[] TableNames
+        {
+            get
+            {
+                return tables.Select(it => it.Key).ToArray();
+            }
+        }
+        public TablesDescription[] Tables
+        {
+            get
+            {
+                return tables.Values.ToArray();
+            }
         }
     }
 }
