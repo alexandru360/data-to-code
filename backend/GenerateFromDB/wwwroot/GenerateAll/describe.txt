@@ -4,7 +4,7 @@
         folder: "NETCore5",
         name: ".NET Core 5 WebAPI",
         worksWithFrontEnd: [
-            "Angular10.0"
+            "Angular11.0"
         ],
         copyTableFiles: [
             "TestWEBAPI_DAL/Generated/@Name@Repository.cs",
@@ -62,7 +62,7 @@
     "frontend": [{
         folder: "Angular10.0",
         worksWithBackEnd: [
-            "NETCore3.1"
+            "NETCore5"
         ],
         name: "Angular 10 navigation",
         copyTableFiles: [
@@ -78,6 +78,24 @@
             'src/app/WebAPIClasses/@Name@.ts',
             'src/app/services/@Name@.service.ts',
 
+        ],
+        "execute": [{
+            name: "docker",
+            execute: [
+                "docker build -t testwebapiang -f docker.txt .",
+                "docker run -p 4200:4200 -d --name testwebapiangContainer --rm testwebapiang"
+            ]
+        }]
+    },
+	
+	{
+        folder: "Angular11.0",
+        worksWithBackEnd: [
+            "NETCore3.1"
+        ],
+        name: "Angular 10 navigation",
+        copyTableFiles: [
+      
         ],
         "execute": [{
             name: "docker",

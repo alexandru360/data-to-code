@@ -89,7 +89,7 @@ namespace GenerateApp.Controllers
             var i = new InfoData(con)
             {
                 logs = new Logs(),
-                name = "custom" + DateTime.UtcNow.ToString("yyyyMMddHHmmss"),
+                name = "custom" ,//+ DateTime.UtcNow.ToString("yyyyMMddHHmmss"),
                 folderGenerator = "GenerateAll",
                 GenerateAppV1 = this
             };
