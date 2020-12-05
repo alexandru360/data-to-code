@@ -12,6 +12,43 @@
             name= "generated_"+name;
 		return name.Trim();
 	}
+
+ string nameTypeForSearch(string colTypeName){
+		string nameType = "";
+		switch(colTypeName.ToLower()){
+				case "string":
+                case "guid":
+					nameType="string";
+                    break;
+                case "boolean":
+                    nameType= "boolean";
+                    break;
+                case "byte[]"://https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays
+                    return "";
+                    break;
+                case "byte":
+                  nameType="number";
+                  break;
+                case "datetime":
+                    nameType = "Date";
+                    break;
+                case "single":
+                case "double":
+			    case "decimal":
+                case "int16":
+                case "int32":
+                case "int64":
+                case "long":
+					nameType="number";
+					break;
+				default:
+					return "";
+					break;
+			}
+		return nameType;
+	}
+
+
 	//https://docs.microsoft.com/en-us/dotnet/api/microsoft.codeanalysis.csharp.syntaxfacts?view=roslyn-dotnet
 	bool IsIdentifier(string text)
 	{
@@ -95,6 +132,7 @@ namespace TestWEBAPI_DAL
                             for(int iCol = 0;iCol < nrCols; iCol++){
                                 var col = dt.Columns[iCol];
                                 var colName= nameProperty(col.ColumnName,nameClass) ;
+                                var nameType=  nameTypeForSearch(col.DataType.Name);
                                 <text>
                         case "@(col.ColumnName)":
                             try{   
@@ -104,7 +142,38 @@ namespace TestWEBAPI_DAL
                                 {
                                     case SearchCriteria.Equal:
                                         data = data.Where(it => it.@(colName) == val);
-                                        break;                                        
+                                        break;
+                                    case SearchCriteria.Different:
+                                        data = data.Where(it => it.@(colName) == val);
+                                        break;  
+                                        //@(nameType)
+                                    @{
+                                    if(nameType == "number"){
+                                        <text>
+                                            case SearchCriteria.Greater:
+                                                data = data.Where(it => it.@(colName) @Raw(">") val);
+                                                break;  
+                                            case SearchCriteria.Less:
+                                                data = data.Where(it => it.@(colName) @Raw("<") val);
+                                                break;  
+                                    
+                                        </text>
+                                        }
+                                    if(nameType == "string"){
+                                        <text>
+                                            case SearchCriteria.Contains:
+
+                                                data = data.Where(it => it.@(colName).Contains(val));
+                                                break;  
+                                            case SearchCriteria.StartsWith:
+                                                data = data.Where(it => it.@(colName).StartsWith(val));
+                                                break;  
+                                            case SearchCriteria.EndsWith:
+                                                data = data.Where(it => it.@(colName).EndsWith(val));
+                                                break;  
+                                        </text>
+                                        } 
+                                    }   
                                 }
                                                                         
                             }
