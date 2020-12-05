@@ -32,6 +32,7 @@
         idTable = dtOptions.Rows.Find(dt.TableName +"_PK")[1].ToString();
         idType = dtOptions.Rows.Find(dt.TableName +"_PK_Type")[1].ToString();  
     }
+    var nrCols =dt.Columns.Count;
     string nameClass= ClassNameFromTableName(dt.TableName);
     string repoName= ClassNameFromTableName(dt.TableName)  + "_Repository";
     string repoInterface="";
@@ -52,16 +53,20 @@ using Microsoft.EntityFrameworkCore;
 
 using TestWEBAPI_DAL;
 using TestWebAPI_BL;
+using TestWebAPI_Searches;
 
 namespace TestWEBAPI_DAL
 {
-    public partial class (@nameClass)_Search: SearchModel
+    public partial class @(nameClass)_Search: SearchModel
     {
 
         
         protected override void ArrangeDefaults()
         {
             base.ArrangeDefaults();
+            @{
+                if(havePK){
+<text>
             if ((OrderBys?.Length ?? 0) == 0)
             {
                 OrderBys = new OrderBy[1]
@@ -69,12 +74,16 @@ namespace TestWEBAPI_DAL
                     new OrderBy()
                     {
                         Ascending=false,
-                        Field = "id"
+                        Field = "@(idTable)"
                     }
                 };
             }
+</text>
+
+                }
+            }
         }
-        public IQueryable<(@nameClass)> GetSearch(IQueryable<(@nameClass)> data)
+        public IQueryable<@(nameClass)> GetSearch(IQueryable<@(nameClass)> data)
         {
             if(this.SearchFields?.Length > 0)
             {
@@ -82,16 +91,36 @@ namespace TestWEBAPI_DAL
                 {
                     switch (sf.Field)
                     {
-                        case "iddepartment":
-                            var val = int.Parse(sf.Value);
-                            data = data.Where(it => it.iddepartment == val);
+                        @{
+                            for(int iCol = 0;iCol < nrCols; iCol++){
+                                var col = dt.Columns[iCol];
+                                var colName= nameProperty(col.ColumnName,nameClass) ;
+                                <text>
+                        case "@(col.ColumnName)":
+                            try{   
+                                
+                                var val = Convert.To@(col.DataType.Name)(sf.Value);
+                                switch (sf.Criteria)
+                                {
+                                    case SearchCriteria.Equal:
+                                        data = data.Where(it => it.@(colName) == val);
+                                        break;                                        
+                                }
+                                                                        
+                            }
+                            catch(Exception){
+                                //do something with the error to avvert user of the problem
+                            }
                             break;
+                                </text>
+                            }
+                        }
                         default:
                             throw new ArgumentException($"cannot find {sf.Field} in search at {nameof(dboDepartment_Search)} ");
                     }
                 }
             }
-            return null;
+            return data;
         }
     }
 
