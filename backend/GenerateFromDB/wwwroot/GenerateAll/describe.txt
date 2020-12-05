@@ -1,5 +1,27 @@
 {
-    "backend": [{
+    "backend": [
+		{
+        folder: "NETCore5",
+        name: ".NET Core 5 WebAPI",
+        worksWithFrontEnd: [
+            "Angular10.0"
+        ],
+        copyTableFiles: [
+            "TestWEBAPI_DAL/Generated/@Name@Repository.cs",
+            "TestWebAPI_BL/Generated/@Name@BL.cs",
+            "TestWebAPI/Generated/Controllers/@Name@ActionController.cs",
+            "TestWebAPI/Generated/Controllers/@Name@RESTController.cs"
+        ],
+        "execute": [{
+            name: "docker",
+            execute: [
+                "docker build -t testwebapi -f docker.txt .",
+                "docker run -p 5000:5000 -d  --name testwebapiContainer --rm testwebapi"
+            ]
+        }]
+		}
+,
+{
         folder: "NETCore3.1",
         name: ".NET Core 3.1 WebAPI",
         worksWithFrontEnd: [

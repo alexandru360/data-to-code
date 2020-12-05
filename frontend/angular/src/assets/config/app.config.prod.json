@@ -15,7 +15,12 @@
   ],
   "generateTypes": {
     "Api": [
-      
+      {
+        "Name": ".Net  5",
+        "Key": "NETCore5",
+        "Message": null
+      },
+
       {
         "Name": ".Net Core 3.1",
         "Key": "NETCore3.1",
