@@ -40,6 +40,41 @@
      return true;
 	}
 
+    string nameTypeForSearch(string colTypeName){
+		string nameType = "";
+		switch(colTypeName.ToLower()){
+				case "string":
+                case "guid":
+					nameType="string";
+                    break;
+                case "boolean":
+                    nameType= "boolean";
+                    break;
+                case "byte[]"://https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays
+                    return "";
+                    break;
+                case "byte":
+                  nameType="number";
+                  break;
+                case "datetime":
+                    nameType = "Date";
+                    break;
+                case "single":
+                case "double":
+			    case "decimal":
+                case "int16":
+                case "int32":
+                case "int64":
+                case "long":
+					nameType="number";
+					break;
+				default:
+					return "";
+					break;
+			}
+		return nameType;
+	}
+
 }
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -49,15 +84,55 @@ using TestWebAPI_BL;
 
 namespace TestWEBAPI_DAL
 {
-    public enum Tables{
-        None = 0
-        @foreach(var nameTable in nameTablesToRender){
-			string nameClass=ClassNameFromTableName(nameTable);
-            
+    
+    public enum FieldTypeSearch
+    {
+        None=0,
+        string=1,
+        decimal=2,
+        number=3,
+        boolean=b
+
+    }
+    
+    public record Field(string name,FieldTypeSearch fieldTypeSearch);
+
+    public record TablesDescription(string nameTable, Fields[] fields);
+
+    
+    
+    public class AllTables
+    {
+        private Dictionary<string, TablesDescription> tables;
+        public AllTables()
+        {
+            tables = new Dictionary<string, TablesDescription>();
+            @{
+            foreach(var dt in tables){
+			    var nameTable=dt.TableName;
+                var nrColumns = dt.Columns.Count;
+                var colFields="";
+                for(var iCol=0;iCol<nrColumns;iCol++){
+                    var column=dt.Columns[iCol];
+                    string nameColumn = column.ColumnName;
+                    string typeField=nameTypeForSearch(column.DataType.Name);
+                    if(string.IsNullOrWhiteSpace(typeField))
+                        continue;
+
+                    colFields+=",new Field(\""+nameColumn +"\",FieldTypeSearch."+ typeField + ")";
+                }
             <text>
-            ,@(nameClass)
+                this.Add("@nameTable" @Raw(colFields));
             </text>
+            }
+        }
         }
 
+        public TablesDescription Add(string name, params Fields[] fields)
+        {
+            var f = new TablesDescription(name, fields);
+            tables.Add(name, f);
+            return f;
+        }
     }
 }
