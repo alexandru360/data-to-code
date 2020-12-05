@@ -8,7 +8,7 @@ using TestWEBAPI_DAL;
 
 namespace TestWebAPI.Generated.Controllers
 {
-    [Route("api/[controller]/[Action]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class MetadataController : ControllerBase
     {

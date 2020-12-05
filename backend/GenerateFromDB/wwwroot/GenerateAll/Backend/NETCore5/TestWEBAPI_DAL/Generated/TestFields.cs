@@ -90,7 +90,18 @@ namespace TestWEBAPI_DAL
     
     public record Field(string Name, FieldTypeSearch fieldTypeSearch) : IField
     {
-        public SearchCriteria[] Searches {
+        public string fieldTypeSearchName
+        {
+            get
+            {
+                return fieldTypeSearch.ToString();
+            }
+        }
+        private KeyValuePair<SearchCriteria, string> From(SearchCriteria s)
+        {
+            return new KeyValuePair<SearchCriteria, string>(s, s.ToString());
+        }
+        public KeyValuePair<SearchCriteria, string>[] Searches {
             get
             {
                 switch (fieldTypeSearch)
@@ -98,25 +109,25 @@ namespace TestWEBAPI_DAL
                     case FieldTypeSearch.booleanType:
                         return new[]
                         {
-                            SearchCriteria.Equal,
-                            SearchCriteria.Different
+                            From(SearchCriteria.Equal),
+                            From(SearchCriteria.Different)
                         };
                     case FieldTypeSearch.numberType:
                         return new[]
                         {
-                            SearchCriteria.Equal,
-                            SearchCriteria.Different,
-                            SearchCriteria.Greater,
-                            SearchCriteria.Less
+                            From(SearchCriteria.Equal),
+                            From(SearchCriteria.Different),
+                            From(SearchCriteria.Greater),
+                            From(SearchCriteria.Less)
                         };
                     case FieldTypeSearch.stringType:
                         return new[]
                         {
-                            SearchCriteria.Equal,
-                            SearchCriteria.Different,
-                            SearchCriteria.StartsWith,
-                            SearchCriteria.EndsWith,
-                            SearchCriteria.Contains
+                            From(SearchCriteria.Equal),
+                            From(SearchCriteria.Different),
+                            From(SearchCriteria.StartsWith),
+                            From(SearchCriteria.EndsWith),
+                            From(SearchCriteria.Contains)
                         };
 
                     default:
