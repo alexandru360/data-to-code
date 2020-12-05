@@ -122,6 +122,7 @@ namespace TestWEBAPI_DAL
         }
         public override IQueryable<@(nameClass)> GetSearch(IQueryable<@(nameClass)> data)
         {
+            ArrangeDefaults();
             if(this.SearchFields?.Length > 0)
             {
                 foreach(var sf in this.SearchFields)
@@ -326,12 +327,12 @@ namespace TestWEBAPI_DAL
             await databaseContext.SaveChangesAsync();
             return p;
         }
-        public async Task<(long numberRecordsFound, @(nameClass)[] results)> SearchPaginated(SearchModel<@(nameClass)> search)
+        public async Task<PaginatedRecords<@(nameClass)>> SearchPaginated(SearchModel<@(nameClass)> search)
         {
             var query = search.GetSearch(databaseContext.@(nameClass));
             var nr = await query.LongCountAsync();
             var data = await query.ToArrayAsync();
-            return (nr, data);
+            return new PaginatedRecords<@(nameClass)>(nr, data);
          
         }
        

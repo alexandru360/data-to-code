@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace TestWebAPI_Searches
 {
+     public record PaginatedRecords<T>(long Nr, T[] records);
+     
     public class Pagination
     {
         public int PageSize { get; set; }

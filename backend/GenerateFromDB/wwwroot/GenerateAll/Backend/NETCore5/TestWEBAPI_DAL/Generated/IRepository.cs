@@ -14,7 +14,7 @@ namespace TestWEBAPI_DAL
         Task<T> Insert(T p);
         Task<T> Update(T p);
         Task<long> Count();
-        Task<(long numberRecordsFound, T[] results)> SearchPaginated(SearchModel<T> search);
+        Task<PaginatedRecords<T>> SearchPaginated(SearchModel<T> search);
     }
 
     public interface IRepositoryView<T>
