@@ -113,7 +113,7 @@ import {@(nameClass)Service} from './../services/@(nameClass).service';
 export class @(nameClass)Component implements OnInit {
 
   displayedColumns: string[] = [ 'rowIndex' @Raw(colNames)    @Raw(operations)];
-  dataSource: MatTableDataSource<@(nameClass)>;
+  dataSource: MatTableDataSource<@(nameClass)> = new MatTableDataSource<@(nameClass)>([]);
 
   @(ViewChild)(MatPaginator, {static: true}) paginator: MatPaginator;
   @(ViewChild)(MatSort, {static: true}) sort: MatSort;

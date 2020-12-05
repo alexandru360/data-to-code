@@ -131,7 +131,7 @@ export class @(nameClass)EditComponent implements OnInit {
     </text>
   }
   
-  public dataToEdit: @(nameClass);
+  public dataToEdit: @(nameClass) = new @(nameClass)();
 
   @if(rowsRelParent.Length>0){
     var h=new System.Collections.Generic.HashSet<string>(rowsRelParent.Length);

@@ -292,3 +292,6 @@ __pycache__/
 
 2020*
 2021*
+custom
+**/wwwroot/conection.txt
+**/wwwroot/generated.zip

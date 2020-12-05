@@ -11,8 +11,8 @@ import {VersionService} from './../services/version.service';
 })
 export class AboutComponent implements OnInit {
 
-  versionGenerator: string;
-  versionBackend: string;
+  versionGenerator: string = '';
+  versionBackend: string = '' ;
   constructor(private version:VersionService) { }
 
   ngOnInit(): void {
