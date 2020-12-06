@@ -120,13 +120,16 @@ namespace TestWEBAPI_DAL
                 }
             }
         }
-        public override IQueryable<@(nameClass)> GetSearch(IQueryable<@(nameClass)> data)
+        public override IQueryable<@(nameClass)> GetSearch(IQueryable<@(nameClass)> data, bool paginated)
         {
             ArrangeDefaults();
             if(this.SearchFields?.Length > 0)
             {
                 foreach(var sf in this.SearchFields)
                 {
+                    if (string.IsNullOrWhiteSpace(sf.Field))
+                        continue;
+                    
                     switch (sf.Field)
                     {
                         @{
@@ -197,14 +200,16 @@ namespace TestWEBAPI_DAL
             {
                 IOrderedQueryable<@(nameClass)> order=null;
                 var ord = OrderBys[0];
-                switch (ord.Field) {
+                if(!string.IsNullOrWhiteSpace(ord.Field))
+                switch (ord.Field.ToUpper()) {
                     @{
                         for(int iCol = 0;iCol < nrCols; iCol++){
                             var col = dt.Columns[iCol];
                             var colName= nameProperty(col.ColumnName,nameClass) ;
                             var nameType=  nameTypeForSearch(col.DataType.Name);
                             <text>
-                                case "@(col.ColumnName)":
+                                case "@(col.ColumnName.ToUpper())":
+
                                     switch (ord.Ascending)
                                     {
                                         case true:
@@ -223,21 +228,21 @@ namespace TestWEBAPI_DAL
                 for(var i = 1; i < nrOrderBys.Value; i++)
                 {
                     ord = OrderBys[i];
-                    switch (ord.Field) {
+                    switch (ord.Field.ToUpper()) {
                     @{
                     for(int iCol = 0;iCol < nrCols; iCol++){
                         var col = dt.Columns[iCol];
                         var colName= nameProperty(col.ColumnName,nameClass) ;
                         var nameType=  nameTypeForSearch(col.DataType.Name);
                         <text>
-                            case "@(col.ColumnName)":
+                            case "@(col.ColumnName.ToUpper())":
                                 switch (ord.Ascending)
                                 {
                                     case true:
-                                        order = data.OrderBy(it => it.@(colName));
+                                        order = order.ThenBy(it => it.@(colName));
                                         break;
                                     case false:
-                                        order = data.OrderByDescending(it => it.@(colName));
+                                        order = order.ThenByDescending(it => it.@(colName));
                                         break;
                                     
                                 }
@@ -248,11 +253,11 @@ namespace TestWEBAPI_DAL
                 }   
 
                 }
-
+                data = order ?? data;
 
             }
             //pagination
-            if (nrOrderBys > 0 && Pagination?.PageSizeAbsolute() > 0)
+            if (paginated && nrOrderBys > 0 && Pagination?.PageSizeAbsolute() > 0)
             {
                 var skip = Pagination.SkipRecords();
                 var page = Pagination.PageSizeAbsolute();
@@ -329,8 +334,9 @@ namespace TestWEBAPI_DAL
         }
         public async Task<PaginatedRecords<@(nameClass)>> SearchPaginated(SearchModel<@(nameClass)> search)
         {
-            var query = search.GetSearch(databaseContext.@(nameClass));
+            var query = search.GetSearch(databaseContext.@(nameClass), paginated:false);
             var nr = await query.LongCountAsync();
+            query = search.GetSearch(databaseContext.@(nameClass), paginated: true);
             var data = await query.ToArrayAsync();
             return new PaginatedRecords<@(nameClass)>(nr, data);
          

@@ -93,7 +93,7 @@
 
 
 }
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit,Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -108,6 +108,11 @@ import {@(nameClass)Service} from './../services/@(nameClass).service';
 import { metadataService } from './../services/metadata.service';
 import { MetadataTables } from '../services/MetadataTables';
 import { KeyValue } from '../services/KeyValue';
+import { SearchField } from '../services/SearchField';
+import { OrderBy } from '../services/OrderBy';
+import { Pagination } from '../services/Pagination';
+import { SearchModel } from '../services/SearchModel';
+import { Observable } from 'rxjs';
 
 
 @(Component)({
@@ -115,7 +120,7 @@ import { KeyValue } from '../services/KeyValue';
   templateUrl: './@(nameClass).component.html',
   styleUrls: ['./@(nameClass).component.css']
 })
-export class @(nameClass)Component implements OnInit {
+export class @(nameClass)Component implements AfterViewInit , OnInit {
 
   displayedColumns: string[] = [ 'rowIndex' @Raw(colNames)    @Raw(operations)];
   dataSource: MatTableDataSource<@(nameClass)> = new MatTableDataSource<@(nameClass)>([]);
@@ -129,7 +134,7 @@ export class @(nameClass)Component implements OnInit {
     return this.selectedFieldSearchValue ;
   }
   public set selectedFieldSearch(v : string) {
-    console.log("!!!"+v);
+    
     this.selectedFieldSearchValue  = v;
     this.searches = this.MetadataTable.fields.find(it=>it.name === v).searches;
   }
@@ -140,7 +145,7 @@ export class @(nameClass)Component implements OnInit {
   public searches: KeyValue[] =[];
 
   public totalNumber: number;
-  
+  public filteredNumber: number;
 
   public MetadataTable: MetadataTables;
 
@@ -157,6 +162,38 @@ export class @(nameClass)Component implements OnInit {
 
    }
 
+   public searchData(): void {
+    const searchField  = new SearchField();
+    if(this.searchValue.length>0){
+      searchField.Criteria = this.operation;
+      searchField.Field= this.selectedFieldSearch;
+      searchField.Value = this.searchValue;
+    }
+    var sort = new OrderBy();
+    sort.Ascending= this.sort.direction === 'asc';
+    sort.Field=  this.sort.active ;
+
+    var pag= new Pagination();
+    pag.PageNo=this.paginator.pageIndex + 1;
+    pag.PageSize=this.paginator.pageSize ;
+
+    var sm=new SearchModel();
+    sm.OrderBys.push(sort);
+    sm.Pagination= pag;
+    sm.SearchFields.push(searchField);
+    // window.alert(JSON.stringify(sm));
+
+    this.mainService.SearchPaginated(sm).subscribe(
+      it=>{
+        this.rows = it.records;
+        this.filteredNumber = it.nr;
+        this.dataSource.data = it.records;
+        
+      }
+    );
+
+   }
+
   ngOnInit(): void {
     this.metadata.GetTables().subscribe(it=>{
       this.MetadataTable = it.filter(it => it.nameTable.toLowerCase() == "dbo.department")[0];
@@ -165,32 +202,41 @@ export class @(nameClass)Component implements OnInit {
     });
     this.mainService.Count().subscribe(it=> this.totalNumber = it);
 	
-	  this.mainService.GetAll().subscribe(it=>{
-    this.rows=it;
-    this.dataSource = new MatTableDataSource(it);
+	  // this.mainService.GetAll().subscribe(it=>{
+    // this.rows=it;
+    // this.dataSource = new MatTableDataSource(it);
+    // this.dataSource.paginator = this.paginator;
+    // this.dataSource.sort = this.sort;
+
+    // });
+  }
+
+  ngAfterViewInit() {
+    this.paginator.showFirstLastButtons=true;
+    this.dataSource = new MatTableDataSource([]);
     this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.dataSource.sort = this.sort;    
 
-    });
-  }
-  public applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.sort.sortChange.subscribe(it=>
+        {
+          
+          this.paginator.pageIndex = 0;
+          this.searchData();
+        });
+    this.paginator.page.subscribe(it=>{
+      this.searchData();
+    })
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-  @{
-    if(!havePK){
-      <text>
-      }
-      </text>
-      return;
-    }
-  }
+    this.searchData();
+
+ }
   
+@{
 
+  if(havePK){
+
+
+  <text>
   public deleteData(id: @(nameTypeForJS(idType))): void{
 
     if(!window.confirm("do you want to delete row "+ id)){
@@ -212,6 +258,9 @@ export class @(nameClass)Component implements OnInit {
     )
     .subscribe();
   }
+  </text>
+ }
+}
   public add(): void{
     this.router.navigate(["/@(nameClass.ToLower())/add"]);
     return;

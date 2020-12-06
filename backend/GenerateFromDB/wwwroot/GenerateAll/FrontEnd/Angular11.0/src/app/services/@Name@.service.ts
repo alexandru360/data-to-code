@@ -86,6 +86,10 @@ import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import{ @nameClass } from './../WebAPIClasses/@nameClass';
 import { APP_BASE_HREF } from '@angular/common';
+import { PaginatedRecords } from './PaginatedRecords';
+import { SearchModel } from './SearchModel';
+
+
 @(Injectable)({
   providedIn: 'root'
 })
@@ -109,6 +113,12 @@ export class @(nameClass)Service {
     const url = this.baseUrl+'api/@nameClass/GetAll';
     
     return this.client.get<@(nameClass)[]>(url);
+  }
+  public SearchPaginated(search: SearchModel): Observable<PaginatedRecords<@(nameClass)>>{
+    const url = this.baseUrl+'api/@(nameClass)/SearchPaginated';
+    
+    return this.client.post<PaginatedRecords<@(nameClass)>>(url,search);
+
   }
   @{
     if(!havePK){
@@ -139,5 +149,5 @@ export class @(nameClass)Service {
     
     return this.client.delete<@(idType)>(url);
   }
-  
+ 
 }

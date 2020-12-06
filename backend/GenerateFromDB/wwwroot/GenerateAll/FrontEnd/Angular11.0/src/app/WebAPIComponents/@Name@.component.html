@@ -52,7 +52,7 @@
 
 <br />
 <h1>
-List of @(nameTable) 
+List of @(nameTable) Total records {{totalNumber}}. Filtered {{filteredNumber}}
 </h1>
 
 <mat-form-field>
@@ -76,12 +76,18 @@ List of @(nameTable)
 <mat-form-field>
 	<mat-label>Value</mat-label>
  
-  <input matInput [value]="searchValue" />
+	<input matInput [(ngModel)]="searchValue" />
+</mat-form-field>
+<mat-form-field>
+
+  <button mat-raised-button color="primary" type="button" (click)="searchData()" >Search</button>
+  <input matInput [(ngModel)]="searchValue" style="visibility: hidden;"/>
+
 </mat-form-field>
 
   
   <div class="mat-elevation-z8">
-	<table mat-table [dataSource]="dataSource" matSort>
+	<table mat-table [dataSource]="dataSource" matSort matDisableClear>
 		<ng-container matColumnDef="rowIndex">
 			<th mat-header-cell *matHeaderCellDef> Index </th>
 			<td mat-cell *matCellDef="let row;index as i;"> {{ i+1   + (paginator.pageIndex * paginator.pageSize) }} </td>
@@ -134,7 +140,7 @@ List of @(nameTable)
 	  </tr>
 	</table>
   
-	<mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+	<mat-paginator [pageSizeOptions]="[10, 25, 100]" [length]="filteredNumber"></mat-paginator>
   </div>
   @{
 	if(havePK){

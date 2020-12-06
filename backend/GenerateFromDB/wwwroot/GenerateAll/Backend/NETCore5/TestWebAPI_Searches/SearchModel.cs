@@ -17,7 +17,7 @@ namespace TestWebAPI_Searches
             Pagination ??= Pagination.Default();
         }
 
-        public abstract IQueryable<T> GetSearch(IQueryable<T> data);
+        public abstract IQueryable<T> GetSearch(IQueryable<T> data, bool paginated);
 
     }
 }
