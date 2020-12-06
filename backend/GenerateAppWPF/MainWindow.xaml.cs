@@ -75,7 +75,7 @@ namespace GenerateAppWPF
         }
         private void OpenBrowser(Options opt)
         {
-            var psi = new ProcessStartInfo(opt.Url+ "home/"+ DateTime.Now.ToString("yyyyMMddHHmmss"))
+            var psi = new ProcessStartInfo(opt.Url+ "api/home/redirect/"+ DateTime.Now.ToString("yyyyMMddHHmmss"))
             {
                 UseShellExecute = true,
                 Verb = "open"

@@ -15,18 +15,23 @@ using Newtonsoft.Json;
 
 namespace GenerateFromDB.Controllers
 {
-  [Route("api/[controller]/[action]")]
-  [ApiController]
-  public class HomeController : ControllerBase
-  {
-    private readonly ILogger<HomeController> logger;
-    private readonly IWebHostEnvironment environment;
-
-    public HomeController(ILogger<HomeController> logger, IWebHostEnvironment environment)
+    [Route("api/[controller]/[action]")]
+    [ApiController]
+    public class HomeController : ControllerBase
     {
-      this.logger = logger;
-      this.environment = environment;
-    }
+        private readonly ILogger<HomeController> logger;
+        private readonly IWebHostEnvironment environment;
+
+        public HomeController(ILogger<HomeController> logger, IWebHostEnvironment environment)
+        {
+            this.logger = logger;
+            this.environment = environment;
+        }
+        [HttpGet("{id}")]
+        public ActionResult redirect(string id)
+        {
+            return LocalRedirect("/");
+        }
     [HttpGet]
     public string Version()
     {

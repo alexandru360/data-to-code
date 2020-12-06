@@ -79,7 +79,6 @@ namespace GenerateFromDB
               endpoints.MapFallbackToFile("about", "/index.html");
               endpoints.MapFallbackToFile("more", "/index.html");
               endpoints.MapControllers();
-              endpoints.MapFallbackToFile("home/{**slug}", "/demo");
 
               //endpoints.MapFallbackToFile("{**slug}", "/index.html");
             });
