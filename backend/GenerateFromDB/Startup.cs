@@ -75,11 +75,10 @@ namespace GenerateFromDB
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapFallbackToFile("home", "/index.html");
+              endpoints.MapFallbackToFile("home/{**slug}", "/index.html");
               endpoints.MapFallbackToFile("demo", "/index.html");
               endpoints.MapFallbackToFile("about", "/index.html");
               endpoints.MapFallbackToFile("more", "/index.html");
-
               endpoints.MapControllers();
                 //endpoints.MapFallbackToFile("{**slug}", "/index.html");
             });

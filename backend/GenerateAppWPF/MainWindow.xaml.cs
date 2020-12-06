@@ -28,7 +28,7 @@ namespace GenerateAppWPF
             InitializeComponent();
             options = new Options();
             options.PathApp = App.folderAspNet;
-            options.Url = "http://localhost:5000/";
+            options.Url = "http://localhost:5000/home/"+ DateTime.Now.ToString("yyyyMMddHHmmss");
             this.DataContext = options;
 
         }
