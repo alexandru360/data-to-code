@@ -87,15 +87,15 @@ jobs:
           # add template to mac
           
           mkdir publishMac\wwwroot\GenerateAll\
-          dir wwwroot\
-          dir wwwroot\GenerateAll\
+          # dir wwwroot\
+          # dir wwwroot\GenerateAll\
           xcopy wwwroot\GenerateAll publishMac\wwwroot\GenerateAll /S
 
           # add template to win
 
           mkdir publish\wwwroot\GenerateAll\
-          dir wwwroot\
-          dir wwwroot\GenerateAll\
+          # dir wwwroot\
+          # dir wwwroot\GenerateAll\
           xcopy wwwroot\GenerateAll publish\wwwroot\GenerateAll /S
           tar.exe -a -c -f GenerateFromDB.zip publish
           

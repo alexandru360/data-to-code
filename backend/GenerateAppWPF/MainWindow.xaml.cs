@@ -28,7 +28,7 @@ namespace GenerateAppWPF
             InitializeComponent();
             options = new Options();
             options.PathApp = App.folderAspNet;
-            options.Url = "http://localhost:5000/home/"+ DateTime.Now.ToString("yyyyMMddHHmmss");
+            options.Url = "http://localhost:5000/";
             this.DataContext = options;
 
         }
@@ -75,7 +75,7 @@ namespace GenerateAppWPF
         }
         private void OpenBrowser(Options opt)
         {
-            var psi = new ProcessStartInfo(opt.Url)
+            var psi = new ProcessStartInfo(opt.Url+ "home"+ DateTime.Now.ToString("yyyyMMddHHmmss"))
             {
                 UseShellExecute = true,
                 Verb = "open"
