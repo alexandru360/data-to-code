@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization.Infrastructure;
+﻿using GenerateAppBL;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Server.IIS.Core;
@@ -89,6 +90,7 @@ namespace GenerateApp.Controllers
             var stData = JsonConvert.DeserializeObject<StankinsGenerator>(File.ReadAllText(generator));
             //frontendFolderName = @"Angular10.0Full";
             var backend = stData.backend.FirstOrDefault(it => it.folder == backendFolderName);
+            
             var frontEnd = stData.frontend.FirstOrDefault(it => it.folder == frontendFolderName);
             //wt  new-tab -d C:\test\backend\NETCore3.1\TestWebAPI ; split-pane -d C:\test\frontend\Angular10.0
             var g = this.name;
@@ -166,7 +168,7 @@ namespace GenerateApp.Controllers
                         int idRel = data.AddNewTable(dtRels);
                         data.Metadata.AddTable(dtRels, idRel);
                         //var x = "<a mat-list-item [routerLink]=\"['/dbocountry/edit', row.idcountry]\" routerLinkActive=\"active\">Go=></a>";
-                        var dtNow = DateTime.Now.ToString("yyyyMMddHHmmss");
+                        var dtNow = MyDate.UTCFormat(); 
                         
                         dtOptions.Rows.Add("ApplicationName",Path.GetFileNameWithoutExtension( pathFile));
                         dtOptions.Rows.Add("DataSource", "SqlServerInMemory");
@@ -269,7 +271,7 @@ namespace GenerateApp.Controllers
                 if(!string.IsNullOrWhiteSpace(frontendFolderName))
                     DirectoryCopy(Path.Combine(folderGenerator, "FrontEnd", frontendFolderName), frontendFolder, true);
                 logs.AddLog(this.name,"generating files backend");
-
+                if(backend?.copyTableFiles != null)
                 foreach (var fileToCopy in backend.copyTableFiles)
                 {
                     var pathFile = Path.Combine(backendFolder, fileToCopy);
@@ -301,7 +303,7 @@ namespace GenerateApp.Controllers
                     File.Delete(pathFile);
                 }
                 logs.AddLog(this.name,"generating files frontend");
-                if(frontEnd != null)
+                if(frontEnd?.copyTableFiles != null)
                 foreach (var fileToCopy in frontEnd.copyTableFiles)
                 {
                     var pathFile = Path.Combine(frontendFolder, fileToCopy);

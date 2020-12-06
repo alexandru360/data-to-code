@@ -34,6 +34,11 @@
     ],
     "Ui": [
       {
+        "Name": "Angular 11",
+        "Key": "Angular11.0",
+        "Message": null
+      },
+      {
         "Name": "Angular 10",
         "Key": "Angular10.0",
         "Message": null

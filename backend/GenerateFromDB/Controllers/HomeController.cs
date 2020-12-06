@@ -6,6 +6,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
 using GenerateApp.Controllers;
+using GenerateAppBL;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -82,8 +83,8 @@ namespace GenerateFromDB.Controllers
 
       var info = await app.GenerateInfoData(typeToLoad);
       info.folderGenerator = Path.Combine(environment.WebRootPath, "GenerateAll");
-      string dateNow = DateTime.Now.ToString("yyyyMMddHHmmss");
-      dateNow = "";   
+      string dateNow = MyDate.UTCFormat();
+      //dateNow = "";   
       info.pathFile = Path.Combine(environment.WebRootPath, dateNow, "conection.txt");
       var di = Directory.CreateDirectory(Path.GetDirectoryName(info.pathFile));
       System.IO.File.WriteAllText(info.pathFile, app.payLoadConn.ConnectionString());

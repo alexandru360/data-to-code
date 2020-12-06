@@ -1,3 +1,4 @@
+using GenerateAppBL;
 using NPOI.SS.Formula.Functions;
 using StankinsObjects;
 using System;
@@ -89,7 +90,7 @@ namespace GenerateApp.Controllers
             var i = new InfoData(con)
             {
                 logs = new Logs(),
-                name = "custom" ,//+ DateTime.UtcNow.ToString("yyyyMMddHHmmss"),
+                name = "custom" + MyDate.UTCFormat(),
                 folderGenerator = "GenerateAll",
                 GenerateAppV1 = this
             };
