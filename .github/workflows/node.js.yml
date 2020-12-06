@@ -124,8 +124,8 @@ jobs:
           xcopy GenerateFromDB\GenerateFromDB.zip GenerateAppWPF\GenerateFromDB.zip /Y
           cd GenerateAppWPF          
           
-          dotnet build
-          dotnet publish -r win-x64 -c release -o WPF
+          dotnet build -r win-x64 -c release -o WPF
+          # dotnet publish -r win-x64 -c release -o WPF
           msbuild  /target:publish /p:PublishProfile=Properties\PublishProfiles\DataToCode.pubxml /p:OutputPath=WPFAPP
           copy WPFAPP\GenerateAppWPF.application WPFAPP\GenerateAppWPF_.application
 
