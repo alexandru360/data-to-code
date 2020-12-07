@@ -5,7 +5,8 @@
         None = 0,
         stringType,
         numberType,
-        booleanType
+        booleanType,
+        dateType
 
     }
 

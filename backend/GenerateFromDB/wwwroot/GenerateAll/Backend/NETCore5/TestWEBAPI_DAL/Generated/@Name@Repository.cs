@@ -140,7 +140,7 @@ namespace TestWEBAPI_DAL
                                 <text>
                         case "@(col.ColumnName)":
                             try{   
-                                
+                                //TODO: see array ,  guid=> guid.parse , and not have contains
                                 var val = Convert.To@(col.DataType.Name)(sf.Value);
                                 switch (sf.Criteria)
                                 {
