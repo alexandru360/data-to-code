@@ -148,7 +148,7 @@ namespace TestWEBAPI_DAL
                                         data = data.Where(it => it.@(colName) == val);
                                         break;
                                     case SearchCriteria.Different:
-                                        data = data.Where(it => it.@(colName) == val);
+                                        data = data.Where(it => it.@(colName) != val);
                                         break;  
                                         //@(nameType)
                                     @{
