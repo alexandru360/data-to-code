@@ -1,6 +1,9 @@
 ﻿@model Stankins.Interfaces.IDataToSent
 @{
     string guidType = typeof(System.Guid).Name;
+    //string guidTypeNullable=typeof(System.Nullable<System.Guid>).Name;
+    string byteType=typeof(System.Byte[]).Name;
+
 	string ClassNameFromTableName(string tableName){
 		return tableName.Replace(" ","").Replace(".","").Replace("(","").Replace(")","");
 	}
@@ -136,17 +139,23 @@ namespace TestWEBAPI_DAL
                         @{
                             for(int iCol = 0;iCol < nrCols; iCol++){
                                 var col = dt.Columns[iCol];
+                                var colType = col.DataType;
+
+                                if(colType.Name == byteType)
+                                    continue;
+
                                 var colName= nameProperty(col.ColumnName,nameClass) ;
                                 var nameType=  nameTypeForSearch(col.DataType.Name);
                                 string convert = "Convert.To" + col.DataType.Name;
-                                if(nameType == guidType){
+                                bool isGuid =(col.DataType.Name == guidType );
+                                if(isGuid){
                                     convert ="Guid.Parse";
                                 }
                                 <text>
                         case "@(col.ColumnName)":
                             try{   
-                                //TODO: see array ,  guid=> guid.parse , and not have contains                                
-                                var val = (@convert)(sf.Value);
+                                
+                                var val = @(convert)(sf.Value);
                                 switch (sf.Criteria)
                                 {
                                     case SearchCriteria.Equal:
@@ -168,7 +177,7 @@ namespace TestWEBAPI_DAL
                                     
                                         </text>
                                         }
-                                    if(nameType == "string" && guidType != col.DataType.Name ){
+                                    if(nameType == "string" && (!isGuid) ){
                                         <text>
                                             case SearchCriteria.Contains:
 

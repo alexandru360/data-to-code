@@ -145,8 +145,6 @@ namespace GenerateApp.Controllers
             {
                 yield return item;
             }   
-            
-                
 
             var all = await payLoadConn.FromPayloadConn();
             foreach(var item in input)
@@ -163,7 +161,7 @@ namespace GenerateApp.Controllers
                     var fieldFromDb = tableFromDb.fields.FirstOrDefault(it => it.name == sent.name);
                     if (fieldFromDb == null)
                     {
-                        yield return new ValidationResult($"cannot find field {sent.name}");
+                        yield return new ValidationResult($"cannot find field {sent.name} in {item?.table?.name}");
                         continue;
                     }
                     //TODO: put in another part than validate
