@@ -196,7 +196,7 @@ export class @(nameClass)Component implements AfterViewInit , OnInit {
 
   ngOnInit(): void {
     this.metadata.GetTables().subscribe(it=>{
-      this.MetadataTable = it.filter(it => it.nameTable.toLowerCase() == "dbo.department")[0];
+      this.MetadataTable = it.filter(it => it.nameTable.toLowerCase() == "@(nameTable.ToLower())")[0];
        //window.alert(JSON.stringify(this.MetadataTable));
       // window.alert(JSON.stringify(it));
     });
