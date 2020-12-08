@@ -14,7 +14,7 @@ using NetCore2Blockly;
 
 namespace GenerateFromDB
 {
-    
+
     public class Startup
     {
 
@@ -37,7 +37,7 @@ namespace GenerateFromDB
             services.AddBlockly(Site);
             services.AddProblemDetails(opts =>
             {
-                
+
                 // Control when an exception is included
                 opts.IncludeExceptionDetails = (ctx, ex) =>
                 {
@@ -46,13 +46,13 @@ namespace GenerateFromDB
                     //return env.IsDevelopment() || env.IsStaging();
                     return true;
                 };
-            }); 
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseProblemDetails(); 
+            app.UseProblemDetails();
             var PrefixBlocks = Configuration["BlocklySite:PrefixBlocks"];
 
             app.UseCors(it => it.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
@@ -61,7 +61,7 @@ namespace GenerateFromDB
                 HeaderName = "Database Generator",
                 StartBlocks = start(PrefixBlocks)
             }); ;
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -75,19 +75,20 @@ namespace GenerateFromDB
 
             app.UseEndpoints(endpoints =>
             {
-              endpoints.MapFallbackToFile("demo", "/index.html");
-              endpoints.MapFallbackToFile("about", "/index.html");
-              endpoints.MapFallbackToFile("more", "/index.html");
-              endpoints.MapControllers();
+                endpoints.MapFallbackToFile("home", "/index.html");
+                endpoints.MapFallbackToFile("demo", "/index.html");
+                endpoints.MapFallbackToFile("about", "/index.html");
+                endpoints.MapFallbackToFile("more", "/index.html");
+                endpoints.MapControllers();
 
-              //endpoints.MapFallbackToFile("{**slug}", "/index.html");
+                //endpoints.MapFallbackToFile("{**slug}", "/index.html");
             });
             app.UseBlockly();
         }
 
-        public  string start(string prefix)
+        public string start(string prefix)
         {
-            
+
             {
                 //return "";
                 return @"<xml xmlns='https://developers.google.com/blockly/xml'>
@@ -147,7 +148,7 @@ namespace GenerateFromDB
       <block type='variables_set'>
         <field name='VAR' id='KMd@G+h:qKzF*WYeOCW^'>input</field>
         <value name='VALUE'>
-          <block type='"+prefix+ @"api_Home_FindTables_POST'>
+          <block type='" + prefix + @"api_Home_FindTables_POST'>
             <value name='val_payLoadConn'>
               <shadow type='GenerateApp_Controllers_PayLoadConn'></shadow>
               <block type='variables_get'>
@@ -253,6 +254,6 @@ namespace GenerateFromDB
 </xml>
 ";
             }
-        } 
+        }
     }
 }
