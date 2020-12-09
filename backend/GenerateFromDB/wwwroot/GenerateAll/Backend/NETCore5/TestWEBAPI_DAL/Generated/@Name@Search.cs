@@ -111,6 +111,15 @@ namespace TestWEBAPI_DAL
         {
             return databaseContext.@(nameClass).LongCountAsync();
         }
+        public async Task<PaginatedRecords<@(nameClass)>> SearchPaginated(SearchModel<@(nameClass)> search)
+        {
+            var query = search.GetSearch(databaseContext.@(nameClass), paginated:false);
+            var nr = await query.LongCountAsync();
+            query = search.GetSearch(databaseContext.@(nameClass), paginated: true);
+            var data = await query.ToArrayAsync();
+            return new PaginatedRecords<@(nameClass)>(nr, data);
+         
+        }
         @if(!havePK){
             <text>
             }
@@ -158,15 +167,7 @@ namespace TestWEBAPI_DAL
             await databaseContext.SaveChangesAsync();
             return p;
         }
-        public async Task<PaginatedRecords<@(nameClass)>> SearchPaginated(SearchModel<@(nameClass)> search)
-        {
-            var query = search.GetSearch(databaseContext.@(nameClass), paginated:false);
-            var nr = await query.LongCountAsync();
-            query = search.GetSearch(databaseContext.@(nameClass), paginated: true);
-            var data = await query.ToArrayAsync();
-            return new PaginatedRecords<@(nameClass)>(nr, data);
-         
-        }
+
        
     }
 }

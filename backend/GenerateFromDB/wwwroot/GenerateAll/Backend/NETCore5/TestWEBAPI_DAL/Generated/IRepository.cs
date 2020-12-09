@@ -21,5 +21,7 @@ namespace TestWEBAPI_DAL
     {
         Task<T[]> GetAll();
         Task<long> Count();
+        Task<PaginatedRecords<T>> SearchPaginated(SearchModel<T> search);
+
     }
 }

@@ -75,6 +75,13 @@ namespace TestWebAPI.Controllers
         {
             return await _repository.GetAll();
         }
+
+        [HttpPost]
+        public Task<PaginatedRecords<@(nameClass)>> SearchPaginated(@(nameClass)_Search search)
+        {
+            return _repository.SearchPaginated(search);
+        }
+
         @if(!havePK){
             <text>
             }
@@ -134,11 +141,6 @@ namespace TestWebAPI.Controllers
 
 
             return id;
-        }
-        [HttpPost]
-        public Task<PaginatedRecords<@(nameClass)>> SearchPaginated(@(nameClass)_Search search)
-        {
-            return _repository.SearchPaginated(search);
         }
        
     }
