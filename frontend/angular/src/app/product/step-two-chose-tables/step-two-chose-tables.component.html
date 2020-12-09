@@ -24,7 +24,9 @@
               <!--Something to be said here :)-->
             </mat-panel-description>
           </mat-expansion-panel-header>
+          
           <br/>
+          <span *ngIf="1===0">
           <div class="row">
             <div class="col">
               <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.crudEndpoints.List">Read</mat-checkbox>
@@ -79,6 +81,7 @@
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
           </mat-table>
           <!-- END - Table columns !-->
+        </span>
         </mat-expansion-panel>
       </mat-accordion>
       <br/>

@@ -57,7 +57,7 @@
                   nameType="number";
                   break;
                 case "datetime":
-                    nameType = "Date";
+                    nameType = "date";
                     break;
                 case "single":
                 case "double":
@@ -129,7 +129,13 @@ namespace TestWEBAPI_DAL
                             From(SearchCriteria.EndsWith),
                             From(SearchCriteria.Contains)
                         };
-
+                    case FieldTypeSearch.dateType:
+                        return new[]
+                        {
+                            From(SearchCriteria.Equal),
+                            From(SearchCriteria.Different)
+                        };
+                    
                     default:
                         throw new ArgumentException($"cannot find searches for {fieldTypeSearch}");
                 }
