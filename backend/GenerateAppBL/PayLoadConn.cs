@@ -150,15 +150,20 @@ namespace GenerateApp.Controllers
             foreach(var item in input)
             {
                 var name = item.table.name;
-                var tableFromDb = all.tables.FirstOrDefault(it => it.name == name);
-                if (tableFromDb == null)
+                BaseWithColumns tableOrViewFromDb = all.tables.FirstOrDefault(it => it.name == name);
+                if(tableOrViewFromDb == null)
                 {
+                    tableOrViewFromDb=all.views.FirstOrDefault(it => it.name == name);
+                }
+                if (tableOrViewFromDb == null)
+                {
+                    
                     yield return new ValidationResult($"cannot find table {name}");
                     continue;
                 }
                 foreach(var sent in item.table.fields)
                 {
-                    var fieldFromDb = tableFromDb.fields.FirstOrDefault(it => it.name == sent.name);
+                    var fieldFromDb = tableOrViewFromDb.fields.FirstOrDefault(it => it.name == sent.name);
                     if (fieldFromDb == null)
                     {
                         yield return new ValidationResult($"cannot find field {sent.name} in {item?.table?.name}");
