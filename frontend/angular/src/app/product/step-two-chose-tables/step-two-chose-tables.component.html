@@ -10,15 +10,15 @@
         </mat-checkbox>
       </mat-card-subtitle>
     </mat-card-header>
-
+    <input [(ngModel)]="searchText">
     <!-- Chose tables -->
     <mat-card-content>
 
       <mat-accordion>
         <mat-expansion-panel *ngFor="let itm of stepOnePayload; index as idx;"> <!--hideToggle-->
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.selected">{{itm.name}}</mat-checkbox>
+          <mat-expansion-panel-header *ngIf="itm.display">
+            <mat-panel-title >
+              <mat-checkbox class="checkbox-margin" [(ngModel)]="itm.selected">{{idx +1}} {{itm.name}}</mat-checkbox>
             </mat-panel-title>
             <mat-panel-description>
               <!--Something to be said here :)-->

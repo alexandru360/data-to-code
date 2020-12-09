@@ -6,7 +6,7 @@ export default class EntitiesDetails {
   fields: Array<EntityField>;
   selected: boolean;
   crudEndpoints: CrudEndpoints;
-
+  display:boolean;
   constructor() {
     this.fields = new Array<EntityField>();
     this.crudEndpoints = new CrudEndpoints();
