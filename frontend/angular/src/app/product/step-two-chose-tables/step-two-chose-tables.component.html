@@ -96,7 +96,7 @@
 
 <mat-card class="shipping-card" *ngIf="showWhatIsGenerated">
   <mat-card-header>
-    <mat-card-title *ngIf="!btnDisableDataDebounce">Chose the UI & Backend</mat-card-title>
+    <mat-card-title *ngIf="!btnDisableDataDebounce">Choose the UI & Backend</mat-card-title>
     <mat-card-title *ngIf="btnDisableDataDebounce">Creating your application</mat-card-title>
   </mat-card-header>
 
@@ -109,10 +109,10 @@
 
     <mat-card class="shipping-card">
       <mat-card-header>
-        <mat-card-title>Chose what you want generated</mat-card-title>
+        <mat-card-title>Choose what you want generated from entities below</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-
+        
         <mat-grid-list cols="2" rowHeight="2:1">
           <mat-grid-tile>
             <mat-checkbox class="checkbox-margin" [(ngModel)]="whatIsGenerated.Api">
@@ -150,13 +150,18 @@
 
       </mat-card-content>
     </mat-card>
-
+    
   </mat-card-content>
-
-
+  
   <mat-card-actions>
-    <button mat-stroked-button color="primary" [disabled]="btnDisableDataDebounce" (click)="onSubmit()">Send data
+    <button mat-stroked-button color="primary" [disabled]="btnDisableDataDebounce" (click)="onSubmit()">Click to generate for entities!
     </button>
+
     <button mat-button color="primary" matStepperNext *ngIf="btnStepComplete">Next</button>
+
+    <mat-chip-list aria-label="Selected tables"  *ngFor="let t of stepOnePayload">
+      <mat-chip color="primary" *ngIf="t.selected" >{{t.name}}</mat-chip>
+    </mat-chip-list>
+  
   </mat-card-actions>
 </mat-card>

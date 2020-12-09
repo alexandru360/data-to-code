@@ -35,6 +35,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatChipsModule  } from '@angular/material/chips';
 import {AuthGuard} from './security/guards/auth.guard';
 import {PasswordComponent} from './security/password/password.component';
 import {PasswordRecoveryComponent} from './security/password-recovery/password-recovery.component';
@@ -91,6 +92,7 @@ export function ConfigLoader(configService: AppConfigService) {
     MatIconModule,
     MatToolbarModule,
     MatSidenavModule,
+    MatChipsModule
   ],
   providers: [
     AuthGuard,
