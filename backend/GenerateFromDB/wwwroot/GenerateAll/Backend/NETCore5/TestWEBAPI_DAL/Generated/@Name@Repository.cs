@@ -166,7 +166,7 @@ namespace TestWEBAPI_DAL
                                         break;  
                                         //@(nameType)
                                     @{
-                                    if(nameType == "number"){
+                                    if(nameType == "number" || nameType =="Date"){
                                         <text>
                                             case SearchCriteria.Greater:
                                                 data = data.Where(it => it.@(colName) @Raw(">") val);
@@ -174,6 +174,13 @@ namespace TestWEBAPI_DAL
                                             case SearchCriteria.Less:
                                                 data = data.Where(it => it.@(colName) @Raw("<") val);
                                                 break;  
+                                            case SearchCriteria.GreaterOrEqual:
+                                                data = data.Where(it => it.@(colName) @Raw(">=") val);
+                                                break;  
+                                            case SearchCriteria.LessOrEqual:
+                                                data = data.Where(it => it.@(colName) @Raw("<=") val);
+                                                break;  
+                                            
                                     
                                         </text>
                                         }

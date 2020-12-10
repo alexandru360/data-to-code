@@ -118,7 +118,9 @@ namespace TestWEBAPI_DAL
                             From(SearchCriteria.Equal),
                             From(SearchCriteria.Different),
                             From(SearchCriteria.Greater),
-                            From(SearchCriteria.Less)
+                            From(SearchCriteria.Less),
+                            From(SearchCriteria.GreaterOrEqual),
+                            From(SearchCriteria.LessOrEqual)
                         };
                     case FieldTypeSearch.stringType:
                         return new[]
@@ -133,7 +135,11 @@ namespace TestWEBAPI_DAL
                         return new[]
                         {
                             From(SearchCriteria.Equal),
-                            From(SearchCriteria.Different)
+                            From(SearchCriteria.Different),
+                            From(SearchCriteria.Greater),
+                            From(SearchCriteria.Less),
+                            From(SearchCriteria.GreaterOrEqual),
+                            From(SearchCriteria.LessOrEqual)
                         };
                     
                     default:

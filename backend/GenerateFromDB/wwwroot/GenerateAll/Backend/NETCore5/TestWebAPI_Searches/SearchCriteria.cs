@@ -9,7 +9,9 @@
         Equal,
         Different,
         Greater,
-        Less
+        Less,
+        GreaterOrEqual,
+        LessOrEqual
     }
 
 }
