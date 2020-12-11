@@ -197,7 +197,7 @@ export class @(nameClass)EditComponent implements OnInit {
     );
   }
   public cancel(): void{
-    this.router.navigate(['/@(nameClass.ToLower())']);
+    this.router.navigate(['/crud/@(nameClass.ToLower())']);
   }
 
 

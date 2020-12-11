@@ -36,7 +36,7 @@ var ds= Model.FindAfterName("DataSource").Value;
  @foreach(var nameTable in nameTablesToRender){
 string nameClass=ClassNameFromTableName(nameTable);
 
-      <a mat-list-item routerLink="/@(nameClass.ToLower())" routerLinkActive="active">@nameTable </a>
+      <a mat-list-item routerLink="/crud/@(nameClass.ToLower())" routerLinkActive="active">@nameTable </a>
       <span *ngIf="numberRecords@(nameClass.ToLower()) != null">
 
         number records:

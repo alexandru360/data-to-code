@@ -103,7 +103,7 @@ List of @(nameTable) Total records {{totalNumber}}. Filtered {{filteredNumber}}
 				foreach(var row in rowsRelParent){
 					if(row["referenced_column"].ToString() == colName){
 						var refTableName =ClassNameFromTableName(row["referenced_object"].ToString()).ToLower();
-						display +="<a mat-list-item [routerLink]=\"['/" + refTableName + "/edit', row." + lowerCaseFirst(nameProperty(colName,nameClass)) + "]\" routerLinkActive=\"active\">Go=></a>";
+						display +="<a mat-list-item [routerLink]=\"['/crud/" + refTableName + "/edit', row." + lowerCaseFirst(nameProperty(colName,nameClass)) + "]\" routerLinkActive=\"active\">Go=></a>";
 					}
 				}
 			}
@@ -121,7 +121,7 @@ List of @(nameTable) Total records {{totalNumber}}. Filtered {{filteredNumber}}
 			<text>
 	  <ng-container matColumnDef="operations">
 		<th mat-header-cell *matHeaderCellDef mat-sort-header> Operations </th>
-		<td mat-cell *matCellDef="let row" > <a routerLink="/@(routeName)/edit/{{row.@(idTable)}}" >Edit</a>
+		<td mat-cell *matCellDef="let row" > <a routerLink="/crud/@(routeName)/edit/{{row.@(idTable)}}" >Edit</a>
 		
 			&nbsp;
 			<button (click)="deleteData(row.@(idTable))">Delete</button>

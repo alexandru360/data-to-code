@@ -161,10 +161,10 @@ namespace TestWebAPI
            string nameClass= ClassNameFromTableName(nameTable);
      
             <text>
-			endpoints.MapFallbackToFile("@(nameClass.ToLower())/{**slug}","/index.html");
+			endpoints.MapFallbackToFile("/crud/@(nameClass.ToLower())/{**slug}","/index.html");
             </text>
         }
-             
+                endpoints.MapFallbackToFile("/crud/{**slug}", "/index.html");
                 endpoints.MapControllers();
                 endpoints.MapFallbackToFile("{**slug}", "/index.html");
             });

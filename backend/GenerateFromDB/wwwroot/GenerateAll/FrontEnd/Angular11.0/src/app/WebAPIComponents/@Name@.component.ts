@@ -262,7 +262,7 @@ export class @(nameClass)Component implements AfterViewInit , OnInit {
  }
 }
   public add(): void{
-    this.router.navigate(["/@(nameClass.ToLower())/add"]);
+    this.router.navigate(["/crud/@(nameClass.ToLower())/add"]);
     return;
   }
 

@@ -69,11 +69,11 @@ const routes: Routes = [
 @foreach(var nameTable in nameTablesToRender){
 	string nameClass=ClassNameFromTableName(nameTable);
 <text>
-{ path: '@(nameClass.ToLower())', component: @(nameClass)Component },
+{ path: 'crud/@(nameClass.ToLower())', component: @(nameClass)Component },
 
-{ path: '@(nameClass.ToLower())/add', component: @(nameClass)AddComponent },
+{ path: 'crud/@(nameClass.ToLower())/add', component: @(nameClass)AddComponent },
 
-{ path: '@(nameClass.ToLower())/edit/:id', component: @(nameClass)EditComponent },
+{ path: 'crud/@(nameClass.ToLower())/edit/:id', component: @(nameClass)EditComponent },
 
 </text>
 }
