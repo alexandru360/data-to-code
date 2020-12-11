@@ -1,3 +1,9 @@
+@{
+ var dt = System.DateTime.UtcNow;
+ var version = dt.ToString("yyyy.mm.dd");
+}
+
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +20,7 @@ namespace TestWebAPI.Controllers
     {
         [HttpGet]
         public string VersionGenerator(){
-            return "1.2020.12.11";
+            return "(@version)";
         }
         [HttpGet]
         public string VersionBackend(){
