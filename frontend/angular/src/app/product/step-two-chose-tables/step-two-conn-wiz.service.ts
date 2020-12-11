@@ -27,7 +27,7 @@ export class StepTwoConnWizService {
       body,
       {headers: COMMON_HEADER})
         .pipe(
-            timeout(300000)
+            timeout(20 * 60* 1000)
             );
   }
 }

@@ -158,10 +158,10 @@
     </button>
 
     <button mat-button color="primary" matStepperNext *ngIf="btnStepComplete">Next</button>
-
-    <mat-chip-list aria-label="Selected tables"  *ngFor="let t of stepOnePayload">
+    <br />
+    <p *ngFor="let t of stepOnePayload">
       <mat-chip color="primary" *ngIf="t.selected" >{{t.name}}</mat-chip>
-    </mat-chip-list>
-  
+    </p>
+    <br />
   </mat-card-actions>
 </mat-card>
