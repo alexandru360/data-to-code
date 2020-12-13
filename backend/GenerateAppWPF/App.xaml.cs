@@ -50,10 +50,24 @@ namespace GenerateAppWPF
         }
         public App()
         {
-
-            if (!Directory.Exists(folderAspNet))
+            string nameFile = "GenerateFromDB.zip";
+            string fullPathFile = nameFile;
+            if (!File.Exists(fullPathFile))
             {
-                ZipFile.ExtractToDirectory("GenerateFromDB.zip", folderAspNet, true);
+                fullPathFile = Path.Combine(Environment.CurrentDirectory, nameFile);
+            }
+            if (!File.Exists(fullPathFile))
+            {
+                fullPathFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, nameFile);
+            }
+            if (!File.Exists(fullPathFile))
+            {
+                MessageBox.Show($"The file {nameFile} could not be found");
+                //where to search more?
+            }
+            if (!Directory.Exists(folderAspNet) && File.Exists(fullPathFile))
+            {
+                ZipFile.ExtractToDirectory(fullPathFile, folderAspNet, true);
             }
             //this.Startup += App_Startup;
             this.Exit += App_Exit;
@@ -64,10 +78,16 @@ namespace GenerateAppWPF
             if (process != null  && !process.HasExited)
                 process.Kill(true);
         }
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            MainWindow mw = new MainWindow();
+            mw.Show();
+        }
 
         //private void App_Startup(object sender, StartupEventArgs e)
         //{
-            
+
         //}
     }
 }

@@ -6,6 +6,7 @@
     <StartupObject>GenerateAppWPF.App</StartupObject>
     <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
     <Version>2020.12.1.2131</Version>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="GenerateFromDB.zip" />
