@@ -20,7 +20,7 @@ namespace TestWebAPI.Controllers
     {
         [HttpGet]
         public string VersionGenerator(){
-            return "(@version)";
+            return "@(version)";
         }
         [HttpGet]
         public string VersionBackend(){
