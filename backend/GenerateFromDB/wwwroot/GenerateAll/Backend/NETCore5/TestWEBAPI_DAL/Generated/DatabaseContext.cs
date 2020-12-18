@@ -80,16 +80,24 @@ namespace TestWEBAPI_DAL
             }
             System.Array.Reverse(arr);
             string  WithSchema =string.Join(",",arr);
-            var havePK = (dtOptions.Rows.Find(nameTable +"_PK") != null);
-            string idTable ="", idType = "";
-            if(havePK){
-                idTable = dtOptions.Rows.Find(nameTable +"_PK")[1].ToString();
-            }
-            if(havePK){
+            var nrPK = (int.Parse(dtOptions.Rows.Find(nameTable +"_PK_Number")[1].ToString())  );
+            string idTable ="", idType = "", idTableSecond = "",idTypeSecond = "";
+            
+            if(nrPK >0 ){
+                idTable = dtOptions.Rows.Find(nameTable +"_PK_0")[1].ToString();
+                
+                if( nrPK > 1 ) { 
+                    // just 2 PK
+                    idTableSecond = dtOptions.Rows.Find(nameTable +"_PK_1")[1].ToString();
+                }
+                string key = "it=>it."+ nameProperty(idTable,nameClass) +"" ;
+                if( nrPK > 1) {
+                    key = "it=>new { it."+ nameProperty(idTable,nameClass) + ",it."+ nameProperty(idTableSecond,nameClass) +"}"; 
+                }
          <text>
             modelBuilder.Entity<@(nameClass)>()
                 .ToTable(@Raw(WithSchema))
-                .HasKey(it=>it.@(nameProperty(idTable,nameClass)));
+                .HasKey(@Raw(key));
          </text>
             }
             else{
@@ -126,11 +134,11 @@ namespace TestWEBAPI_DAL
 
             @foreach(var dt in tables){
 				string nameClass= ClassNameFromTableName(dt.TableName);
-                var havePK = (dtOptions.Rows.Find(dt.TableName +"_PK") != null);
+                var havePK = (dtOptions.Rows.Find(dt.TableName +"_PK_0") != null);
                 string idTable ="", idType = "";
                 if(havePK){
                 
-                     idTable = dtOptions.Rows.Find(dt.TableName +"_PK")[1].ToString();
+                     idTable = dtOptions.Rows.Find(dt.TableName +"_PK_0")[1].ToString();
                 }
                 var nrRows =dt.Rows.Count; 
                 if(nrRows > 200)

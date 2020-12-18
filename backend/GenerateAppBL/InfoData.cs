@@ -227,12 +227,17 @@ namespace GenerateApp.Controllers
                         {
                             var nameTable = ds.Rows[iRowDS]["TableName"].ToString();
                             var dtTable = data.FindAfterName(nameTable).Value;
+                            dtOptions.Rows.Add($"{nameTable}_PK_Number", dtTable.PrimaryKey.Length);
                             if (dtTable.PrimaryKey.Length > 0)
                             {
-                                var nameColumnPK = dtTable.PrimaryKey.First().ColumnName;
-                                var typeColumnPK = dtTable.Columns[nameColumnPK].DataType;
-                                dtOptions.Rows.Add($"{nameTable}_PK", nameColumnPK);
-                                dtOptions.Rows.Add($"{nameTable}_PK_Type", typeColumnPK.Name);
+                                for (int i = 0; i < dtTable.PrimaryKey.Length; i++)
+                                {
+                                    var item = dtTable.PrimaryKey[i];
+                                    var nameColumnPK = item.ColumnName;
+                                    var typeColumnPK = dtTable.Columns[nameColumnPK].DataType;
+                                    dtOptions.Rows.Add($"{nameTable}_PK_{i}", nameColumnPK);
+                                    dtOptions.Rows.Add($"{nameTable}_PK_{i}_Type", typeColumnPK.Name);
+                                }
                             }
                         }
 

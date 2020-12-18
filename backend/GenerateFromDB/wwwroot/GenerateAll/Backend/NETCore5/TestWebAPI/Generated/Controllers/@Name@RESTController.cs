@@ -28,11 +28,11 @@ string nameProperty(string original, string nameClass){
     var dt= Model.FindAfterName("@Name@").Value;
 
     var dtOptions= Model.FindAfterName("@@Options@@").Value;
-    var havePK = (dtOptions.Rows.Find(dt.TableName +"_PK") != null);
+    var havePK = (dtOptions.Rows.Find(dt.TableName +"_PK_0") != null);
     string idTable ="", idType = "";
     if(havePK ){
-        idTable = dtOptions.Rows.Find(dt.TableName +"_PK")[1].ToString();
-        idType = dtOptions.Rows.Find(dt.TableName +"_PK_Type")[1].ToString();  
+        idTable = dtOptions.Rows.Find(dt.TableName +"_PK_0")[1].ToString();
+        idType = dtOptions.Rows.Find(dt.TableName +"_PK_0_Type")[1].ToString();  
     }
 	string nameClass= ClassNameFromTableName(dt.TableName);
     

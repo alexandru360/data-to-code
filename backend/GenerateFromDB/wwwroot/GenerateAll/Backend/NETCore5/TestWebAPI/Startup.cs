@@ -103,11 +103,11 @@ namespace TestWebAPI
             }
        @foreach(var nameTable in nameTablesToRender){
 		   string nameClass= ClassNameFromTableName(nameTable);
-            var havePK = (dtOptions.Rows.Find(nameTable +"_PK_Type") != null);
+            var havePK = (dtOptions.Rows.Find(nameTable +"_PK_0_Type") != null);
             string idTable ="", idType = "";
             if(havePK){
 
-                idType = dtOptions.Rows.Find(nameTable +"_PK_Type")[1].ToString();      
+                idType = dtOptions.Rows.Find(nameTable +"_PK_0_Type")[1].ToString();      
             }
             string textToRender="";
             if(havePK){
