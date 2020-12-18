@@ -26,19 +26,28 @@ string ClassNameFromTableName(string tableName){
 	}
     var dt= Model.FindAfterName("@Name@").Value;
     var dtOptions= Model.FindAfterName("@@Options@@").Value;
-    var havePK = (dtOptions.Rows.Find(dt.TableName +"_PK_0") != null);
-    string idTable ="", idType = "";
-    if(havePK){
+    var nrPK = (int.Parse(dtOptions.Rows.Find(nameTable +"_PK_Number")[1].ToString())  );
+    
+    string idTable ="", idType = "",idTableSecond = "",idTypeSecond = "";
+    if(nrPK>0){
         idTable = dtOptions.Rows.Find(dt.TableName +"_PK_0")[1].ToString();
         idType = dtOptions.Rows.Find(dt.TableName +"_PK_0_Type")[1].ToString();  	
+    }
+    if(nrPK>1){
+        idTableSecond = dtOptions.Rows.Find(dt.TableName +"_PK_1")[1].ToString();
+        idTypeSecond = dtOptions.Rows.Find(dt.TableName +"_PK_1_Type")[1].ToString();  	
     }
 	string nameClass= ClassNameFromTableName(dt.TableName);
     
     string repo= nameClass  + "_Repository";
     string typeRepository = "IRepositoryView<"+ nameClass +">";
-    if(havePK){
+    if(nrPK > 0){
         typeRepository = "IRepository<" + (nameClass) + "," + (idType) + ">";
     }
+    if(nrPK > 1){
+        typeRepository = "IRepository<" + (nameClass) + "," + (idType) + ","+ idTypeSecond + ">";
+    }
+
 }
 
 using System;
@@ -82,7 +91,7 @@ namespace TestWebAPI.Controllers
             return _repository.SearchPaginated(search);
         }
 
-        @if(!havePK){
+        @if(nrPK == 0){
             <text>
             }
         }

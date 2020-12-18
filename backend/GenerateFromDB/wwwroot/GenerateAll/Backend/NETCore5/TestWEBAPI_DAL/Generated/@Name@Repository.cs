@@ -63,21 +63,25 @@
 	}
     var dt= Model.FindAfterName("@Name@").Value;
     var dtOptions= Model.FindAfterName("@@Options@@").Value;
-    var havePK = (dtOptions.Rows.Find(dt.TableName +"_PK_0") != null);
-    string idTable ="", idType = "";
-    if(havePK){
+    var nrPK = (int.Parse(dtOptions.Rows.Find(nameTable +"_PK_Number")[1].ToString()));
+    string idTable ="", idType = "",idTableSecond = "",idTypeSecond = "";
+    if(nrPK >0 ){
         idTable = dtOptions.Rows.Find(dt.TableName +"_PK_0")[1].ToString();
         idType = dtOptions.Rows.Find(dt.TableName +"_PK_0_Type")[1].ToString();  
+    }
+    if(nrPK>1){
+        idTableSecond = dtOptions.Rows.Find(dt.TableName +"_PK_1")[1].ToString();
+        idTypeSecond = dtOptions.Rows.Find(dt.TableName +"_PK_1_Type")[1].ToString();  	
     }
     var nrCols =dt.Columns.Count;
     string nameClass= ClassNameFromTableName(dt.TableName);
     string repoName= ClassNameFromTableName(dt.TableName)  + "_Repository";
-    string repoInterface="";
-    if(havePK){
-        repoInterface+=":IRepository<"+(nameClass)+"," + (idType)+">";
+    string repoInterface=":IRepositoryView<"+(nameClass)+">";
+    if(nrPK>0){
+        repoInterface=":IRepository<"+(nameClass)+"," + (idType)+">";
     }
-    else{
-        repoInterface+=":IRepositoryView<"+(nameClass)+">";
+    if(nrPK>1){
+        repoInterface=":IRepository<"+(nameClass)+"," + (idType)+","+ idTypeSecond + ">";
     }
 
 	
@@ -120,7 +124,7 @@ namespace TestWEBAPI_DAL
             return new PaginatedRecords<@(nameClass)>(nr, data);
          
         }
-        @if(!havePK){
+        @if(nrPK == 0){
             <text>
             }
         }

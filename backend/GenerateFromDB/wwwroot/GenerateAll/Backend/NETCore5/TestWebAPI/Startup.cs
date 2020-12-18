@@ -103,14 +103,23 @@ namespace TestWebAPI
             }
        @foreach(var nameTable in nameTablesToRender){
 		   string nameClass= ClassNameFromTableName(nameTable);
-            var havePK = (dtOptions.Rows.Find(nameTable +"_PK_0_Type") != null);
-            string idTable ="", idType = "";
-            if(havePK){
+            var nrPK = (int.Parse(dtOptions.Rows.Find(nameTable +"_PK_Number")[1].ToString())  );
+            
+            string idTable ="", idType = "" ,idTableSecond = "",idTypeSecond = "";
+            if(nrPK > 0 ){
 
                 idType = dtOptions.Rows.Find(nameTable +"_PK_0_Type")[1].ToString();      
             }
+            if( nrPK > 1 ) { 
+                    // just 2 PK
+                    idTableSecond = dtOptions.Rows.Find(nameTable +"_PK_1_Type")[1].ToString();
+            }
+
             string textToRender="";
-            if(havePK){
+            if(nrPK > 1 ){
+                textToRender="services.AddTransient<IRepository<"+nameClass+","+ idType +"," + idTypeSecond + ">, "+nameClass+"_Repository>();";
+            }
+            else if(nrPK > 1){
                 textToRender="services.AddTransient<IRepository<"+nameClass+","+ idType +">, "+nameClass+"_Repository>();";
             }
             else{

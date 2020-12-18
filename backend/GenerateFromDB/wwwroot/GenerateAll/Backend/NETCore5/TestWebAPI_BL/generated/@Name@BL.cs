@@ -10,11 +10,15 @@
     string nameClass= ClassNameFromTableName(dt.TableName);
     var dtOptions= Model.FindAfterName("@@Options@@").Value;
 
-    var havePK = (dtOptions.Rows.Find(dt.TableName +"_PK_0") != null);
-    string idTable ="", idType = "";
-    if(havePK){
-        idTable = dtOptions.Rows.Find(dt.TableName +"_PK_0")[1].ToString();  
+    var nrPK = (int.Parse(dtOptions.Rows.Find(nameTable +"_PK_Number")[1].ToString()));
+    string idTable ="", idType = "",idTableSecond = "",idTypeSecond = "";
+    if(nrPK >0 ){
+        idTable = dtOptions.Rows.Find(dt.TableName +"_PK_0")[1].ToString();
         idType = dtOptions.Rows.Find(dt.TableName +"_PK_0_Type")[1].ToString();  
+    }
+    if(nrPK>1){
+        idTableSecond = dtOptions.Rows.Find(dt.TableName +"_PK_1")[1].ToString();
+        idTypeSecond = dtOptions.Rows.Find(dt.TableName +"_PK_1_Type")[1].ToString();  	
     }
 	var nrCols =dt.Columns.Count;
 	string nameProperty(string original, string nameClass){
@@ -61,16 +65,22 @@ namespace TestWebAPI_BL
         }
         public void CopyPropertiesFrom(@(nameClass) other, bool withID){
             @{
-                if(havePK){
+                if(nrPK>0){
                 <text>
             if(withID){
                 this.@(nameProperty(idTable,nameClass))= other.@(nameProperty(idTable,nameClass));
             }
-                </text>
-                <text>
-                // var x="";
-                </text>
+                </text>             
                 }
+
+                if(nrPK>1){
+                <text>
+            if(withID){
+                this.@(nameProperty(idTableSecond,nameClass))= other.@(nameProperty(idTableSecond,nameClass));
+            }
+                </text>             
+                }
+
             }
             @for(int iCol = 0;iCol < nrCols; iCol++){
                 var col = dt.Columns[iCol];
@@ -90,9 +100,14 @@ namespace TestWebAPI_BL
         
         #region Properties
         @{
-            if(havePK){
+            if(nrPK>0){
                 <text>
                 public @(idType) @(nameProperty(idTable,nameClass)){get;set;}
+                </text>
+            }
+            if(nrPK>1){
+                <text>
+                public @(idTypeSecond) @(nameProperty(idTableSecond,nameClass)){get;set;}
                 </text>
             }
         }
@@ -104,8 +119,11 @@ namespace TestWebAPI_BL
             var colType = col.DataType;
             if(colType.FullName == typeof(string).FullName)
                 nullable=false;
-             if(colName.ToLower() == nameProperty(idTable,nameClass).ToLower())
+            if(colName.ToLower() == nameProperty(idTable,nameClass).ToLower())
                 continue;
+            if(colName.ToLower() == nameProperty(idTableSecond,nameClass).ToLower())
+                continue;
+
             <text>
             public @(colType.Name)@(nullable?"?":"") @(colName) { get; set; }
             </text>
