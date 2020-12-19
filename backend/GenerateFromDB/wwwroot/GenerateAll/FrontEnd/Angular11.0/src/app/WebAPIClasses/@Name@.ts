@@ -13,7 +13,7 @@ string ClassNameFromTableName(string tableName){
     var nrPK = (int.Parse(dtOptions.Rows.Find(nameTable +"_PK_Number")[1].ToString()));
     string idTable ="", idType = "" ,idTableSecond = "",idTypeSecond = "";
     if(nrPK > 0 ){
-  
+        idTable=dtOptions.Rows.Find(nameTable +"_PK_0")[1].ToString();     
       idType = dtOptions.Rows.Find(nameTable +"_PK_0_Type")[1].ToString();     
       idTable = nameProperty(idTable,nameClass);
       

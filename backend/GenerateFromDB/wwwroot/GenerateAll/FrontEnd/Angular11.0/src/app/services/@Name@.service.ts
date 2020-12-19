@@ -75,7 +75,7 @@
             
     string idTable ="", idType = "" ,idTableSecond = "",idTypeSecond = "";
     if(nrPK > 0 ){
-  
+      idTable=dtOptions.Rows.Find(nameTable +"_PK_0")[1].ToString();     
       idType = dtOptions.Rows.Find(nameTable +"_PK_0_Type")[1].ToString();     
       idTable = nameProperty(idTable,nameClass);
       idType = nameTypeForJS(idType);
