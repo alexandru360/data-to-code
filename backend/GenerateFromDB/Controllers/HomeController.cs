@@ -103,7 +103,7 @@ namespace GenerateFromDB.Controllers
       }
       string allZip = Path.Combine(environment.WebRootPath, dateNow + "generated.zip");
       Console.WriteLine($"zipping {data} to {allZip}");
-      //ZipFile.CreateFromDirectory(data, allZip);
+      ZipFile.CreateFromDirectory(data, allZip);
        Console.WriteLine($"done!");
 
             //if (false)

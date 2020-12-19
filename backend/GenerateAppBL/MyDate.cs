@@ -11,7 +11,7 @@ namespace GenerateAppBL
         public static string UTCFormat()
         {
             var dt = DateTime.UtcNow;
-            dt = new DateTime(1970, 4, 16);
+            //dt = new DateTime(1970, 4, 16);
             return dt.ToString("yyyyMMddHHmmss");
         }
     }
