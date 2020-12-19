@@ -6,7 +6,7 @@
 	}
 
   var ds= Model.FindAfterName("DataSource").Value;
-    
+  var dtOptions= Model.FindAfterName("@@Options@@").Value;
     var nrRowsDS=ds.Rows.Count;
     
     var nameTablesToRender = new string[nrRowsDS];
@@ -67,13 +67,26 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
 @foreach(var nameTable in nameTablesToRender){
-	string nameClass=ClassNameFromTableName(nameTable);
+  string nameClass=ClassNameFromTableName(nameTable);
+  var nrPK = (int.Parse(dtOptions.Rows.Find(nameTable +"_PK_Number")[1].ToString())  );
+  string routeEdit="";
+  switch(nrPK){
+    case 0:
+      routeEdit="crud/"+(nameClass.ToLower())+"/NOeditRoute";
+      break;
+    case 1:
+      routeEdit="crud/"+(nameClass.ToLower())+"/edit/:id";
+      break;
+    default:
+      routeEdit="crud/"+(nameClass.ToLower())+"/edit/:id/:id2";
+      break;
+  }          
 <text>
 { path: 'crud/@(nameClass.ToLower())', component: @(nameClass)Component },
 
 { path: 'crud/@(nameClass.ToLower())/add', component: @(nameClass)AddComponent },
 
-{ path: 'crud/@(nameClass.ToLower())/edit/:id', component: @(nameClass)EditComponent },
+{ path: '@(routeEdit)', component: @(nameClass)EditComponent },
 
 </text>
 }

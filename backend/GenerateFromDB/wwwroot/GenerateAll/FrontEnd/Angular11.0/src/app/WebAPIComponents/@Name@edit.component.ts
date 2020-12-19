@@ -74,6 +74,9 @@
 
   var nrPK = (int.Parse(dtOptions.Rows.Find(nameTable +"_PK_Number")[1].ToString())  );
   string idTable ="", idType = "" ,idTableSecond = "",idTypeSecond = "";
+
+  string tapSecondId="";
+  string secondArg="";
     if(nrPK > 0 ){
       idTable=dtOptions.Rows.Find(nameTable +"_PK_0")[1].ToString();     
       idType = dtOptions.Rows.Find(nameTable +"_PK_0_Type")[1].ToString();     
@@ -86,7 +89,8 @@
         idTableSecond=dtOptions.Rows.Find(nameTable +"_PK_1")[1].ToString();     
         idTableSecond = nameProperty(idTableSecond,nameClass);
         idTypeSecond= nameTypeForJS(idTypeSecond);
-  
+        tapSecondId = "this.id2 = " + ((idType == "number")?"+":"" ) + "params.get('id2');";
+        secondArg = ",this.id2";
     }
   
   var dtRels= Model.FindAfterName("@@Relations@@").Value;
@@ -139,6 +143,12 @@ export class @(nameClass)EditComponent implements OnInit {
       public id: @(idType);
     </text>
   }
+
+  @if(nrPK>1){
+    <text>
+      public id2: @(idTypeSecond);
+    </text>
+  }
   
   public dataToEdit: @(nameClass) = new @(nameClass)();
 
@@ -175,8 +185,13 @@ export class @(nameClass)EditComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.pipe(
-      tap(params => this.id = @Raw(appender)params.get('id') ),
-      switchMap(it => this.mainService.Get(this.id) ),
+      tap(params => 
+        {
+          this.id = @Raw(appender)params.get('id');
+          @Raw(tapSecondId)
+        } 
+      ),
+      switchMap(it => this.mainService.Get(this.id  @(secondArg)) ),
       delay(1000),
       tap(it => this.dataToEdit = it)
       )

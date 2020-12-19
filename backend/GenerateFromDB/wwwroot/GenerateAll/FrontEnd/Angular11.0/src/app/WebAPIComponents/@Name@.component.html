@@ -34,6 +34,16 @@
 	}
 			
 	var routeName = nameClass.ToLower();
+	string secondId="";
+	switch(nrPK){
+		case 0:
+			break;
+		case 1:
+			break;
+		default:
+			secondId="{{row."+ idTableSecond +"}}";
+			break;
+	}
 	var nrCols= dt.Columns.Count;
 	string lowerCaseFirst(string s){
 		return char.ToLower(s[0]) + s.Substring(1);
@@ -131,10 +141,10 @@ List of @(nameTable) Total records {{totalNumber}}. Filtered {{filteredNumber}}
 			<text>
 	  <ng-container matColumnDef="operations">
 		<th mat-header-cell *matHeaderCellDef mat-sort-header> Operations </th>
-		<td mat-cell *matCellDef="let row" > <a routerLink="/crud/@(routeName)/edit/{{row.@(idTable)}}" >Edit</a>
+		<td mat-cell *matCellDef="let row" > <a routerLink="/crud/@(routeName)/edit/{{row.@(idTable)}}/@(secondId)" >Edit</a>
 		
 			&nbsp;
-			<button (click)="deleteData(row.@(idTable))">Delete</button>
+			<button (click)="deleteData(row.@(idTable))">Deletex</button>
 			
 		</td>
 	  </ng-container>

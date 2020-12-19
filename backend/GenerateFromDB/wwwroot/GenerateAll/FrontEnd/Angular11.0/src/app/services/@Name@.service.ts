@@ -74,6 +74,8 @@
     var nrPK = (int.Parse(dtOptions.Rows.Find(nameTable +"_PK_Number")[1].ToString())  );
             
     string idTable ="", idType = "" ,idTableSecond = "",idTypeSecond = "";
+    string secondArg="";
+    string nameSecondArg="";
     if(nrPK > 0 ){
       idTable=dtOptions.Rows.Find(nameTable +"_PK_0")[1].ToString();     
       idType = dtOptions.Rows.Find(nameTable +"_PK_0_Type")[1].ToString();     
@@ -86,7 +88,8 @@
         idTableSecond=dtOptions.Rows.Find(nameTable +"_PK_1")[1].ToString();     
         idTableSecond = nameProperty(idTableSecond,nameClass);
         idTypeSecond= nameTypeForJS(idTypeSecond);
-  
+        nameSecondArg= "+ '/' +id2";
+        secondArg = ", id2:" + idTypeSecond;
     }
   
 	
@@ -141,8 +144,8 @@ export class @(nameClass)Service {
       return;
     }
   }
-  public Get(id:@(idType)):Observable<@(nameClass)>{
-    const url = this.baseUrl+'api/@(nameClass)/Get/'+id;
+  public Get(id:@(idType) @(secondArg) ):Observable<@(nameClass)>{
+    const url = this.baseUrl+'api/@(nameClass)/Get/'+id  @Raw(nameSecondArg) ;
     
     return this.client.get<@(nameClass)>(url);
   }

@@ -103,31 +103,33 @@ namespace GenerateFromDB.Controllers
       }
       string allZip = Path.Combine(environment.WebRootPath, dateNow + "generated.zip");
       Console.WriteLine($"zipping {data} to {allZip}");
-      ZipFile.CreateFromDirectory(data, allZip);
-      //if (false)
-      //{
-      //    string pathDir = Path.GetDirectoryName(info.pathFile);
-      //    var powershellFile = Directory.GetFiles(pathDir, "generateWin.ps1", SearchOption.AllDirectories).FirstOrDefault();
-      //    if (powershellFile == null)
-      //        throw new ArgumentException("cannot find powershell docker file");
+      //ZipFile.CreateFromDirectory(data, allZip);
+       Console.WriteLine($"done!");
 
-      //    var ps = new ProcessStartInfo();
-      //    ps.FileName = "powershell.exe";
-      //    ps.WorkingDirectory = Path.GetDirectoryName(powershellFile);
-      //    ps.Arguments = powershellFile;
-      //    ps.CreateNoWindow = false;
-      //    Process.Start(ps).WaitForExit();
+            //if (false)
+            //{
+            //    string pathDir = Path.GetDirectoryName(info.pathFile);
+            //    var powershellFile = Directory.GetFiles(pathDir, "generateWin.ps1", SearchOption.AllDirectories).FirstOrDefault();
+            //    if (powershellFile == null)
+            //        throw new ArgumentException("cannot find powershell docker file");
 
-      //    string outDir = Path.Combine(Path.GetDirectoryName(powershellFile), "out", "netcore3.1", "win-x64");
-      //    InfoData.CreateVDir(dateNow, outDir);
+            //    var ps = new ProcessStartInfo();
+            //    ps.FileName = "powershell.exe";
+            //    ps.WorkingDirectory = Path.GetDirectoryName(powershellFile);
+            //    ps.Arguments = powershellFile;
+            //    ps.CreateNoWindow = false;
+            //    Process.Start(ps).WaitForExit();
 
-      //    string generated = Path.Combine(Path.GetDirectoryName(powershellFile), "generated");
-      //    string zip = Path.Combine(outDir, "wwwroot", "generated.zip");
-      //    ZipFile.CreateFromDirectory(generated, zip);
-      //}
-      //https://www.data-to-code.eu/data2code/20201102235219generated.zip
-      // execute powershell
-      return new ReturnData()
+            //    string outDir = Path.Combine(Path.GetDirectoryName(powershellFile), "out", "netcore3.1", "win-x64");
+            //    InfoData.CreateVDir(dateNow, outDir);
+
+            //    string generated = Path.Combine(Path.GetDirectoryName(powershellFile), "generated");
+            //    string zip = Path.Combine(outDir, "wwwroot", "generated.zip");
+            //    ZipFile.CreateFromDirectory(generated, zip);
+            //}
+            //https://www.data-to-code.eu/data2code/20201102235219generated.zip
+            // execute powershell
+            return new ReturnData()
       {
         Site = dateNow,
         //ZipGenerated = $"{dateNow}/generated.zip"
