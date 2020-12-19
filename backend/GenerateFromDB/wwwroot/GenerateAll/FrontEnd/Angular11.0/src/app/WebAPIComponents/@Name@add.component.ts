@@ -10,7 +10,8 @@
   var nameClass = ClassNameFromTableName(nameTable);
   var dtOptions= Model.FindAfterName("@@Options@@").Value;
 
-  var havePK = (dtOptions.Rows.Find(dt.TableName +"_PK") != null);
+  var nrPK = (int.Parse(dtOptions.Rows.Find(nameTable +"_PK_Number")[1].ToString())  );
+    
   var dtRels= Model.FindAfterName("@@Relations@@").Value;
 	var rowsRelParent =dtRels.Select("parent_object='@Name@'" );
 
@@ -112,7 +113,7 @@ export class @(nameClass)AddComponent implements OnInit {
 }
   }
   @{
-    if(!havePK){
+    if(nrPK == 0){
       <text>
     }
     </text>

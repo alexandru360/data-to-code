@@ -11,13 +11,22 @@
   var nameClass = ClassNameFromTableName(nameTable);
   var dtOptions= Model.FindAfterName("@@Options@@").Value;
 
-  var havePK = (dtOptions.Rows.Find(dt.TableName +"_PK") != null);
-  string idTable ="", idType = "";
-  if(havePK){
-    idTable = dtOptions.Rows.Find(dt.TableName +"_PK")[1].ToString();
-    idType = dtOptions.Rows.Find(dt.TableName +"_PK_Type")[1].ToString();  
-    idTable = lowerCaseFirst(idTable);
-  }
+  var nrPK = (int.Parse(dtOptions.Rows.Find(nameTable +"_PK_Number")[1].ToString()));
+    string idTable ="", idType = "" ,idTableSecond = "",idTypeSecond = "";
+    if(nrPK > 0 ){
+      idTable = dtOptions.Rows.Find(nameTable +"_PK_0")[1].ToString();
+      idType = dtOptions.Rows.Find(nameTable +"_PK_0_Type")[1].ToString();     
+      idTable = lowerCaseFirst(idTable);
+      
+    }
+    if( nrPK > 1 ) { 
+        // just 2 PK
+        idTypeSecond = dtOptions.Rows.Find(nameTable +"_PK_1_Type")[1].ToString();
+        idTableSecond=dtOptions.Rows.Find(nameTable +"_PK_1")[1].ToString();     
+        idTableSecond = lowerCaseFirst(idTableSecond);
+        
+    }
+  
   
   var nrCols= dt.Columns.Count;
   
@@ -87,7 +96,7 @@
 		return nameType;
   }
   string operations="";
-  if(havePK){
+  if(nrPK>0){
     operations=",'operations'";
   }
 
@@ -233,7 +242,7 @@ export class @(nameClass)Component implements AfterViewInit , OnInit {
   
 @{
 
-  if(havePK){
+  if(nrPK>0){
 
 
   <text>

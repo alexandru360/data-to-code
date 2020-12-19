@@ -10,13 +10,23 @@ string ClassNameFromTableName(string tableName){
     var nameTable =dt.TableName;
     var nameClass = ClassNameFromTableName(nameTable);
     var dtOptions= Model.FindAfterName("@@Options@@").Value;
-    var havePK = (dtOptions.Rows.Find(dt.TableName +"_PK") != null);
-    string idTable ="", idType = "";
-    if(havePK){
-        idTable = dtOptions.Rows.Find(dt.TableName +"_PK")[1].ToString();
-        idType = dtOptions.Rows.Find(dt.TableName +"_PK_Type")[1].ToString();  
-        idTable = nameProperty(idTable,nameClass);
+    var nrPK = (int.Parse(dtOptions.Rows.Find(nameTable +"_PK_Number")[1].ToString()));
+    string idTable ="", idType = "" ,idTableSecond = "",idTypeSecond = "";
+    if(nrPK > 0 ){
+  
+      idType = dtOptions.Rows.Find(nameTable +"_PK_0_Type")[1].ToString();     
+      idTable = nameProperty(idTable,nameClass);
+      
     }
+    if( nrPK > 1 ) { 
+        // just 2 PK
+        idTypeSecond = dtOptions.Rows.Find(nameTable +"_PK_1_Type")[1].ToString();
+        idTableSecond=dtOptions.Rows.Find(nameTable +"_PK_1")[1].ToString();     
+        idTableSecond = nameProperty(idTableSecond,nameClass);
+        
+  
+    }
+
     var nrCols =dt.Columns.Count;
 	string lowerCaseFirst(string s){
 		return char.ToLower(s[0]) + s.Substring(1);
@@ -93,7 +103,7 @@ export class @(nameClass)
         public CopyPropertiesFrom(other:@(nameClass), withID: boolean):void{
             
             @{
-                if(havePK){
+                if(nrPK>0){
                     <text>
             if(withID){
                 this.@(idTable)= other.@(idTable);
@@ -117,7 +127,7 @@ export class @(nameClass)
             
         }
         @{
-            if(havePK){
+            if(nrPK>0){
                 <text>
         public  @(idTable): @(nameTypeForJS(idType));
             </text>

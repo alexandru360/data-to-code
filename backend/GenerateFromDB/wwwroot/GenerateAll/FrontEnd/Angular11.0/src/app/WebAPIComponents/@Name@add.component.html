@@ -16,7 +16,9 @@
 
 	var dtOptions= Model.FindAfterName("@@Options@@").Value;
 
-  	var havePK = (dtOptions.Rows.Find(dt.TableName +"_PK") != null);
+	var nrPK = (int.Parse(dtOptions.Rows.Find(nameTable +"_PK_Number")[1].ToString())  );
+            
+	
 
 	string lowerCaseFirst(string s){
 		return char.ToLower(s[0]) + s.Substring(1);
@@ -94,7 +96,7 @@ Add  new @(nameTable)
 				</td>
 			  </tr>
 			  @{
-				if(havePK){
+				if(nrPK>0){
 					<text>
 			  <tr>
 				 

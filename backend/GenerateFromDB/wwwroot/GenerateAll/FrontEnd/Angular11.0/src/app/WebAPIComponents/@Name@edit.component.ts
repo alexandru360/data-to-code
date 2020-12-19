@@ -72,20 +72,29 @@
   var nameClass = ClassNameFromTableName(nameTable);
   var dtOptions= Model.FindAfterName("@@Options@@").Value;
 
-  var havePK = (dtOptions.Rows.Find(dt.TableName +"_PK") != null);
-  string idTable ="", idType ="", nameType ="";
-  if(havePK){
-    idTable = dtOptions.Rows.Find(dt.TableName +"_PK")[1].ToString();
-    idTable  =nameProperty(idTable, nameClass);
-    idType = dtOptions.Rows.Find(dt.TableName +"_PK_Type")[1].ToString();  
-    nameType = nameTypeForJS(idType);
-  }
+  var nrPK = (int.Parse(dtOptions.Rows.Find(nameTable +"_PK_Number")[1].ToString())  );
+  string idTable ="", idType = "" ,idTableSecond = "",idTypeSecond = "";
+    if(nrPK > 0 ){
+  
+      idType = dtOptions.Rows.Find(nameTable +"_PK_0_Type")[1].ToString();     
+      idTable = nameProperty(idTable,nameClass);
+      idType = nameTypeForJS(idType);
+    }
+    if( nrPK > 1 ) { 
+        // just 2 PK
+        idTypeSecond = dtOptions.Rows.Find(nameTable +"_PK_1_Type")[1].ToString();
+        idTableSecond=dtOptions.Rows.Find(nameTable +"_PK_1")[1].ToString();     
+        idTableSecond = nameProperty(idTableSecond,nameClass);
+        idTypeSecond= nameTypeForJS(idTypeSecond);
+  
+    }
+  
   var dtRels= Model.FindAfterName("@@Relations@@").Value;
 	var rowsRelParent =dtRels.Select("parent_object='@Name@'" );
 
 
   string appender ="";
-				if(nameType == "number")
+				if(idType == "number")
           appender = "+";
           
   string servicesRef="";
@@ -125,9 +134,9 @@ import { @(nameClass)Service } from '../services/@(nameClass).service';
 })
 export class @(nameClass)EditComponent implements OnInit {
 
-  @if(havePK){
+  @if(nrPK>0){
     <text>
-      public id: @(nameType);
+      public id: @(idType);
     </text>
   }
   
@@ -155,7 +164,7 @@ export class @(nameClass)EditComponent implements OnInit {
 
    }
    @{
-    if(!havePK){
+    if(nrPK==0){
       <text>
       ngOnInit(): void {}
       }
