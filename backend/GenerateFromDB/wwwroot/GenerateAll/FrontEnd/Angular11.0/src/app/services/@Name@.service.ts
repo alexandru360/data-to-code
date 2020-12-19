@@ -76,6 +76,7 @@
     string idTable ="", idType = "" ,idTableSecond = "",idTypeSecond = "";
     string secondArg="";
     string nameSecondArg="";
+    string secArgPut="";
     if(nrPK > 0 ){
       idTable=dtOptions.Rows.Find(nameTable +"_PK_0")[1].ToString();     
       idType = dtOptions.Rows.Find(nameTable +"_PK_0_Type")[1].ToString();     
@@ -90,6 +91,7 @@
         idTypeSecond= nameTypeForJS(idTypeSecond);
         nameSecondArg= "+ '/' +id2";
         secondArg = ", id2:" + idTypeSecond;
+        secArgPut= "+'/'+data."+ idTableSecond ;
     }
   
 	
@@ -150,7 +152,7 @@ export class @(nameClass)Service {
     return this.client.get<@(nameClass)>(url);
   }
   public Update(data:@(nameClass)):Observable<@(nameClass)>{
-    const url = this.baseUrl+'api/@(nameClass)/Put/'+data.@(idTable);
+    const url = this.baseUrl+'api/@(nameClass)/Put/'+data.@(idTable) @Raw(secArgPut);
     
     return this.client.put<@(nameClass)>(url,data);
   }
@@ -159,8 +161,8 @@ export class @(nameClass)Service {
     
     return this.client.post<@(nameClass)>(url,data);
   }
-  public Delete(id:@(idType)):Observable<@(idType)>{
-    const url = this.baseUrl+'api/@(nameClass)/Delete/'+id;
+  public Delete(id:@(idType) @(secondArg) ):Observable<@(idType)>{
+    const url = this.baseUrl+'api/@(nameClass)/Delete/'+id @Raw(nameSecondArg) ;
     
     return this.client.delete<@(idType)>(url);
   }

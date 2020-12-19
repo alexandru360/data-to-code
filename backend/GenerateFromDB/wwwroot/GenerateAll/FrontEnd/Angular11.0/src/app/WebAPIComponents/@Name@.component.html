@@ -35,6 +35,7 @@
 			
 	var routeName = nameClass.ToLower();
 	string secondId="";
+	string secondIdDelete="";
 	switch(nrPK){
 		case 0:
 			break;
@@ -42,6 +43,7 @@
 			break;
 		default:
 			secondId="{{row."+ idTableSecond +"}}";
+			secondIdDelete=",row."+ idTableSecond +"";
 			break;
 	}
 	var nrCols= dt.Columns.Count;
@@ -144,7 +146,7 @@ List of @(nameTable) Total records {{totalNumber}}. Filtered {{filteredNumber}}
 		<td mat-cell *matCellDef="let row" > <a routerLink="/crud/@(routeName)/edit/{{row.@(idTable)}}/@(secondId)" >Edit</a>
 		
 			&nbsp;
-			<button (click)="deleteData(row.@(idTable))">Deletex</button>
+			<button (click)="deleteData(row.@(idTable)  @(secondIdDelete) )">Delete</button>
 			
 		</td>
 	  </ng-container>

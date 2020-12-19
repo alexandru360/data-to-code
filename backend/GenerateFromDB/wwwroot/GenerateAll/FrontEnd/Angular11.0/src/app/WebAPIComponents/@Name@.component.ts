@@ -13,6 +13,8 @@
 
   var nrPK = (int.Parse(dtOptions.Rows.Find(nameTable +"_PK_Number")[1].ToString()));
     string idTable ="", idType = "" ,idTableSecond = "",idTypeSecond = "";
+    string secondArgDelete = "";
+    string secondArgDeleteService="";
     if(nrPK > 0 ){
       idTable = dtOptions.Rows.Find(nameTable +"_PK_0")[1].ToString();
       idType = dtOptions.Rows.Find(nameTable +"_PK_0_Type")[1].ToString();     
@@ -24,7 +26,8 @@
         idTypeSecond = dtOptions.Rows.Find(nameTable +"_PK_1_Type")[1].ToString();
         idTableSecond=dtOptions.Rows.Find(nameTable +"_PK_1")[1].ToString();     
         idTableSecond = lowerCaseFirst(idTableSecond);
-        
+        secondArgDelete  = ",id2:"+ nameTypeForJS(idTypeSecond);
+        secondArgDeleteService =",id2";
     }
   
   
@@ -246,14 +249,14 @@ export class @(nameClass)Component implements AfterViewInit , OnInit {
 
 
   <text>
-  public deleteData(id: @(nameTypeForJS(idType))): void{
+  public deleteData(id: @(nameTypeForJS(idType)) @Raw(secondArgDelete) ): void{
 
     if(!window.confirm("do you want to delete row "+ id)){
       return;
     }
 
     this.mainService
-    .Delete(id)
+    .Delete(id @Raw(secondArgDeleteService))
     .pipe(
       
       tap(idDeleted=>{
