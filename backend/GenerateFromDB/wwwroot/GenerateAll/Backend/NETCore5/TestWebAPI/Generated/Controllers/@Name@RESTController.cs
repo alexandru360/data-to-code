@@ -93,11 +93,13 @@ namespace TestWebAPI.Controllers
                 string callAfterId="id";
                 string secondNotFound =""; 
                 string httpArg="{id}";
+                string secondIdPK="";
                 if(nrPK>1){
                     argsCallFindAfterId +=","+ idTypeSecond + " id2";  
                     callAfterId +=",id2";
                     secondNotFound="and id2= {id2}";
                     httpArg+="/{id2}";
+                    secondIdPK =","+ nameProperty(idTableSecond,nameClass) +"= id2";
                 }
                 
             }  
@@ -148,7 +150,7 @@ namespace TestWebAPI.Controllers
         {
             
             await _repository.Delete( new @(nameClass)(){
-                @(nameProperty(idTable,nameClass))=id
+                @(nameProperty(idTable,nameClass))=id @secondIdPK
             });
 
 

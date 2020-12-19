@@ -103,15 +103,20 @@ namespace TestWebAPI.Controllers
                 string argsCallFindAfterId =idType +" id";
                 string callAfterId="id";
                 string secondNotFound =""; 
+                string httpArg="{id}";
+                string secondIdPK="";
                 if(nrPK>1){
                     argsCallFindAfterId +=","+ idTypeSecond + " id2";  
                     callAfterId +=",id2";
                     secondNotFound="and id2= {id2}";
+                    httpArg+="/{id2}";
+                    secondIdPK =","+ nameProperty(idTableSecond,nameClass) +"= id2";
+
                 }
                 
             }
         // GET: api/@(nameClass)/5
-        [HttpGet("{id}")]
+        [HttpGet("@(httpArg)")]
         public async Task<ActionResult<@(nameClass)>> Get(@(argsCallFindAfterId))
         {
             var record = await _repository.FindAfterId(@(callAfterId));
@@ -127,8 +132,8 @@ namespace TestWebAPI.Controllers
         // PUT: api/@(nameClass)/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<ActionResult<@(nameClass)>> Put(@(idType) id, @(nameClass) record)
+        [HttpPut("@(httpArg)")]
+        public async Task<ActionResult<@(nameClass)>> Put(@Raw(argsCallFindAfterId), @(nameClass) record)
         {
             if (id != record.@(nameProperty(idTable,nameClass)))
             {
@@ -152,12 +157,12 @@ namespace TestWebAPI.Controllers
         }
 
         // DELETE: api/@(nameClass)/5
-        [HttpDelete("{id}")]
-        public async Task<@(idType)> Delete(@(idType) id)
+        [HttpDelete("@(httpArg)")]
+        public async Task<@(idType)> Delete(@Raw(argsCallFindAfterId))
         {
             
             await _repository.Delete( new @(nameClass)(){
-                @(nameProperty(idTable,nameClass))=id
+                @(nameProperty(idTable,nameClass))=id @secondIdPK
             });
 
 
