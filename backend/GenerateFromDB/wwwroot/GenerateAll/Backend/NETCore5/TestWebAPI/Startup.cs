@@ -118,14 +118,20 @@ namespace TestWebAPI
             }
 
             string textToRender="";
-            if(nrPK > 1 ){
-                textToRender="services.AddTransient<IRepository<"+nameClass+","+ idType +"," + idTypeSecond + ">, "+nameClass+"_Repository>();";
-            }
-            else if(nrPK > 0){
-                textToRender="services.AddTransient<IRepository<"+nameClass+","+ idType +">, "+nameClass+"_Repository>();";
-            }
-            else{
-                textToRender="services.AddTransient<IRepositoryView<"+nameClass +">, "+nameClass+"_Repository>();";
+            switch(nrPK){
+                case 1:
+                    textToRender="services.AddTransient<IRepository<"+nameClass+","+ idType +">, "+nameClass+"_Repository>();";
+
+                    break;
+                    
+                case 0:
+                    textToRender="services.AddTransient<IRepositoryView<"+nameClass +">, "+nameClass+"_Repository>();";
+
+                    break;
+                default:
+                    textToRender="services.AddTransient<IRepository<"+nameClass+","+ idType +"," + idTypeSecond + ">, "+nameClass+"_Repository>();";
+
+                    break;
             }
             <text>
 			@Raw(textToRender)

@@ -43,13 +43,16 @@ string nameProperty(string original, string nameClass){
     
     string repo= nameClass  + "_Repository";
     string typeRepository = "IRepositoryView<"+ nameClass +">";
-    if(nrPK>0){
-        typeRepository = "IRepository<" + (nameClass) + "," + (idType) + ">";
+    switch(nrPK){
+        case 0:
+            break;
+        case 1:
+            typeRepository = "IRepository<" + (nameClass) + "," + (idType) + ">";
+            break;
+        default:
+            typeRepository = "IRepository<" + (nameClass) + "," + (idType) + ","+ idTypeSecond + ">";
+            break;
     }
-    if(nrPK > 1){
-        typeRepository = "IRepository<" + (nameClass) + "," + (idType) + ","+ idTypeSecond + ">";
-    }
-
 }
 
 using System;

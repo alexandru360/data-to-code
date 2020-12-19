@@ -78,13 +78,18 @@
     string nameClass= ClassNameFromTableName(dt.TableName);
     string repoName= ClassNameFromTableName(dt.TableName)  + "_Repository";
     string repoInterface=":IRepositoryView<"+(nameClass)+">";
-    if(nrPK>0){
-        repoInterface=":IRepository<"+(nameClass)+"," + (idType)+">";
-    }
-    if(nrPK>1){
-        repoInterface=":IRepository<"+(nameClass)+"," + (idType)+","+ idTypeSecond + ">";
-    }
 
+    switch(nrPK){
+        case 0:
+            break;
+        case 1:
+            repoInterface=":IRepository<"+(nameClass)+"," + (idType)+">";
+            break;
+        default:
+            repoInterface=":IRepository<"+(nameClass)+"," + (idType)+","+ idTypeSecond + ">";
+            break;
+    }
+    
 	
 }
 using System;
