@@ -28,6 +28,7 @@ string nameProperty(string original, string nameClass){
     var dt= Model.FindAfterName("@Name@").Value;
 
     var dtOptions= Model.FindAfterName("@@Options@@").Value;
+    var nameTable = dt.TableName;
     var nrPK = (int.Parse(dtOptions.Rows.Find(nameTable +"_PK_Number")[1].ToString()));
     string idTable ="", idType = "",idTableSecond = "",idTypeSecond = "";
     if(nrPK >0 ){
@@ -87,16 +88,28 @@ namespace TestWebAPI.Controllers
             </text>
             return;
         }
-            
+         @{
+                string argsCallFindAfterId =idType +" id";
+                string callAfterId="id";
+                string secondNotFound =""; 
+                string httpArg="{id}";
+                if(nrPK>1){
+                    argsCallFindAfterId +=","+ idTypeSecond + " id2";  
+                    callAfterId +=",id2";
+                    secondNotFound="and id2= {id2}";
+                    httpArg+="/{id2}";
+                }
+                
+            }  
         // GET: api/@(nameClass)/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<@(nameClass)>> FindAfterId(@(idType) id)
+        [HttpGet("@(httpArg)")]
+        public async Task<ActionResult<@(nameClass)>> FindAfterId(@Raw(argsCallFindAfterId))
         {
-            var record = await _repository.FindAfterId(id);
+            var record = await _repository.FindAfterId(@(callAfterId));
 
             if (record == null)
             {
-                return NotFound($"cannot find record with id = {id}");
+                return NotFound($"cannot find record with id = {id} @(secondNotFound)");
             }
 
             return record;
@@ -105,8 +118,8 @@ namespace TestWebAPI.Controllers
         // PUT: api/@(nameClass)/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<ActionResult<@(nameClass)>> Update(@(idType) id, @(nameClass) record)
+        [HttpPut("@(httpArg)")]
+        public async Task<ActionResult<@(nameClass)>> Update(@Raw(argsCallFindAfterId), @(nameClass) record)
         {
             if (id != record.@(nameProperty(idTable,nameClass)))
             {
@@ -130,8 +143,8 @@ namespace TestWebAPI.Controllers
         }
 
         // DELETE: api/@(nameClass)/5
-        [HttpDelete("{id}")]
-        public async Task<@(idType)> Delete(@(idType) id)
+        [HttpDelete("@(httpArg)")]
+        public async Task<@(idType)> Delete(@Raw(argsCallFindAfterId))
         {
             
             await _repository.Delete( new @(nameClass)(){

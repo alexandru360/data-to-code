@@ -101,6 +101,8 @@ namespace TestWebAPI
                     </text>
                     break;
             }
+        services.AddSingleton<AllTables>(); 
+
        @foreach(var nameTable in nameTablesToRender){
 		   string nameClass= ClassNameFromTableName(nameTable);
             var nrPK = (int.Parse(dtOptions.Rows.Find(nameTable +"_PK_Number")[1].ToString())  );
@@ -112,21 +114,20 @@ namespace TestWebAPI
             }
             if( nrPK > 1 ) { 
                     // just 2 PK
-                    idTableSecond = dtOptions.Rows.Find(nameTable +"_PK_1_Type")[1].ToString();
+                    idTypeSecond = dtOptions.Rows.Find(nameTable +"_PK_1_Type")[1].ToString();
             }
 
             string textToRender="";
             if(nrPK > 1 ){
                 textToRender="services.AddTransient<IRepository<"+nameClass+","+ idType +"," + idTypeSecond + ">, "+nameClass+"_Repository>();";
             }
-            else if(nrPK > 1){
+            else if(nrPK > 0){
                 textToRender="services.AddTransient<IRepository<"+nameClass+","+ idType +">, "+nameClass+"_Repository>();";
             }
             else{
                 textToRender="services.AddTransient<IRepositoryView<"+nameClass +">, "+nameClass+"_Repository>();";
             }
             <text>
-            services.AddSingleton<AllTables>(); 
 			@Raw(textToRender)
             </text>
         }

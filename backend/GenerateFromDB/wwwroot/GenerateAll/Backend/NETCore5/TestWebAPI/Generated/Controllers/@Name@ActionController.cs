@@ -25,6 +25,7 @@ string ClassNameFromTableName(string tableName){
      return true;
 	}
     var dt= Model.FindAfterName("@Name@").Value;
+    var nameTable = dt.TableName;
     var dtOptions= Model.FindAfterName("@@Options@@").Value;
     var nrPK = (int.Parse(dtOptions.Rows.Find(nameTable +"_PK_Number")[1].ToString())  );
     
@@ -98,15 +99,26 @@ namespace TestWebAPI.Controllers
             </text>
             return;
         }
+        @{
+                string argsCallFindAfterId =idType +" id";
+                string callAfterId="id";
+                string secondNotFound =""; 
+                if(nrPK>1){
+                    argsCallFindAfterId +=","+ idTypeSecond + " id2";  
+                    callAfterId +=",id2";
+                    secondNotFound="and id2= {id2}";
+                }
+                
+            }
         // GET: api/@(nameClass)/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<@(nameClass)>> Get(@(idType) id)
+        public async Task<ActionResult<@(nameClass)>> Get(@(argsCallFindAfterId))
         {
-            var record = await _repository.FindAfterId(id);
+            var record = await _repository.FindAfterId(@(callAfterId));
 
             if (record == null)
             {
-                return NotFound($"cannot find record with id = {id}");
+                return NotFound($"cannot find record with id = {id}  @(secondNotFound)");
             }
 
             return record;

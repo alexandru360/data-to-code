@@ -66,7 +66,7 @@
 	}
     var dt= Model.FindAfterName("@Name@").Value;
     var dtOptions= Model.FindAfterName("@@Options@@").Value;
-
+    var nameTable = dt.TableName;
     var nrPK = (int.Parse(dtOptions.Rows.Find(nameTable +"_PK_Number")[1].ToString()));
     string idTable ="", idType = "",idTableSecond = "",idTypeSecond = "";
     if(nrPK >0 ){

@@ -63,6 +63,7 @@
 	}
     var dt= Model.FindAfterName("@Name@").Value;
     var dtOptions= Model.FindAfterName("@@Options@@").Value;
+    var nameTable = dt.TableName;
     var nrPK = (int.Parse(dtOptions.Rows.Find(nameTable +"_PK_Number")[1].ToString()));
     string idTable ="", idType = "",idTableSecond = "",idTypeSecond = "";
     if(nrPK >0 ){
@@ -132,9 +133,18 @@ namespace TestWEBAPI_DAL
             </text>
             return;
         }
-        public Task<@(nameClass)> FindAfterId(@(idType) id)
+        @{
+            string argumentsAfterId = idType + " id";
+            string whereArguments="it."+nameProperty(idTable,nameClass) +" == id ";
+            if(nrPK>1){
+                argumentsAfterId +=  " ," + idTypeSecond + " id2" ;
+                whereArguments += " && it." + nameProperty(idTableSecond,nameClass) +" == id2 ";
+            }
+
+        }
+        public Task<@(nameClass)> FindAfterId(@Raw(argumentsAfterId))
         {
-            var data = databaseContext.@(nameClass).FirstOrDefaultAsync(it => it.@(nameProperty(idTable,nameClass)) == id);
+            var data = databaseContext.@(nameClass).FirstOrDefaultAsync(it => @Raw(whereArguments));
             return data;
         }
         public Task<@(nameClass)> FindSingle(Func<@(nameClass) ,bool> f)
@@ -155,7 +165,13 @@ namespace TestWEBAPI_DAL
         }
         public async Task<@(nameClass)> Update(@(nameClass) p)
         {
-            var original = await FindAfterId(p.@(nameProperty(idTable,nameClass)));
+            @{
+                string argsCallFindAfterId ="p."+ nameProperty(idTable,nameClass);
+                if(nrPK>1){
+                    argsCallFindAfterId +=",p."+ nameProperty(idTableSecond,nameClass);  
+                }
+            }
+            var original = await FindAfterId(@(argsCallFindAfterId));
             if(original == null)
             {
                 throw new ArgumentException($"cannot found @(nameClass)  with id = {p.@(nameProperty(idTable,nameClass))} ", nameof(p.@(nameProperty(idTable,nameClass))));
@@ -166,7 +182,7 @@ namespace TestWEBAPI_DAL
         }
         public async Task<@(nameClass)> Delete(@(nameClass) p)
         {
-            var original = await FindAfterId(p.@(nameProperty(idTable,nameClass)));
+            var original = await FindAfterId(@(argsCallFindAfterId));
             databaseContext.@(nameClass).Remove(original);
             await databaseContext.SaveChangesAsync();
             return p;

@@ -7,6 +7,7 @@
 	}
 	
     var dt= Model.FindAfterName("@Name@").Value;
+    var nameTable = dt.TableName;
     string nameClass= ClassNameFromTableName(dt.TableName);
     var dtOptions= Model.FindAfterName("@@Options@@").Value;
 

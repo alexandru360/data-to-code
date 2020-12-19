@@ -133,6 +133,7 @@ namespace TestWEBAPI_DAL
         void Seed(ModelBuilder modelBuilder){
 
             @foreach(var dt in tables){
+                var nameTable = dt.TableName;
 				string nameClass= ClassNameFromTableName(dt.TableName);
                 var nrPK = (int.Parse(dtOptions.Rows.Find(nameTable +"_PK_Number")[1].ToString()));
                 string idTable ="", idType = "",idTableSecond = "",idTypeSecond = "";
