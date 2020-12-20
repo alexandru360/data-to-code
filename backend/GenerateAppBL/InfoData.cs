@@ -107,6 +107,7 @@ namespace GenerateApp.Controllers
                 case connTypes.Excel:
                     data = await ReadExcel();
                     break;
+                case connTypes.Postgres:
                 case connTypes.MariaDB:
                 case connTypes.MSSQL:
                 case connTypes.MYSQL:
@@ -136,6 +137,7 @@ namespace GenerateApp.Controllers
                             nameTablesToRender.Add(dt.TableName);
                         }
                         break;
+                    case connTypes.Postgres:
                     case connTypes.MariaDB:
                     case connTypes.MSSQL:
                     case connTypes.MYSQL:
@@ -182,6 +184,7 @@ namespace GenerateApp.Controllers
                         }
                     }
                     break;
+                case connTypes.Postgres:
                 case connTypes.MariaDB:
                 case connTypes.MSSQL:
                 case connTypes.MYSQL:
@@ -291,7 +294,8 @@ namespace GenerateApp.Controllers
                                 if (data1.Rows.Count == 0)
                                     continue;
                                 break;
-                            case connTypes.MariaDB:
+                                case connTypes.Postgres:
+                                case connTypes.MariaDB:
                             case connTypes.MSSQL:
                             case connTypes.MYSQL:
                                 break;
@@ -323,7 +327,8 @@ namespace GenerateApp.Controllers
                                 if (data1.Rows.Count == 0)
                                     continue;
                                 break;
-                            case connTypes.MariaDB:
+                                case connTypes.Postgres:
+                                case connTypes.MariaDB:
                             case connTypes.MSSQL:
                             case connTypes.MYSQL:
                                 break;

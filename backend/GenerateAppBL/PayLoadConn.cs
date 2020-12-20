@@ -272,6 +272,7 @@ namespace GenerateApp.Controllers
         Excel= 1,
         MSSQL,
         MYSQL,
-        MariaDB
+        MariaDB,
+        Postgres
     }
 }

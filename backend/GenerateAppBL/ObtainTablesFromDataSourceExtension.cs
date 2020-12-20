@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Server.Kestrel;
 using Microsoft.Data.SqlClient;
 using MySqlConnector;
+using Npgsql;
 using Stankins.Excel;
 using Stankins.Interfaces;
 using Stankins.MariaDB;
+using Stankins.Postgresql;
 using Stankins.SqlServer;
 using StankinsObjects;
 using StankinsReceiverDB;
@@ -116,12 +118,12 @@ namespace GenerateApp.Controllers
             res.views = nameViews?.ToArray();
             return res;
         }
-        public async static Task<TablesFromDataSource> FromMSSQL(this string connection)
+        public async static Task<TablesFromDataSource> FromPostGres(this string connection)
         {
             try
             {
 
-                var recData = new ReceiveMetadataFromDatabaseSql(connection);
+                var recData = new ReceiveMetadataFromDatabasePostGresSql(connection);
 
                 return  await FromReceiver( recData);
 
@@ -137,6 +139,26 @@ namespace GenerateApp.Controllers
             }
         }
 
+        public async static Task<TablesFromDataSource> FromMSSQL(this string connection)
+        {
+            try
+            {
+
+                var recData = new ReceiveMetadataFromDatabaseSql(connection);
+
+                return await FromReceiver(recData);
+
+
+            }
+            catch (Exception ex)
+            {
+                var res = new TablesFromDataSource();
+                res.Success = false;
+                res.error = connection + "!!!" + ex.Message + "!!" + ex.StackTrace;
+                throw new ArgumentException(res.error);
+                //return res;
+            }
+        }
         public async static Task<TablesFromDataSource> FromMariaDB(this string connection)
         {
             try
@@ -174,6 +196,20 @@ namespace GenerateApp.Controllers
                         }
                         return mariaDBConStr.ConnectionString;
                     }
+                case connTypes.Postgres:
+                    {
+                        var pstgresConStr = new NpgsqlConnectionStringBuilder();
+                        pstgresConStr.Database = payLoadConn.connDatabase;
+                        pstgresConStr.Host = payLoadConn.connHost;
+                        pstgresConStr.Username = payLoadConn.connUser;
+                        pstgresConStr.Password = payLoadConn.connPassword;
+                        if (int.TryParse(payLoadConn.connPort, out var port))
+                        {
+                            pstgresConStr.Port = port;
+                        }
+                        return pstgresConStr.ConnectionString;
+                    }
+                    
                 case connTypes.MSSQL:
                     {
                         var sqlConStr = new SqlConnectionStringBuilder();
@@ -222,6 +258,8 @@ namespace GenerateApp.Controllers
                         return await connection.FromMariaDB();
                     case connTypes.MSSQL:
                         return await connection.FromMSSQL();
+                    case connTypes.Postgres:
+                        return await connection.FromPostGres();
                     default:
                         throw new ArgumentException($"not such {typeToLoad} ");
                 }

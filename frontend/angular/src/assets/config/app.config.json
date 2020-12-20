@@ -12,6 +12,10 @@
     {
       "Name": "MariaDB",
       "Key": "MARIADB"
+    },
+    {
+      "Name": "Postgres",
+      "Key": "Postgres"
     }
   ],
   "generateTypes": {
