@@ -81,8 +81,8 @@ namespace GenerateAppWPF
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            MainWindow mw = new MainWindow();
-            mw.Show();
+            //MainWindow mw = new MainWindow();
+            //mw.Show();
         }
 
         //private void App_Startup(object sender, StartupEventArgs e)
