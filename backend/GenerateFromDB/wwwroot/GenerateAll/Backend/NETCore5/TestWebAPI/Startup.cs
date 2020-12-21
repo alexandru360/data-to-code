@@ -95,6 +95,11 @@ namespace TestWebAPI
                            options.UseMySql(Configuration.GetConnectionString("DefaultConnection"))); 
                     </text>
                 break;
+                case "Postgres":
+                    <text>
+                           options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"))); 
+                    </text>
+                    break;
                 default:
                     <text>
                     NO SUCH DATABASE @(dataSource)
