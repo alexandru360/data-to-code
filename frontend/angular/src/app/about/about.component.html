@@ -1,50 +1,55 @@
-<mat-card class="card-content-center">
-  <mat-card-header>
-    <mat-card-title>The teammates</mat-card-title>
-  </mat-card-header>
+<div class="container m-top">
+  <h1>About ...</h1><br>
+<!--  <p>-->
+<!--    Lorem ipsum dolor sit amet, consectetur adipiscing elit.-->
+<!--    Vestibulum nec ante at eros pulvinar pellentesque.-->
+<!--    Donec ac ligula ut sem consequat ornare.-->
+<!--    Phasellus vel sem vel justo aliquam faucibus ac a lectus.-->
+<!--    Aliquam cursus nunc non aliquam auctor.-->
+<!--  </p>-->
+</div>
 
-  <mat-card-content>
-    <div class="row">
-      <div class="col" style="width: available;">
-        <mat-card class="card-border">
-          <mat-card-header>
-            <mat-card-title>Andrei Ignat</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <img mat-card-xl-image src="assets/picto/andrei.jpg">
-          </mat-card-content>
-          <mat-card-actions>
-            <a mat-button color="primary" href="mailto:ignatandrei@yahoo.com">ignatandrei@yahoo.com</a>
-            <br/>
-            <a mat-stroked-button color="primary" href="http://msprogrammer.serviciipeweb.ro/" target="_blank">http://msprogrammer.serviciipeweb.ro/</a>
-          </mat-card-actions>
-        </mat-card>
-      </div>
+<div class="container m-top">
+  <mat-grid-list cols="2">
+    <mat-grid-tile class="txt-center">
+      <mat-card class="card-content-center">
+        <img class="img-responsive zoom-in" src="assets/img/andrei-ignat.png"><br>
+        <br>
+        <mat-card-title>Andrei Ignat</mat-card-title>
+<!--        <p>-->
+<!--          Lorem ipsum dolor sit amet, consectetur adipiscing elit.-->
+<!--          Vestibulum nec ante at eros pulvinar pellentesque.-->
+<!--          Donec ac ligula ut sem consequat ornare.-->
+<!--          Phasellus vel sem vel justo aliquam faucibus ac a lectus.-->
+<!--          Aliquam cursus nunc non aliquam auctor.-->
+<!--        </p>-->
 
-      <div class="col" style="width: available;">
-        <mat-card class="card-border">
-          <mat-card-header>
-            <mat-card-title>Alexandru Badita</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <img mat-card-xl-image src="assets/picto/alex.jpg">
-          </mat-card-content>
-          <mat-card-actions>
-            <a mat-button color="primary" href="mailto:alexandru360@gmail.com">alexandru360@gmail.com</a>
-            <br/>
-            <a mat-stroked-button color="primary" href="http://alexandru360.blogspot.com/" target="_blank">http://alexandru360.blogspot.com/</a>
-          </mat-card-actions>
-        </mat-card>
-      </div>
-    </div>
-  </mat-card-content>
+        <br>
+        <b>Contact: </b> <a class="a-link" href="mailto:ignatandrei@yahoo.com">ignatandrei@yahoo.com</a><br>
+        <br>
+        <button mat-stroked-button><a class="txt-lightblue" href="http://msprogrammer.serviciipeweb.ro/"
+                                      target="_blank">See more</a></button>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile class="txt-center">
+      <mat-card class="card-content-center">
+        <img class="img-responsive zoom-in" src="assets/img/alexandru-badita.png"><br>
+        <br>
+        <mat-card-title>Alexandru Badita</mat-card-title>
+<!--        <p>-->
+<!--          Lorem ipsum dolor sit amet, consectetur adipiscing elit.-->
+<!--          Vestibulum nec ante at eros pulvinar pellentesque.-->
+<!--          Donec ac ligula ut sem consequat ornare.-->
+<!--          Phasellus vel sem vel justo aliquam faucibus ac a lectus.-->
+<!--          Aliquam cursus nunc non aliquam auctor.-->
+<!--        </p>-->
 
-  <mat-card-actions *ngIf="false">
-    <a mat-button color="primary">
-      <mat-icon>facebook</mat-icon>
-    </a>
-    <a mat-button color="primary">
-      <mat-icon>linkedin</mat-icon>
-    </a>
-  </mat-card-actions>
-</mat-card>
+        <br>
+        <b>Contact: </b> <a class="a-link" href="mailto:alexandru360@gmail.com">alexandru360@gmail.com</a><br>
+        <br>
+        <button mat-stroked-button><a class="txt-lightblue" href="http://alexandru360.blogspot.com/" target="_blank">See
+          more</a></button>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

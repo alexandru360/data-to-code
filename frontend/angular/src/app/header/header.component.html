@@ -1,44 +1,34 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row
-    [style.height]="!isPhoneView ? '130px' : '95px'">
-    <span class="menu-spacer"></span>
-    <img *ngIf="!isPhoneView" mat-card-md-image src="assets/img/site-logo.png">
-    <img *ngIf="isPhoneView" mat-card-sm-image src="assets/img/site-logo.png">
-    <span class="menu-spacer"></span>
-  </mat-toolbar-row>
-
-  <mat-toolbar-row>
-    <span class="menu-spacer"></span>
-
-    <button *ngIf="isPhoneView" mat-button class="menu-button" (click)="sidenav.toggle()">
-      <mat-icon>{{ isMenuOpen ? 'menu_open' : 'menu' }}</mat-icon>
-    </button>
-
-    <div *ngIf="!isPhoneView">
-      <a mat-button routerLink="/home">Home</a>
-      <a mat-button routerLink="/demo">Demo</a>
-      <a mat-button routerLink="/more">More</a>
-      <a mat-button routerLink="/about">About</a>
-      <a mat-button *ngIf="false" routerLink="/contact">Contact</a>
+<header>
+  <mat-grid-list col="12" class="txt-center bg-lightblue txt-white">
+    <div class="bg-lightblue">
+      <a routerLink="/home">
+        <img class="p-top img-responsive txt-center" src="assets/img/data2code-logo.png"/>
+      </a>
     </div>
 
-    <span class="menu-spacer"></span>
-  </mat-toolbar-row>
-</mat-toolbar>
+    <nav class="txt-white bg-lightblue p">
+      <a routerLink="/home" class="txt-uppercase txt-bold txt-white">Home</a>
+      <a routerLink="/demo" class="txt-uppercase txt-bold txt-white">Demo</a>
+      <a routerLink="/more" class="txt-uppercase txt-bold txt-white">More</a>
+      <a routerLink="/about" class="txt-uppercase txt-bold txt-white">About</a>
+    </nav>
+  </mat-grid-list>
+</header>
 
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #sidenav autoFocus="false" mode="over" [(opened)]="isMenuOpen" class="sidenav">
+<!--  -->
+<!--<mat-sidenav-container class="sidenav-container">-->
+<!--  <mat-sidenav #sidenav autoFocus="false" mode="over" [(opened)]="isMenuOpen" class="sidenav">-->
 
-    <a mat-button routerLink="/home">Home</a>
-    <a mat-button routerLink="/demo">Demo</a>
-    <a mat-button routerLink="/about">About</a>
-    <a mat-button routerLink="/more">More</a>
-    <a mat-button *ngIf="false" routerLink="/contact">Contact</a>
+<!--    <a mat-button routerLink="/home">Home</a>-->
+<!--    <a mat-button routerLink="/demo">Demo</a>-->
+<!--    <a mat-button routerLink="/about">About</a>-->
+<!--    <a mat-button routerLink="/more">More</a>-->
+<!--    <a mat-button *ngIf="false" routerLink="/contact">Contact</a>-->
 
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <main>
-      <router-outlet></router-outlet>
-    </main>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<!--  </mat-sidenav>-->
+<!--  <mat-sidenav-content>-->
+<!--    <main>-->
+<!--      <router-outlet></router-outlet>-->
+<!--    </main>-->
+<!--  </mat-sidenav-content>-->
+<!--</mat-sidenav-container>-->
