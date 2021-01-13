@@ -10,6 +10,7 @@
             "TestWEBAPI_DAL/Generated/@Name@Repository.cs",
             "TestWEBAPI_DAL/Generated/@Name@Search.cs",
             "TestWebAPI_BL/Generated/@Name@BL.cs",
+  
             "TestWebAPI/Generated/Controllers/@Name@ActionController.cs",
             "TestWebAPI/Generated/Controllers/@Name@RESTController.cs"
         ],
@@ -32,6 +33,7 @@
             "TestWEBAPI_DAL/Generated/@Name@Repository.cs",
             "TestWEBAPI_DAL/Generated/@Name@Search.cs",
             "TestWebAPI_BL/Generated/@Name@BL.cs",
+"TestWebAPI/Controllers/Admin_@Name@Controller.cs",
             "TestWebAPI/Generated/Controllers/@Name@ActionController.cs",
             "TestWebAPI/Generated/Controllers/@Name@RESTController.cs"
         ],

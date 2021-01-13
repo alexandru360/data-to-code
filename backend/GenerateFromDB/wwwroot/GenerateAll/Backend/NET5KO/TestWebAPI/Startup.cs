@@ -41,7 +41,7 @@ using Microsoft.OpenApi.Models;
 using NetCore2Blockly;
 using TestWebAPI_BL;
 using TestWEBAPI_DAL;
-
+using Microsoft.AspNetCore.Mvc.Razor;
 namespace TestWebAPI
 {
     public class Startup
@@ -64,6 +64,12 @@ namespace TestWebAPI
             services.AddCors();
             services.AddControllersWithViews();
 
+ services.Configure<RazorViewEngineOptions>(o =>
+    {
+        //o.ViewLocationFormats.Clear();
+        o.ViewLocationFormats.Add
+("/Admin/{0}" + RazorViewEngine.ViewExtension);
+    });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MyApplication", Version = "v1" });
