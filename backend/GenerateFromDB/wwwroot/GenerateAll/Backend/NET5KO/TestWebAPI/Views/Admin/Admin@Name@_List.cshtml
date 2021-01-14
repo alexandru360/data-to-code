@@ -1,0 +1,143 @@
+﻿@model Stankins.Interfaces.IDataToSent
+@{
+
+string ClassNameFromTableName(string tableName){
+		return tableName.Replace(" ","").Replace(".","").Replace("(","").Replace(")","");
+	}
+	string nameProperty(string original, string nameClass){
+		var name = original.ToLower().Replace(" ","").Replace("event","event1").Replace("class","class1").Replace("object","object1").Replace("<","").Replace("/","").Replace(">","").Replace("(","").Replace(")","").ToLower();
+		if(!IsIdentifier(name))
+			name = "generated_"+name;
+		if(nameClass.ToLower() == name)
+            name= "generated_"+name;
+		return name.Trim();
+	}
+	//https://docs.microsoft.com/en-us/dotnet/api/microsoft.codeanalysis.csharp.syntaxfacts?view=roslyn-dotnet
+	bool IsIdentifier(string text)
+	{
+     if (string.IsNullOrEmpty(text))
+        return false;
+     if (!char.IsLetter(text[0]) && text[0] != '_')
+        return false;
+     for (int ix = 1; ix < text.Length; ++ix)
+        if (!char.IsLetterOrDigit(text[ix]) && text[ix] != '_')
+           return false;
+     return true;
+	}
+    var dt= Model.FindAfterName("@Name@").Value;
+    var nameTable = dt.TableName;
+    var dtOptions= Model.FindAfterName("@@Options@@").Value;
+    var nrPK = (int.Parse(dtOptions.Rows.Find(nameTable +"_PK_Number")[1].ToString())  );
+    
+    string idTable ="", idType = "",idTableSecond = "",idTypeSecond = "";
+    if(nrPK>0){
+        idTable = dtOptions.Rows.Find(dt.TableName +"_PK_0")[1].ToString();
+        idType = dtOptions.Rows.Find(dt.TableName +"_PK_0_Type")[1].ToString();  	
+    }
+    if(nrPK>1){
+        idTableSecond = dtOptions.Rows.Find(dt.TableName +"_PK_1")[1].ToString();
+        idTypeSecond = dtOptions.Rows.Find(dt.TableName +"_PK_1_Type")[1].ToString();  	
+    }
+	string nameClass= ClassNameFromTableName(dt.TableName);
+      var nrCols =dt.Columns.Count;
+    string repo= nameClass  + "_Repository";
+    string typeRepository = "IRepositoryView<"+ nameClass +">";
+    switch(nrPK){
+        case 0:
+            break;
+        case 1:
+            typeRepository = "IRepository<" + (nameClass) + "," + (idType) + ">";
+            break;
+        default:
+            typeRepository = "IRepository<" + (nameClass) + "," + (idType) + ","+ idTypeSecond + ">";
+            break;
+    }
+    var objFields="";
+    var nameFields="";
+    var valFields="";
+      for(int iCol = 0;iCol < nrCols; iCol++){
+        var col = dt.Columns[iCol];
+        var colType = col.DataType;
+        nameFields +=nameProperty(col.ColumnName,nameClass) +",";
+        valFields += "''," ;
+        objFields+="obj."+nameProperty(col.ColumnName,nameClass )+",";
+
+      }
+    
+}
+
+
+<h1> Welcome to @nameClass
+
+    <div>
+        <table border="5">
+
+            <thead>
+                <tr>
+                 <td data-bind="text: $index() + 1"></td>
+             @{
+                for(int iCol = 0;iCol < nrCols; iCol++){
+                     var col = dt.Columns[iCol];
+                    <text>
+                <th>@col.ColumnName</th>
+                    </text>
+                }
+            }
+                </tr>
+               
+            </thead>
+
+            <tbody data-bind="foreach: @(nameClass)Liste">
+                <tr>
+                    @{
+                      for(int iCol = 0;iCol < nrCols; iCol++){
+                            var col = dt.Columns[iCol];
+                        <text>
+                    <td data-bind="text: @nameProperty(col.ColumnName,nameClass)"></td>
+                        </text>
+                        }
+                    }
+            
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+@@section Scripts{
+    <script>
+    function ko@(nameClass)(@nameFields x)
+        {
+            var self = this;
+            @{
+                for(int iCol = 0;iCol < nrCols; iCol++){
+                     var col = dt.Columns[iCol];
+                    <text>
+                self.@(nameProperty(col.ColumnName,nameClass)) = @(nameProperty(col.ColumnName,nameClass));
+                    </text>
+                }
+            }
+            
+        }
+    function All@(nameClass)() {
+            var self = this;
+            self.@(nameClass)Liste = ko.observableArray([
+                new ko@(nameClass)(@Raw(valFields) 1)
+            ]);
+        }
+  var  all@(nameClass) = new  All@(nameClass)();
+        ko.applyBindings(all@(nameClass));
+      
+      
+
+         var url='@@Url.Content("/api/@(nameClass)/GetAll")';
+        $.getJSON(url, function (data) {
+            window.alert(JSON.stringify(data));
+             all@(nameClass).@(nameClass)Liste([]);
+              $.each(data, function (val, obj) {
+                    all@(nameClass).@(nameClass)Liste.push(new ko@(nameClass)(@objFields 1));
+
+                });
+         });      
+    </script>
+}

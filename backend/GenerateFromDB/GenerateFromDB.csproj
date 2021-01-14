@@ -7,9 +7,13 @@
     <Version>2020.12.1.2131</Version>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="wwwroot\19700416000000\**" />
     <Compile Remove="wwwroot\GenerateAll\**" />
+    <Content Remove="wwwroot\19700416000000\**" />
     <Content Remove="wwwroot\GenerateAll\**" />
+    <EmbeddedResource Remove="wwwroot\19700416000000\**" />
     <EmbeddedResource Remove="wwwroot\GenerateAll\**" />
+    <None Remove="wwwroot\19700416000000\**" />
     <None Remove="wwwroot\GenerateAll\**" />
   </ItemGroup>
   <ItemGroup>

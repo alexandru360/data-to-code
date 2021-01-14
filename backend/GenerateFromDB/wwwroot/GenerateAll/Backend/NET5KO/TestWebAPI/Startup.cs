@@ -68,7 +68,7 @@ namespace TestWebAPI
     {
         //o.ViewLocationFormats.Clear();
         o.ViewLocationFormats.Add
-("/Admin/{0}" + RazorViewEngine.ViewExtension);
+("/Views/Admin/{0}" + RazorViewEngine.ViewExtension);
     });
             services.AddSwaggerGen(c =>
             {
