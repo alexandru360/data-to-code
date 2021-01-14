@@ -5,7 +5,7 @@ string ClassNameFromTableName(string tableName){
 		return tableName.Replace(" ","").Replace(".","").Replace("(","").Replace(")","");
 	}
 	string nameProperty(string original, string nameClass){
-		var name = original.ToLower().Replace(" ","").Replace("event","event1").Replace("class","class1").Replace("object","object1").Replace("<","").Replace("/","").Replace(">","").Replace("(","").Replace(")","").ToLower();
+		var name = original.ToLower().Replace(" ","").Replace("event","event1").Replace("-","_").Replace("class","class1").Replace("object","object1").Replace("<","").Replace("/","").Replace(">","").Replace("(","").Replace(")","").ToLower();
 		if(!IsIdentifier(name))
 			name = "generated_"+name;
 		if(nameClass.ToLower() == name)
@@ -133,12 +133,17 @@ string ClassNameFromTableName(string tableName){
 
          var url='@@Url.Content("/api/@(nameClass)/GetAll")';
         $.getJSON(url, function (data) {
-            window.alert(JSON.stringify(data));
+            //window.alert(JSON.stringify(data));
+            var arr = [];
              all@(nameClass).@(nameClass)Liste([]);
               $.each(data, function (val, obj) {
                     all@(nameClass).@(nameClass)Liste.push(new ko@(nameClass)(@objFields 1));
 
                 });
+
+             window.alert('wait to display ' + arr.length + 'records');
+             all@(nameClass).@(nameClass)Liste(arr);
+            window.alert('done');
          });      
     </script>
 }

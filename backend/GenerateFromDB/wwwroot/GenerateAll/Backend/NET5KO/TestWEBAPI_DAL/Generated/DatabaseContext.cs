@@ -20,7 +20,7 @@
         tables[iRowDS]=renderTable;
     }
 	string nameProperty(string original, string nameClass){
-		var name = original.ToLower().Replace(" ","").Replace("event","event1").Replace("class","class1").Replace("object","object1").Replace("<","").Replace("/","").Replace(">","").Replace("(","").Replace(")","").ToLower();
+		var name = original.ToLower().Replace(" ","").Replace("event","event1").Replace("-","_").Replace("class","class1").Replace("object","object1").Replace("<","").Replace("/","").Replace(">","").Replace("(","").Replace(")","").ToLower();
 		if(!IsIdentifier(name))
 			name = "generated_"+name;
 		if(nameClass.ToLower() == name)
@@ -121,7 +121,7 @@ namespace TestWEBAPI_DAL
                     var column=dt.Columns[iCol];
                     string nameColumn = nameProperty(column.ColumnName,nameClass);
                     <text>
-                        modelBuilder.Entity<@(nameClass)>().Property(it => it.@(nameColumn)).HasColumnName("@(column.ColumnName)");
+                        modelBuilder.Entity<@(nameClass)>().Property(it => it.@(nameColumn)).HasColumnName("@Raw(column.ColumnName)");
                     </text>
                 }
             
