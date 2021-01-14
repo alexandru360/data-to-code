@@ -49,6 +49,7 @@ namespace GenerateApp.Controllers
                 string s when s.Contains("blob", StringComparison.InvariantCultureIgnoreCase) => "byte[]",
                 string s when s.Contains("timestamp", StringComparison.InvariantCultureIgnoreCase) => "date",
                 string s when s.Contains("decimal", StringComparison.InvariantCultureIgnoreCase) => "number",
+                string s when s.Contains("money", StringComparison.InvariantCultureIgnoreCase) => "number",
                 string s when s.Contains("char", StringComparison.InvariantCultureIgnoreCase) => "string",
                 string s when s.Contains("uniqueidentifier", StringComparison.InvariantCultureIgnoreCase) => "string",
                 _ => notFoundType(originalType)
