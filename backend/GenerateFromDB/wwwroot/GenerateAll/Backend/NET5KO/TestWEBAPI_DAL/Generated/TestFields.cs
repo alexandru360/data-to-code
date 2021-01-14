@@ -25,8 +25,38 @@
 			name = "generated_"+name;
 		if(nameClass.ToLower() == name)
             name= "generated_"+name;
-		return name.Trim();
+	return RemoveAccents(ToAlphaNumeric(name.Trim()));
 	}
+string RemoveAccents(string text)
+        {
+            var sbReturn = new System.Text.StringBuilder();
+            var arrayText = text.Normalize(System.Text.NormalizationForm.FormD).ToCharArray();
+            foreach (char letter in arrayText)
+            {
+                if (System.Globalization.CharUnicodeInfo.GetUnicodeCategory(letter) != System.Globalization.UnicodeCategory.NonSpacingMark)
+                    sbReturn.Append(letter);
+            }
+            return sbReturn.ToString();
+        }
+
+    string ToAlphaNumeric(string input)
+    {
+        int j = 0;
+        char[] newCharArr = new char[input.Length];
+
+        for (int i = 0; i < input.Length; i++)
+        {
+            if (char.IsLetterOrDigit(input[i]))
+            {
+                newCharArr[j] = input[i];
+                j++;
+            }
+        }
+
+        System.Array.Resize(ref newCharArr, j);
+
+        return new string(newCharArr);
+    }
 	//https://docs.microsoft.com/en-us/dotnet/api/microsoft.codeanalysis.csharp.syntaxfacts?view=roslyn-dotnet
 	bool IsIdentifier(string text)
 	{
