@@ -134,6 +134,10 @@ string RemoveAccents(string text)
             </tbody>
         </table>
     </div>
+    Current page:<span data-bind="text: pageIndex"></span>
+    Max pages: <span data-bind="text: maxPageIndex"></span>
+
+<span data-bind="text: pageIndex" ></span>
 
 @@section Scripts{
     <script>
@@ -156,6 +160,12 @@ string RemoveAccents(string text)
             self.@(nameClass)Liste = ko.observableArray([
                 new ko@(nameClass)(@Raw(valFields) 1)
             ]);
+            self.pageSize = ko.observable(10);
+            self.pageIndex = ko.observable(1);
+            self.maxPageIndex = ko.computed(function() {
+                return Math.ceil(this.nrRecords() / this.pageSize()) - 1;
+            }, self);
+
         }
   var  all@(nameClass) = new  All@(nameClass)();
         ko.applyBindings(all@(nameClass));
@@ -178,16 +188,22 @@ string RemoveAccents(string text)
 
 
         var url='@@Url.Content("/api/@(nameClass)/SearchPaginated")';
+        var obj = {
+            pagination: {
+                "pageSize": all@(nameClass).pageSize(),
+                "pageNo": all@(nameClass).pageIndex()
+            }
+        }
         $.ajax({
             contentType: 'application/json',
-            data: '{}',
+            data: JSON.stringify(obj),
             dataType: 'json',
             success: function (data) {
                 //window.alert(JSON.stringify(data));
                 var nr = data.nr;
                 var rec = data.records;
                 //window.alert("total records:"+nr);
-                self.nrRecords(nr);
+                all@(nameClass).nrRecords(nr);
                 var arr = [];
                 all@(nameClass).@(nameClass)Liste([]);
                 console.log(rec);
