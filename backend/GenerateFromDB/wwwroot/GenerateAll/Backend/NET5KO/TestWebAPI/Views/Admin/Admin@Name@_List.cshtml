@@ -74,7 +74,7 @@ string ClassNameFromTableName(string tableName){
 
             <thead>
                 <tr>
-                 <td data-bind="text: $index() + 1"></td>
+                <th>Number</th>
              @{
                 for(int iCol = 0;iCol < nrCols; iCol++){
                      var col = dt.Columns[iCol];
@@ -89,6 +89,7 @@ string ClassNameFromTableName(string tableName){
 
             <tbody data-bind="foreach: @(nameClass)Liste">
                 <tr>
+                    <td data-bind="text: $index() + 1"></td>
                     @{
                       for(int iCol = 0;iCol < nrCols; iCol++){
                             var col = dt.Columns[iCol];
