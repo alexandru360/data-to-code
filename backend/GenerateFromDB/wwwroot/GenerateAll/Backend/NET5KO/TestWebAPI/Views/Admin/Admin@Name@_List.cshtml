@@ -97,7 +97,7 @@ string RemoveAccents(string text)
 }
 
 
-<h1> Welcome to @nameClass
+<h1> Welcome to @nameClass. Number Records: <span data-bind="text: nrRecords"></span>
 
     <div>
         <table border="5">
@@ -152,6 +152,7 @@ string RemoveAccents(string text)
         }
     function All@(nameClass)() {
             var self = this;
+            self.nrRecords = ko.observable(0);
             self.@(nameClass)Liste = ko.observableArray([
                 new ko@(nameClass)(@Raw(valFields) 1)
             ]);
@@ -161,19 +162,53 @@ string RemoveAccents(string text)
       
       
 
-         var url='@@Url.Content("/api/@(nameClass)/GetAll")';
-        $.getJSON(url, function (data) {
-            //window.alert(JSON.stringify(data));
-            var arr = [];
-             all@(nameClass).@(nameClass)Liste([]);
-              $.each(data, function (val, obj) {
-                    all@(nameClass).@(nameClass)Liste.push(new ko@(nameClass)(@objFields 1));
+         //var url='@@Url.Content("/api/@(nameClass)/GetAll")';
+        // $.getJSON(url, function (data) {
+        //     var arr = [];
+        //     //  all@(nameClass).@(nameClass)Liste([]);
+        //       $.each(data, function (val, obj) {
+        //             arr.push(new ko@(nameClass)(@objFields 1));
 
-                });
+        //         });
 
-             window.alert('wait to display ' + arr.length + 'records');
+        //      window.alert('wait to display ' + arr.length + 'records');
+        //      all@(nameClass).@(nameClass)Liste(arr);
+        //     window.alert('done');
+        //  });      
+
+
+        var url='@@Url.Content("/api/@(nameClass)/SearchPaginated")';
+        $.ajax({
+            contentType: 'application/json',
+            data: '{}',
+            dataType: 'json',
+            success: function (data) {
+                //window.alert(JSON.stringify(data));
+                var nr = data.nr;
+                var rec = data.records;
+                //window.alert("total records:"+nr);
+                self.nrRecords(nr);
+                var arr = [];
+                all@(nameClass).@(nameClass)Liste([]);
+                console.log(rec);
+                for (var i = 0; i < rec.length; i++) {
+                    var obj = rec[i];
+                    arr.push(new ko@(nameClass)(@objFields 1));
+
+                };
+                // window.alert(arr.length);
+        //     window.alert('wait to display ' + arr.length + 'records');
              all@(nameClass).@(nameClass)Liste(arr);
-            window.alert('done');
-         });      
+        //    window.alert('done');
+
+            },
+            error: function () {
+                window.alert("failed");
+            },
+
+            type: 'POST',
+            url: url
+        });
+
     </script>
 }
