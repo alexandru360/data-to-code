@@ -139,7 +139,7 @@ string RemoveAccents(string text)
                     @{
                         if(nrPK==1){
                             <a  data-bind="attr: { href: urlEdit }">Edit</a>
-                            <button data-bind="click: delete_@(nameClass)">Delete</button>
+                            <button data-bind="click: $root.delete_@(nameClass)">Delete</button>
                         }
                     }
                 </td>
@@ -170,28 +170,6 @@ string RemoveAccents(string text)
             <text>
                 self.urlEdit='/admin@(nameClass)/Edit/' + @(idTable);
                 self.urlDelete='/admin@(nameClass)/Delete/' + @(idTable);
-                self.delete_@(nameClass)=  function(){
-                     if(!window.confirm("do you want to delete id "+ self.@(idTable))){
-                          return;
-                    }   
-                    var url='@@Url.Content("/api/@(nameClass)/Delete/")'+ self.@(idTable);
-                    $.ajax({
-                        contentType: 'application/json',
-                        dataType: 'json',
-                        success: function (data) {
-                                                        
-                            window.alert('deleted');
-
-                        },
-                        error: function () {
-                            window.alert("failed");
-                        },
-
-                        type: 'Delete',
-                        url: url
-                    });
-
-                }
             </text>
 
         }            
@@ -208,6 +186,33 @@ string RemoveAccents(string text)
                 return Math.ceil(this.nrRecords() / this.pageSize()) - 1;
             }, self);
             self.urlAdd='/admin@(nameClass)/Add/';
+            self.removeItem = function (data) {
+                self.@(nameClass)Liste.remove(data);
+            }
+
+            self.delete_@(nameClass)=  function(element){
+                if(!window.confirm("do you want to delete id "+ element.@(idTable))){
+                        return;
+                }   
+                var url='@@Url.Content("/api/@(nameClass)/Delete/")'+ element.@(idTable);
+                $.ajax({
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    success: function (data) {
+                                                    
+                        window.alert('deleted');
+                        self.removeItem(element);
+                    },
+                    error: function () {
+                        window.alert("failed");
+                    },
+
+                    type: 'Delete',
+                    url: url
+                });
+
+                }
+
         }
   var  all@(nameClass) = new  All@(nameClass)();
         ko.applyBindings(all@(nameClass));
