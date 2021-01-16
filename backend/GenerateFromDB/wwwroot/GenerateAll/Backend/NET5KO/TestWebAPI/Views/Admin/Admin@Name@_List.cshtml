@@ -150,6 +150,7 @@ string RemoveAccents(string text)
     </div>
     <span>Current page:<span data-bind="text: pageIndex"></span></span>
     <span>Max pages: <span data-bind="text: maxPageIndex"></span></span>
+<select  data-bind="options: pageSizeOptions, value: pageSize, event: { change: onPageSizeChange }"  />
 
 <span data-bind="text: pageIndex" ></span>
 
@@ -189,7 +190,56 @@ string RemoveAccents(string text)
             self.removeItem = function (data) {
                 self.@(nameClass)Liste.remove(data);
             }
+            self.pageSizeOptions = ko.observableArray([10, 25, 50, 100, 250, 500]);
+            self.onPageSizeChange = function() {
+		        self.pageIndex(1);
+            };
+            
+            self.loadList=function () {
+                
+                var url='@@Url.Content("/api/@(nameClass)/SearchPaginated")';
+                var obj = {
+                    pagination: {
+                        "pageSize": self.pageSize(),
+                        "pageNo": self.pageIndex()
+                    }
+                }
+                $.ajax({
+                    contentType: 'application/json',
+                    data: JSON.stringify(obj),
+                    dataType: 'json',
+                    success: function (data) {
+                        //window.alert(JSON.stringify(data));
+                        var nr = data.nr;
+                        var rec = data.records;
+                        //window.alert("total records:"+nr);
+                        self.nrRecords(nr);
+                        var arr = [];
+                        self.@(nameClass)Liste([]);
+                        //console.log(rec);
+                        for (var i = 0; i < rec.length; i++) {
+                            var obj = rec[i];
+                            arr.push(new ko@(nameClass)(@objFields 1));
 
+                        };
+                        // window.alert(arr.length);
+                //     window.alert('wait to display ' + arr.length + 'records');
+                        self.@(nameClass)Liste(arr);
+                //    window.alert('done');
+
+                    },
+                    error: function () {
+                        window.alert("failed");
+                    },
+
+                    type: 'POST',
+                    url: url
+                });
+
+
+
+
+            }
             self.delete_@(nameClass)=  function(element){
                 if(!window.confirm("do you want to delete id "+ element.@(idTable))){
                         return;
@@ -216,62 +266,7 @@ string RemoveAccents(string text)
         }
   var  all@(nameClass) = new  All@(nameClass)();
         ko.applyBindings(all@(nameClass));
-      
-      
-
-         //var url='@@Url.Content("/api/@(nameClass)/GetAll")';
-        // $.getJSON(url, function (data) {
-        //     var arr = [];
-        //     //  all@(nameClass).@(nameClass)Liste([]);
-        //       $.each(data, function (val, obj) {
-        //             arr.push(new ko@(nameClass)(@objFields 1));
-
-        //         });
-
-        //      window.alert('wait to display ' + arr.length + 'records');
-        //      all@(nameClass).@(nameClass)Liste(arr);
-        //     window.alert('done');
-        //  });      
-
-
-        var url='@@Url.Content("/api/@(nameClass)/SearchPaginated")';
-        var obj = {
-            pagination: {
-                "pageSize": all@(nameClass).pageSize(),
-                "pageNo": all@(nameClass).pageIndex()
-            }
-        }
-        $.ajax({
-            contentType: 'application/json',
-            data: JSON.stringify(obj),
-            dataType: 'json',
-            success: function (data) {
-                //window.alert(JSON.stringify(data));
-                var nr = data.nr;
-                var rec = data.records;
-                //window.alert("total records:"+nr);
-                all@(nameClass).nrRecords(nr);
-                var arr = [];
-                all@(nameClass).@(nameClass)Liste([]);
-                console.log(rec);
-                for (var i = 0; i < rec.length; i++) {
-                    var obj = rec[i];
-                    arr.push(new ko@(nameClass)(@objFields 1));
-
-                };
-                // window.alert(arr.length);
-        //     window.alert('wait to display ' + arr.length + 'records');
-             all@(nameClass).@(nameClass)Liste(arr);
-        //    window.alert('done');
-
-            },
-            error: function () {
-                window.alert("failed");
-            },
-
-            type: 'POST',
-            url: url
-        });
+        all@(nameClass).loadList();
 
     </script>
 }
