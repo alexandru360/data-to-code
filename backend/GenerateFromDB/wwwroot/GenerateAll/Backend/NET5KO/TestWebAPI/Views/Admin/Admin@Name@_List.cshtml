@@ -97,7 +97,7 @@ string RemoveAccents(string text)
 }
 
 
-<h1> Welcome to @nameClass. Number Records: <span data-bind="text: nrRecords"></span>
+<span> Welcome to @nameClass. Number Records: <span data-bind="text: nrRecords"></span></span>
 
     <div>
         <table border="5">
@@ -118,7 +118,7 @@ string RemoveAccents(string text)
             </thead>
 
             <tbody data-bind="foreach: @(nameClass)Liste">
-                <tr>
+                <tr class="tdata">
                     <td data-bind="text: $index() + 1"></td>
                     @{
                       for(int iCol = 0;iCol < nrCols; iCol++){
@@ -134,8 +134,8 @@ string RemoveAccents(string text)
             </tbody>
         </table>
     </div>
-    Current page:<span data-bind="text: pageIndex"></span>
-    Max pages: <span data-bind="text: maxPageIndex"></span>
+    <span>Current page:<span data-bind="text: pageIndex"></span></span>
+    <span>Max pages: <span data-bind="text: maxPageIndex"></span></span>
 
 <span data-bind="text: pageIndex" ></span>
 

@@ -103,6 +103,7 @@ namespace TestWebAPI.Controllers
 
         public  ActionResult Index()
         {
+            @@ViewData["Title"]="list of @(nameClass)";
             return View("Admin@(nameClass)_List");
         }
     }

@@ -1,0 +1,65 @@
+table {
+    font-family: Calibri;
+    font-size: 12px;
+    margin-top: 7px;
+    border-collapse: collapse;
+}
+
+.Filterzeile {
+   background-color:rgb(255,255,153)
+
+} 
+        
+ td {
+    border: 1px solid;
+    width: 100px;
+    padding: 2px;
+    font-weight: normal;
+    /*color: rgb(102, 102, 102);*/
+    color: black;
+    padding: 3px;
+}
+
+tr {
+    background-color: white;
+}
+
+thead th {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background: white;
+    border: 1px solid;
+    background-color: lightgrey;
+    border-collapse: collapse;
+}
+
+th {
+    margin-bottom:2px;
+    padding-bottom:4px;
+}
+
+#Bild {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 10px;
+    margin-right: 50px;
+}
+
+#tdKontakt {
+    text-align: center
+}
+
+span, input {
+    font-family: Calibri;
+    font-size: 12px
+}
+
+#Filterzeile > td {
+    background-color: azure;
+    border-collapse: collapse
+}
+
+.sFilter {
+    background-color: rgb(255, 255, 204)
+}
