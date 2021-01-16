@@ -95,11 +95,18 @@ using Microsoft.EntityFrameworkCore;
 using TestWEBAPI_DAL;
 using TestWebAPI_BL;
 using TestWebAPI_Searches;
-
+using Microsoft.Extensions.Logging;
 namespace TestWebAPI.Controllers
 {
     public class Admin@(nameClass)Controller : Controller
     {
+
+        private readonly ILogger<Admin@(nameClass)Controller> _logger;
+
+        public Admin@(nameClass)Controller(ILogger<Admin@(nameClass)Controller> logger)
+        {
+            _logger = logger;
+        }
 
         public  ActionResult Index()
         {

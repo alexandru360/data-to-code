@@ -1,98 +1,11 @@
-﻿@model Stankins.Interfaces.IDataToSent
-@{
-    
-	string ClassNameFromTableName(string tableName){
-		return tableName.Replace(" ","").Replace(".","").Replace("(","").Replace(")","");
-	}
-	
-    var ds= Model.FindAfterName("DataSource").Value;
-    var dtOptions= Model.FindAfterName("@@Options@@").Value;
-    
-    var nrRowsDS=ds.Rows.Count;
-    
-    var nameTablesToRender = new string[nrRowsDS];
-    var tables=new System.Data.DataTable[nrRowsDS];
-    for (int iRowDS = 0; iRowDS < nrRowsDS; iRowDS++)
-    {
-        var nameTable = ds.Rows[iRowDS]["TableName"].ToString();
-        var renderTable = Model.FindAfterName(nameTable).Value;
-        nameTablesToRender[iRowDS] = nameTable;
-        tables[iRowDS]=renderTable;
-    }
-	string nameProperty(string original, string nameClass){
-		var name = original.ToLower().Replace(" ","").Replace("event","event1").Replace("-","_").Replace("class","class1").Replace("object","object1").Replace("<","").Replace("/","").Replace(">","").Replace("(","").Replace(")","").ToLower();
-		if(!IsIdentifier(name))
-			name = "generated_"+name;
-		if(nameClass.ToLower() == name)
-            name= "generated_"+name;
-	return RemoveAccents(ToAlphaNumeric(name.Trim()));
-	}
-string RemoveAccents(string text)
-        {
-            var sbReturn = new System.Text.StringBuilder();
-            var arrayText = text.Normalize(System.Text.NormalizationForm.FormD).ToCharArray();
-            foreach (char letter in arrayText)
-            {
-                if (System.Globalization.CharUnicodeInfo.GetUnicodeCategory(letter) != System.Globalization.UnicodeCategory.NonSpacingMark)
-                    sbReturn.Append(letter);
-            }
-            return sbReturn.ToString();
-        }
-
-    string ToAlphaNumeric(string input)
-    {
-        int j = 0;
-        char[] newCharArr = new char[input.Length];
-
-        for (int i = 0; i < input.Length; i++)
-        {
-            if (char.IsLetterOrDigit(input[i]))
-            {
-                newCharArr[j] = input[i];
-                j++;
-            }
-        }
-
-        System.Array.Resize(ref newCharArr, j);
-
-        return new string(newCharArr);
-    }
-	//https://docs.microsoft.com/en-us/dotnet/api/microsoft.codeanalysis.csharp.syntaxfacts?view=roslyn-dotnet
-	bool IsIdentifier(string text)
-	{
-     if (string.IsNullOrEmpty(text))
-        return false;
-     if (!char.IsLetter(text[0]) && text[0] != '_')
-        return false;
-     for (int ix = 1; ix < text.Length; ++ix)
-        if (!char.IsLetterOrDigit(text[ix]) && text[ix] != '_')
-           return false;
-     return true;
-	}
-
-}
-
-
-
-@@@@
-{
+﻿
+@@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">CRUD Tables</h1>
-    <p>
-    <ul>
-    @foreach(var nameTable in nameTablesToRender){
-			string nameClass=ClassNameFromTableName(nameTable);
-             
-            <text>
-            <li>
-            <a href="admin@(nameClass)">@nameClass</a>
-            </li>
-            </text>
-        }    
-    
-     </p>
-     </ul>
+
+    <h1 class="display-4">Please put here anything for the regular user </h1>
+    <h1> Or goto <a href='~/adminindex'>CRUD ADMIN tables</a>   </h1>
+
 </div>
