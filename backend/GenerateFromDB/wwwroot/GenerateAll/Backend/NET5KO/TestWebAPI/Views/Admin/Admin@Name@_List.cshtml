@@ -56,19 +56,22 @@ string RemoveAccents(string text)
 	}
     var dt= Model.FindAfterName("@Name@").Value;
     var nameTable = dt.TableName;
+    string nameClass= ClassNameFromTableName(dt.TableName);
     var dtOptions= Model.FindAfterName("@@Options@@").Value;
     var nrPK = (int.Parse(dtOptions.Rows.Find(nameTable +"_PK_Number")[1].ToString())  );
     
     string idTable ="", idType = "",idTableSecond = "",idTypeSecond = "";
     if(nrPK>0){
         idTable = dtOptions.Rows.Find(dt.TableName +"_PK_0")[1].ToString();
-        idType = dtOptions.Rows.Find(dt.TableName +"_PK_0_Type")[1].ToString();  	
+        idType = dtOptions.Rows.Find(dt.TableName +"_PK_0_Type")[1].ToString(); 
+        idTable = nameProperty(idTable,nameClass); 	
     }
     if(nrPK>1){
         idTableSecond = dtOptions.Rows.Find(dt.TableName +"_PK_1")[1].ToString();
-        idTypeSecond = dtOptions.Rows.Find(dt.TableName +"_PK_1_Type")[1].ToString();  	
+        idTypeSecond = dtOptions.Rows.Find(dt.TableName +"_PK_1_Type")[1].ToString(); 
+        idTableSecond = nameProperty(idTableSecond,nameClass); 	
     }
-	string nameClass= ClassNameFromTableName(dt.TableName);
+	
       var nrCols =dt.Columns.Count;
     string repo= nameClass  + "_Repository";
     string typeRepository = "IRepositoryView<"+ nameClass +">";
@@ -113,8 +116,12 @@ string RemoveAccents(string text)
                     </text>
                 }
             }
+            <th>
+            Actions
+            </th>
                 </tr>
                
+
             </thead>
 
             <tbody data-bind="foreach: @(nameClass)Liste">
@@ -128,7 +135,14 @@ string RemoveAccents(string text)
                         </text>
                         }
                     }
-            
+                <td>
+                    @{
+                        if(nrPK==1){
+                            <a  data-bind="attr: { href: urlEdit }">Edit</a>
+                            <a  data-bind="attr: { href: urlDelete }">Delete</a>
+                        }
+                    }
+                </td>
 
                 </tr>
             </tbody>
@@ -152,7 +166,13 @@ string RemoveAccents(string text)
                     </text>
                 }
             }
-            
+        @if(nrPK == 1){
+            <text>
+                self.urlEdit='admin@(nameClass)/Edit/' + @(idTable);
+                self.urlDelete='admin@(nameClass)/Delete/' + @(idTable);
+            </text>
+
+        }            
         }
     function All@(nameClass)() {
             var self = this;
