@@ -114,7 +114,8 @@ namespace TestWebAPI.Controllers
             return View("Admin@(nameClass)_List");
         }
         public ActionResult Edit(int id){
-            return View("Admin@(nameClass)_List",id);
+            @@ViewData["Title"]="Edit  @(nameClass) with id"+id;
+            return View("Admin@(nameClass)_Edit",id);
         }
     }
 }

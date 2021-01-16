@@ -35,6 +35,7 @@
             "TestWebAPI_BL/Generated/@Name@BL.cs",
 "TestWebAPI/Controllers/Admin_@Name@Controller.cs",
 "TestWebAPI/Views/Admin/Admin@Name@_List.cshtml",
+"TestWebAPI/Views/Admin/Admin@Name@_Edit.cshtml",
             "TestWebAPI/Generated/Controllers/@Name@ActionController.cs",
             "TestWebAPI/Generated/Controllers/@Name@RESTController.cs"
         ],

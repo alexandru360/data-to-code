@@ -99,9 +99,46 @@ string RemoveAccents(string text)
     
 }
 
+<span> Welcome to edit @nameClass. with id @@Model </span>
 
-<span> Welcome to edit @nameClass. </span>
 
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Value</th>
+		</tr>
+	</thead>
+	
+		@{
+            for(int iCol = 0;iCol < nrCols; iCol++){
+				var col = dt.Columns[iCol];
+				string disabled = "";
+				var colName= col.ColumnName ;
+                if(colName == idTable || colName == idTableSecond)
+					disabled= "disabled='disabled'";
+                
+	<text>
+	<tr>
+	<td>@colName</td>
+	<td>
+		<input type="text" @Raw(disabled) data-bind="value: @(nameProperty(colName,nameClass))"  />
+    	</td>
+	</tr>
+	
+	</text>
+
+            }//for
+        }
+			  <tr>
+				<td align="left">
+				  <button (click)="save()">Save</button>
+				</td>
+				<td align="left">
+				  <button (click)="cancel()">Back to list of @(nameTable)</button>
+				</td>
+			  </tr>
+</table>
 
 @@section Scripts{
     <script>
@@ -127,10 +164,23 @@ string RemoveAccents(string text)
         }
         var current = new ko@(nameClass)(@Raw(valFields) 1);
         ko.applyBindings(current);
-      
-      
 
+        var url='@@Url.Content("/api/@(nameClass)/Get/")'+ @@Model;
+        $.ajax({
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (data) {
+                
+                current = data;
+                ko.applyBindings(current);
 
+            },
+            error: function () {
+                window.alert("failed");
+            },
 
+            type: 'GET',
+            url: url
+        });
     </script>
 }
