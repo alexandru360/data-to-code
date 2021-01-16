@@ -56,20 +56,23 @@ string RemoveAccents(string text)
 	}
     var dt= Model.FindAfterName("@Name@").Value;
     var nameTable = dt.TableName;
+    string nameClass= ClassNameFromTableName(dt.TableName);
     var dtOptions= Model.FindAfterName("@@Options@@").Value;
     var nrPK = (int.Parse(dtOptions.Rows.Find(nameTable +"_PK_Number")[1].ToString())  );
     
     string idTable ="", idType = "",idTableSecond = "",idTypeSecond = "";
     if(nrPK>0){
         idTable = dtOptions.Rows.Find(dt.TableName +"_PK_0")[1].ToString();
-        idType = dtOptions.Rows.Find(dt.TableName +"_PK_0_Type")[1].ToString();  	
+        idType = dtOptions.Rows.Find(dt.TableName +"_PK_0_Type")[1].ToString(); 
+        idTable = nameProperty(idTable,nameClass); 	
     }
     if(nrPK>1){
         idTableSecond = dtOptions.Rows.Find(dt.TableName +"_PK_1")[1].ToString();
-        idTypeSecond = dtOptions.Rows.Find(dt.TableName +"_PK_1_Type")[1].ToString();  	
+        idTypeSecond = dtOptions.Rows.Find(dt.TableName +"_PK_1_Type")[1].ToString(); 
+        idTableSecond = nameProperty(idTableSecond,nameClass); 	
     }
-	string nameClass= ClassNameFromTableName(dt.TableName);
-    
+	
+      var nrCols =dt.Columns.Count;
     string repo= nameClass  + "_Repository";
     string typeRepository = "IRepositoryView<"+ nameClass +">";
     switch(nrPK){
@@ -82,39 +85,52 @@ string RemoveAccents(string text)
             typeRepository = "IRepository<" + (nameClass) + "," + (idType) + ","+ idTypeSecond + ">";
             break;
     }
+    var objFields="";
+    var nameFields="";
+    var valFields="";
+      for(int iCol = 0;iCol < nrCols; iCol++){
+        var col = dt.Columns[iCol];
+        var colType = col.DataType;
+        nameFields +=nameProperty(col.ColumnName,nameClass) +",";
+        valFields += "''," ;
+        objFields+="obj."+nameProperty(col.ColumnName,nameClass )+",";
 
+      }
+    
 }
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using TestWEBAPI_DAL;
-using TestWebAPI_BL;
-using TestWebAPI_Searches;
-using Microsoft.Extensions.Logging;
-namespace TestWebAPI.Controllers
-{
-    public class Admin@(nameClass)Controller : Controller
-    {
 
-        private readonly ILogger<Admin@(nameClass)Controller> _logger;
+<span> Welcome to edit @nameClass. </span>
 
-        public Admin@(nameClass)Controller(ILogger<Admin@(nameClass)Controller> logger)
+
+@@section Scripts{
+    <script>
+
+    function ko@(nameClass)(@nameFields x)
         {
-            _logger = logger;
-        }
+            var self = this;
+            @{
+                for(int iCol = 0;iCol < nrCols; iCol++){
+                     var col = dt.Columns[iCol];
+                    <text>
+                self.@(nameProperty(col.ColumnName,nameClass)) =ko.observable( @(nameProperty(col.ColumnName,nameClass)) );
+                    </text>
+                }
+            }
+        @if(nrPK == 1){
+            <text>
+                self.urlEdit='admin@(nameClass)/Edit/' + @(idTable);
+                self.urlDelete='admin@(nameClass)/Delete/' + @(idTable);
+            </text>
 
-        public  ActionResult Index()
-        {
-            @@ViewData["Title"]="list of @(nameClass)";
-            return View("Admin@(nameClass)_List");
+        }            
         }
-        public ActionResult Edit(int id){
-            return View("Admin@(nameClass)_List",id);
-        }
-    }
+        var current = new ko@(nameClass)(@Raw(valFields) 1);
+        ko.applyBindings(current);
+      
+      
+
+
+
+    </script>
 }
