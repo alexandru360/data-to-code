@@ -1,0 +1,196 @@
+﻿@model Stankins.Interfaces.IDataToSent
+@{
+
+string ClassNameFromTableName(string tableName){
+		return tableName.Replace(" ","").Replace(".","").Replace("(","").Replace(")","");
+	}
+	string nameProperty(string original, string nameClass){
+		var name = original.ToLower().Replace(" ","").Replace("event","event1").Replace("-","_").Replace("class","class1").Replace("object","object1").Replace("<","").Replace("/","").Replace(">","").Replace("(","").Replace(")","").ToLower();
+		if(!IsIdentifier(name))
+			name = "generated_"+name;
+		if(nameClass.ToLower() == name)
+            name= "generated_"+name;
+		return RemoveAccents(ToAlphaNumeric(name.Trim()));
+	}
+string RemoveAccents(string text)
+        {
+            var sbReturn = new System.Text.StringBuilder();
+            var arrayText = text.Normalize(System.Text.NormalizationForm.FormD).ToCharArray();
+            foreach (char letter in arrayText)
+            {
+                if (System.Globalization.CharUnicodeInfo.GetUnicodeCategory(letter) != System.Globalization.UnicodeCategory.NonSpacingMark)
+                    sbReturn.Append(letter);
+            }
+            return sbReturn.ToString();
+        }
+
+    string ToAlphaNumeric(string input)
+    {
+        int j = 0;
+        char[] newCharArr = new char[input.Length];
+
+        for (int i = 0; i < input.Length; i++)
+        {
+            if (char.IsLetterOrDigit(input[i]))
+            {
+                newCharArr[j] = input[i];
+                j++;
+            }
+        }
+
+        System.Array.Resize(ref newCharArr, j);
+
+        return new string(newCharArr);
+    }
+	//https://docs.microsoft.com/en-us/dotnet/api/microsoft.codeanalysis.csharp.syntaxfacts?view=roslyn-dotnet
+	bool IsIdentifier(string text)
+	{
+     if (string.IsNullOrEmpty(text))
+        return false;
+     if (!char.IsLetter(text[0]) && text[0] != '_')
+        return false;
+     for (int ix = 1; ix < text.Length; ++ix)
+        if (!char.IsLetterOrDigit(text[ix]) && text[ix] != '_')
+           return false;
+     return true;
+	}
+    var dt= Model.FindAfterName("@Name@").Value;
+    var nameTable = dt.TableName;
+    string nameClass= ClassNameFromTableName(dt.TableName);
+    var dtOptions= Model.FindAfterName("@@Options@@").Value;
+    var nrPK = (int.Parse(dtOptions.Rows.Find(nameTable +"_PK_Number")[1].ToString())  );
+    
+    string idTable ="", idType = "",idTableSecond = "",idTypeSecond = "";
+    if(nrPK>0){
+        idTable = dtOptions.Rows.Find(dt.TableName +"_PK_0")[1].ToString();
+        idType = dtOptions.Rows.Find(dt.TableName +"_PK_0_Type")[1].ToString(); 
+        idTable = nameProperty(idTable,nameClass); 	
+    }
+    if(nrPK>1){
+        idTableSecond = dtOptions.Rows.Find(dt.TableName +"_PK_1")[1].ToString();
+        idTypeSecond = dtOptions.Rows.Find(dt.TableName +"_PK_1_Type")[1].ToString(); 
+        idTableSecond = nameProperty(idTableSecond,nameClass); 	
+    }
+	
+      var nrCols =dt.Columns.Count;
+    string repo= nameClass  + "_Repository";
+    string typeRepository = "IRepositoryView<"+ nameClass +">";
+    switch(nrPK){
+        case 0:
+            break;
+        case 1:
+            typeRepository = "IRepository<" + (nameClass) + "," + (idType) + ">";
+            break;
+        default:
+            typeRepository = "IRepository<" + (nameClass) + "," + (idType) + ","+ idTypeSecond + ">";
+            break;
+    }
+    var objFields="";
+    var nameFields="";
+    var valFields="";
+      for(int iCol = 0;iCol < nrCols; iCol++){
+        var col = dt.Columns[iCol];
+        var colType = col.DataType;
+        nameFields +=nameProperty(col.ColumnName,nameClass) +",";
+        valFields += "''," ;
+        objFields+="obj."+nameProperty(col.ColumnName,nameClass )+",";
+
+      }
+    
+}
+
+<span> Welcome to add  @nameClass  </span>
+
+
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Value</th>
+		</tr>
+	</thead>
+	
+		@{
+            for(int iCol = 0;iCol < nrCols; iCol++){
+				var col = dt.Columns[iCol];
+				string disabled = "";
+				var colName= col.ColumnName ;
+                if(colName == idTable || colName == idTableSecond)
+					disabled= "disabled='disabled'";
+                
+	<text>
+	<tr>
+	<td>@colName</td>
+	<td>
+		<input type="text" @Raw(disabled) data-bind="value: data().@(nameProperty(colName,nameClass))"  />
+    	</td>
+	</tr>
+	
+	</text>
+
+            }//for
+        }
+			  <tr>
+				<td align="left">
+				  <button data-bind="click: save">Save</button>
+				</td>
+				<td align="left">
+				  <a  data-bind="attr: { href: urlList }">Back to list of @(nameTable)</a>
+				</td>
+			  </tr>
+</table>
+
+@@section Scripts{
+    <script>
+
+    function ko@(nameClass)(@nameFields x)
+        {
+            var self = this;
+            @{
+                for(int iCol = 0;iCol < nrCols; iCol++){
+                     var col = dt.Columns[iCol];
+                    <text>
+                self.@(nameProperty(col.ColumnName,nameClass)) =( @(nameProperty(col.ColumnName,nameClass)) );
+                    </text>
+                }
+            }
+        }
+        var current = {
+            
+            data: ko.observable(new ko@(nameClass)(@Raw(valFields) 1)),
+            original: new ko@(nameClass)(@Raw(valFields) 1),
+        @if(nrPK == 1){
+            <text>
+                urlList:'/admin@(nameClass)/',
+                save : function(){
+                    
+                    var toSave= (JSON.stringify(this.data()));
+                    var url='@@Url.Content("/api/@(nameClass)/Insert/")';
+                    $.ajax({
+                        contentType: 'application/json',
+                        dataType: 'json',
+                        data: toSave,
+
+                        success: function (data) {
+                            
+                            current.data(data);
+                            window.alert('saved');
+
+                        },
+                        error: function () {
+                            window.alert("failed");
+                        },
+
+                        type: 'POST',
+                        url: url
+                    });
+                }
+            </text>
+
+        }            
+            
+
+        }
+        ko.applyBindings(current);
+    </script>
+}

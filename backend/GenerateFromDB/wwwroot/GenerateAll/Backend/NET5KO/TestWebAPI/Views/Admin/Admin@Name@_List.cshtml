@@ -101,7 +101,7 @@ string RemoveAccents(string text)
 
 
 <span> Welcome to @nameClass. Number Records: <span data-bind="text: nrRecords"></span></span>
-
+<a  data-bind="attr: { href: urlAdd }">Add new </a>
     <div>
         <table border="5">
 
@@ -185,7 +185,7 @@ string RemoveAccents(string text)
             self.maxPageIndex = ko.computed(function() {
                 return Math.ceil(this.nrRecords() / this.pageSize()) - 1;
             }, self);
-
+            self.urlAdd='/admin@(nameClass)/Add/';
         }
   var  all@(nameClass) = new  All@(nameClass)();
         ko.applyBindings(all@(nameClass));
