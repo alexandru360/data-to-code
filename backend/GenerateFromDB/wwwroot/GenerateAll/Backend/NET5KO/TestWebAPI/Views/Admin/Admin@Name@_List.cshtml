@@ -126,7 +126,7 @@ string RemoveAccents(string text)
 
             <tbody data-bind="foreach: @(nameClass)Liste">
                 <tr class="tdata">
-                    <td data-bind="text: $index() + 1"></td>
+                    <td data-bind="text: $parent.recordNumber($index() + 1)"></td>
                     @{
                       for(int iCol = 0;iCol < nrCols; iCol++){
                             var col = dt.Columns[iCol];
@@ -150,7 +150,14 @@ string RemoveAccents(string text)
     </div>
     <span>Current page:<span data-bind="text: pageIndex"></span></span>
     <span>Max pages: <span data-bind="text: maxPageIndex"></span></span>
-<select  data-bind="options: pageSizeOptions, value: pageSize, event: { change: onPageSizeChange }"  />
+    <div class="pagination">
+<ul data-bind="foreach:new Array(maxPageIndex())">
+        <li >
+            <a href="#" data-bind="text:$index() +1 , click: $parent.gotoPage.bind($data,$index()+1)">0</a>
+        </li>
+    </ul>
+</div>
+ <select  data-bind="options: pageSizeOptions, value: pageSize, event: { change: onPageSizeChange }"  />
 
 <span data-bind="text: pageIndex" ></span>
 
@@ -184,7 +191,7 @@ string RemoveAccents(string text)
             self.pageSize = ko.observable(10);
             self.pageIndex = ko.observable(1);
             self.maxPageIndex = ko.computed(function() {
-                return Math.ceil(this.nrRecords() / this.pageSize()) - 1;
+                return Math.ceil(this.nrRecords() / this.pageSize()) ;
             }, self);
             self.urlAdd='/admin@(nameClass)/Add/';
             self.removeItem = function (data) {
@@ -192,8 +199,21 @@ string RemoveAccents(string text)
             }
             self.pageSizeOptions = ko.observableArray([10, 25, 50, 100, 250, 500]);
             self.onPageSizeChange = function() {
-		        self.pageIndex(1);
+                self.pageIndex(1);
+                self.loadList();
             };
+
+            self.recordNumber = function (data) {
+                var s = (self.pageIndex() - 1) * self.pageSize() + data;
+                return s;
+                }
+
+            self.gotoPage = function (data) {
+                self.pageIndex(data);
+                self.loadList();
+            };
+
+            
             
             self.loadList=function () {
                 
@@ -266,7 +286,7 @@ string RemoveAccents(string text)
         }
   var  all@(nameClass) = new  All@(nameClass)();
         ko.applyBindings(all@(nameClass));
-        all@(nameClass).loadList();
+        all@(nameClass).onPageSizeChange();
 
     </script>
 }
