@@ -89,9 +89,9 @@ namespace TestWEBAPI_DAL
             var data = databaseContext.@(nameClass).FirstOrDefaultAsync(it=>f(it));
             return data;
         }
-        public Task<@(nameClass)[]> FindMultiple(Func<@(nameClass), bool> f)
+        public Task<@(nameClass)[]> FindMultiple(System.Linq.Expressions.Expression<Func<@(nameClass), bool>> f)
         {
-            var data = databaseContext.@(nameClass).Where(it=>f(it));
+            var data = databaseContext.@(nameClass).Where(f);
             return data.ToArrayAsync();
         }
         public async Task<@(nameClass)> Insert(@(nameClass) p)
