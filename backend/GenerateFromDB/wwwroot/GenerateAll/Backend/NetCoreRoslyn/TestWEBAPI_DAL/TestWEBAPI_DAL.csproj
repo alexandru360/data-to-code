@@ -15,10 +15,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AOPEFCommon" Version="2021.1.17.1330" />
+    <PackageReference Include="AOPEFCommon" Version="2021.1.19.2054" />
 
 
-    <PackageReference Include="AOPEFGenerator" Version="2021.1.13.1000" />
+    <PackageReference Include="AOPEFGenerator" Version="2021.1.19.2054" />
 
 
             @switch(dataSource){
