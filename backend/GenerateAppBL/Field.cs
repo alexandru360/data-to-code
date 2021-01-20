@@ -52,6 +52,8 @@ namespace GenerateApp.Controllers
                 string s when s.Contains("money", StringComparison.InvariantCultureIgnoreCase) => "number",
                 string s when s.Contains("char", StringComparison.InvariantCultureIgnoreCase) => "string",
                 string s when s.Contains("uniqueidentifier", StringComparison.InvariantCultureIgnoreCase) => "string",
+                string s when s.Contains("image", StringComparison.InvariantCultureIgnoreCase) => "byte[]",
+                string s when s.Contains("binary", StringComparison.InvariantCultureIgnoreCase) => "byte[]",
                 _ => notFoundType(originalType)
             };
         private string notFoundType(string t)
