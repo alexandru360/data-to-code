@@ -15,6 +15,7 @@ namespace GenerateApp.Controllers
         public string FieldRefId { get; set; }
 
     }
+    [DebuggerDisplay("{name} {IsPK}")]
     public class Field:IValidatableObject
     {
 
@@ -99,7 +100,7 @@ namespace GenerateApp.Controllers
                 string s when s.Contains("char", StringComparison.InvariantCultureIgnoreCase) => typeof(string),
                 string s when connTypes.MariaDB == connectionTypes  && s.Contains("varbinary") => typeof(byte[]),
                 string s when connTypes.MYSQL == connectionTypes && s.Contains("varbinary") => typeof(byte[]),
-                string s when s.Contains("binary", StringComparison.InvariantCultureIgnoreCase) => typeof(string),
+                string s when s.Contains("binary", StringComparison.InvariantCultureIgnoreCase) => typeof(byte[]),
                 string s when s.Contains("text", StringComparison.InvariantCultureIgnoreCase) => typeof(string),
                 string s when s.Contains("xml", StringComparison.InvariantCultureIgnoreCase) => typeof(string),
                 string s when s.Contains("image", StringComparison.InvariantCultureIgnoreCase) => typeof(byte[]),

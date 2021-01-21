@@ -113,6 +113,7 @@ namespace TestWebAPI
                     break;
             }
         services.AddSingleton<AllTables>(); 
+        //services.AddRazorPages().AddRazorRuntimeCompilation();
 
        @foreach(var nameTable in nameTablesToRender){
 		   string nameClass= ClassNameFromTableName(nameTable);

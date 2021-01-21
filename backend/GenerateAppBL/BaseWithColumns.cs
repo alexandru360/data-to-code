@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
+using System.Diagnostics;
 
 namespace GenerateApp.Controllers
 {
+    [DebuggerDisplay("{name}")]
     public abstract class BaseWithColumns : IValidatableObject
     {
         public virtual IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

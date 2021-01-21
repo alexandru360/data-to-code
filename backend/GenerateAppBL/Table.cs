@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GenerateApp.Controllers
 {
+    
     public class Table: BaseWithColumns
     {
                    

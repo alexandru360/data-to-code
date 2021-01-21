@@ -219,8 +219,11 @@ namespace GenerateApp.Controllers
                             sqlConStr.DataSource += ","+(uint)port;
                         }
                         sqlConStr.InitialCatalog = payLoadConn.connDatabase;
-                        sqlConStr.UserID = payLoadConn.connUser;
-                        sqlConStr.Password = payLoadConn.connPassword;
+                        if (!payLoadConn.connIntegratedSecurity)
+                        {
+                            sqlConStr.UserID = payLoadConn.connUser;
+                            sqlConStr.Password = payLoadConn.connPassword;
+                        }
                         sqlConStr.IntegratedSecurity = payLoadConn.connIntegratedSecurity;           
                         return sqlConStr.ConnectionString;
                     }
