@@ -8,8 +8,8 @@ namespace TestWEBAPI_DAL
     {
         Task<T> Delete(T p);
         Task<T> FindAfterId(TypePK1 id1, TypePK2 id2);
-        Task<T[]> FindMultiple(Func<T, bool> f);
-        Task<T> FindSingle(Func<T, bool> f);
+        Task<T[]> FindMultiple(System.Linq.Expressions.Expression<Func<T, bool>> f);
+        //Task<T> FindSingle(Func<T, bool> f);
         Task<T[]> GetAll();
         Task<T> Insert(T p);
         Task<T> Update(T p);
@@ -21,8 +21,9 @@ namespace TestWEBAPI_DAL
     {
         Task<T> Delete(T p);
         Task<T> FindAfterId(TypePK id);
-        Task<T[]> FindMultiple(Func<T, bool> f);
-        Task<T> FindSingle(Func<T, bool> f);
+        Task<T> FindAfterIds(TypePK[] id);
+        Task<T[]> FindMultiple(System.Linq.Expressions.Expression<Func<T, bool>> f);
+        //Task<T> FindSingle(Func<T, bool> f);
         Task<T[]> GetAll();
         Task<T> Insert(T p);
         Task<T> Update(T p);
