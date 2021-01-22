@@ -91,7 +91,7 @@ namespace TestWebAPI_BL
         
         public @(nameClass)(@(nameClass) other):base(){ 
 
-            OnCopyConstructor(other:other,withID: false);
+            CopyPropertiesFrom(other:other,withID: true);
                 
         }
         public void CopyPropertiesFrom(@(nameClass) other, bool withID){
