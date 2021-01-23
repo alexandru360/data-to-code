@@ -202,20 +202,20 @@ namespace TestWEBAPI_DAL
                                 switch (sf.Criteria)
                                 {
                                     case SearchCriteria.Equal:
-                                        data = data.Where(it => it.@(colName) == val);
+                                        data = data.Where(Metadata_@(nameClass).expr_@(colName)_equal(val));
                                         break;
                                     case SearchCriteria.Different:
-                                        data = data.Where(it => it.@(colName) != val);
+                                        data = data.Where(Metadata_@(nameClass).expr_@(colName)_diff(val));
                                         break;  
                                         //@(nameType)
                                     @{
                                     if(nameType == "number" || nameType =="Date"){
                                         <text>
                                             case SearchCriteria.Greater:
-                                                data = data.Where(it => it.@(colName) @Raw(">") val);
+                                                data = data.Where(Metadata_@(nameClass).expr_@(colName)_Greater(val));
                                                 break;  
                                             case SearchCriteria.Less:
-                                                data = data.Where(it => it.@(colName) @Raw("<") val);
+                                                data = data.Where(Metadata_@(nameClass).expr_@(colName)_Less(val));
                                                 break;  
                                             case SearchCriteria.GreaterOrEqual:
                                                 data = data.Where(it => it.@(colName) @Raw(">=") val);
