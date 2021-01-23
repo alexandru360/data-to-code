@@ -139,16 +139,23 @@ using Microsoft.EntityFrameworkCore;
 using TestWEBAPI_DAL;
 using TestWebAPI_BL;
 using TestWebAPI_Searches;
-
+using AOPEFCommon;
 namespace TestWEBAPI_DAL
 {
+    [Template(template = TemplateMethod.GenericSearch, PK1 = "@(idTable)")]
     public partial class @(nameClass)_Search: SearchModel<@(nameClass)>
     {
 
+
+        public SearchField[] SearchFields { get; set; }
+        public Pagination Pagination { get; set; }
+        public OrderBy[] OrderBys { get; set; }
+
         
-        protected override void ArrangeDefaults()
+        
+        public void ArrangeDefaults()
         {
-            base.ArrangeDefaults();
+            
             @{
                 if(nrPK>0){
 <text>
@@ -168,7 +175,7 @@ namespace TestWEBAPI_DAL
                 }
             }
         }
-        public override IQueryable<@(nameClass)> GetSearch(IQueryable<@(nameClass)> data, bool paginated)
+        public IQueryable<@(nameClass)> GetSearch(IQueryable<@(nameClass)> data, bool paginated)
         {
             ArrangeDefaults();
             if(this.SearchFields?.Length > 0)
