@@ -74,60 +74,12 @@
 	}
 }
 using System;
-
+using AOPMethodsCommon;
 namespace TestWebAPI_BL
 {
+    [AutoMethods(template = TemplateMethod.CustomTemplateFile, CustomTemplateFileName = "GenerateFromPOCO.txt")]    
     public partial class @(nameClass)
     {
-        #region partial functions
-        partial void OnConstructor();
-        partial void OnCopyConstructor(@(nameClass) other, bool withID);
-        #endregion
-
-        #region constructors
-        public @(nameClass) (){
-            OnConstructor();
-        }
-        
-        public @(nameClass)(@(nameClass) other):base(){ 
-
-            CopyPropertiesFrom(other:other,withID: true);
-                
-        }
-        public void CopyPropertiesFrom(@(nameClass) other, bool withID){
-            @{
-                if(nrPK>0){
-                <text>
-            if(withID){
-                this.@(nameProperty(idTable,nameClass))= other.@(nameProperty(idTable,nameClass));
-            }
-                </text>             
-                }
-
-                if(nrPK>1){
-                <text>
-            if(withID){
-                this.@(nameProperty(idTableSecond,nameClass))= other.@(nameProperty(idTableSecond,nameClass));
-            }
-                </text>             
-                }
-
-            }
-            @for(int iCol = 0;iCol < nrCols; iCol++){
-                var col = dt.Columns[iCol];
-                var colName= nameProperty(col.ColumnName,nameClass) ;
-                 if(colName == nameProperty(idTable,nameClass))
-                        continue;
-                
-                <text>
-            this.@colName = other.@colName;            
-                </text>
-            }
-
-            OnCopyConstructor(other,withID);
-        }
-
-        #endregion
         
         #region Properties
         @{

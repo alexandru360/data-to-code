@@ -177,7 +177,7 @@ namespace TestWEBAPI_DAL
                     if (string.IsNullOrWhiteSpace(sf.Field))
                         continue;
                     
-                    switch (sf.Field)
+                    switch (sf.Field.ToLower())
                     {
                         @{
                             for(int iCol = 0;iCol < nrCols; iCol++){
@@ -195,7 +195,7 @@ namespace TestWEBAPI_DAL
                                     convert ="Guid.Parse";
                                 }
                                 <text>
-                        case "@(col.ColumnName)":
+                        case Metadata_@(nameClass).prop_@(colName):
                             try{   
                                 
                                 var val = @(convert)(sf.Value);
@@ -265,22 +265,22 @@ namespace TestWEBAPI_DAL
                 IOrderedQueryable<@(nameClass)> order=null;
                 var ord = OrderBys[0];
                 if(!string.IsNullOrWhiteSpace(ord.Field))
-                switch (ord.Field.ToUpper()) {
+                switch (ord.Field.ToLower()) {
                     @{
                         for(int iCol = 0;iCol < nrCols; iCol++){
                             var col = dt.Columns[iCol];
                             var colName= nameProperty(col.ColumnName,nameClass) ;
                             var nameType=  nameTypeForSearch(col.DataType.Name);
                             <text>
-                                case "@(col.ColumnName.ToUpper())":
+                                case Metadata_@(nameClass).prop_@colName:
 
                                     switch (ord.Ascending)
                                     {
                                         case true:
-                                            order = data.OrderBy(it => it.@(colName));
+                                            order = data.OrderBy(Metadata_@(nameClass).expr_@colName);
                                             break;
                                         case false:
-                                            order = data.OrderByDescending(it => it.@(colName));
+                                            order = data.OrderByDescending(Metadata_@(nameClass).expr_@colName);
                                             break;
                                         
                                     }
@@ -299,14 +299,14 @@ namespace TestWEBAPI_DAL
                         var colName= nameProperty(col.ColumnName,nameClass) ;
                         var nameType=  nameTypeForSearch(col.DataType.Name);
                         <text>
-                            case "@(col.ColumnName.ToUpper())":
+                            case Metadata_@(nameClass).prop_@colName:
                                 switch (ord.Ascending)
                                 {
                                     case true:
-                                        order = order.ThenBy(it => it.@(colName));
+                                        order = order.ThenBy(Metadata_@(nameClass).expr_@colName);
                                         break;
                                     case false:
-                                        order = order.ThenByDescending(it => it.@(colName));
+                                        order = order.ThenByDescending(Metadata_@(nameClass).expr_@colName);
                                         break;
                                     
                                 }

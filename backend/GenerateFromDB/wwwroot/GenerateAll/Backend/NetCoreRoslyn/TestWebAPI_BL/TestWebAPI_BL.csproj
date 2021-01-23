@@ -3,5 +3,10 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
+<ItemGroup>
+    <PackageReference Include="AOPMethodsCommon" Version="2021.1.23.1000" />
+    <PackageReference Include="AOPMethodsGenerator" Version="2021.1.23.1000" />
+    <AdditionalFiles Include="generated/GenerateFromPOCO.txt" />
+  </ItemGroup>
 
 </Project>
