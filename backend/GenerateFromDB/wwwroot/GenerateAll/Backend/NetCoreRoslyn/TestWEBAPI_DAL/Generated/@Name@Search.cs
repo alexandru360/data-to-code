@@ -95,23 +95,24 @@
      return true;
 	}
     var dt= Model.FindAfterName("@Name@").Value;
+    var nrCols =dt.Columns.Count;
+    string nameClass= ClassNameFromTableName(dt.TableName);    
     var dtOptions= Model.FindAfterName("@@Options@@").Value;
     var nameTable = dt.TableName;
     var nrPK = (int.Parse(dtOptions.Rows.Find(nameTable +"_PK_Number")[1].ToString()));
     string idTable ="", idType = "",idTableSecond = "",idTypeSecond = "";
     if(nrPK >0 ){
-        idTable = dtOptions.Rows.Find(dt.TableName +"_PK_0")[1].ToString();
+        idTable = nameProperty(dtOptions.Rows.Find(dt.TableName +"_PK_0")[1].ToString() , nameClass);
         idType = dtOptions.Rows.Find(dt.TableName +"_PK_0_Type")[1].ToString();  
     }
     if(nrPK>1){
-        idTableSecond = dtOptions.Rows.Find(dt.TableName +"_PK_1")[1].ToString();
+        idTableSecond = nameProperty(dtOptions.Rows.Find(dt.TableName +"_PK_1")[1].ToString(), nameClass);
         idTypeSecond = dtOptions.Rows.Find(dt.TableName +"_PK_1_Type")[1].ToString();  	
     }
 
 
 
-    var nrCols =dt.Columns.Count;
-    string nameClass= ClassNameFromTableName(dt.TableName);    
+
     
     string repoName= ClassNameFromTableName(dt.TableName)  + "_Repository";
     string repoInterface=":IRepositoryView<"+(nameClass)+">";
@@ -158,7 +159,7 @@ namespace TestWEBAPI_DAL
                     new OrderBy()
                     {
                         Ascending=false,
-                        Field = "@(idTable)"
+                        Field = Metadata_@(nameClass).prop_@(idTable)
                     }
                 };
             }
@@ -218,10 +219,10 @@ namespace TestWEBAPI_DAL
                                                 data = data.Where(Metadata_@(nameClass).expr_@(colName)_Less(val));
                                                 break;  
                                             case SearchCriteria.GreaterOrEqual:
-                                                data = data.Where(it => it.@(colName) @Raw(">=") val);
+                                                data = data.Where(Metadata_@(nameClass).expr_@(colName)_GreaterOrEqual(val));
                                                 break;  
                                             case SearchCriteria.LessOrEqual:
-                                                data = data.Where(it => it.@(colName) @Raw("<=") val);
+                                                data = data.Where(Metadata_@(nameClass).expr_@(colName)_LessOrEqual(val));
                                                 break;  
                                             
                                     
@@ -231,13 +232,13 @@ namespace TestWEBAPI_DAL
                                         <text>
                                             case SearchCriteria.Contains:
 
-                                                data = data.Where(it => it.@(colName).Contains(val));
+                                                data = data.Where(Metadata_@(nameClass).expr_@(colName)_Contains(val));
                                                 break;  
                                             case SearchCriteria.StartsWith:
-                                                data = data.Where(it => it.@(colName).StartsWith(val));
+                                                data = data.Where(Metadata_@(nameClass).expr_@(colName)_Starts(val));
                                                 break;  
                                             case SearchCriteria.EndsWith:
-                                                data = data.Where(it => it.@(colName).EndsWith(val));
+                                                data = data.Where(Metadata_@(nameClass).expr_@(colName)_Ends(val));
                                                 break;  
                                         </text>
                                         } 
