@@ -83,6 +83,24 @@ namespace {{NamespaceName}} {
             await databaseContext.SaveChangesAsync();
             return p;
         }
+        public Task<{{POCOFullName}}[]> FindAfterIds(string namePK, {{PK1Type}}[] id1, {{PK2Type}}[] id2){
+            System.Linq.IQueryable<{{POCOFullName}}> query = databaseContext.{{POCOName}};
+            switch(namePK){
+                case "{{PK1}}":
+                    if((id1?.Length??0)>0) {
+                       query = query.Where(it=> id1.Contains( it.{{PK1}} ) );           
+                    }
+                    break;
+                case "{{PK2}}":
+                    if((id2?.Length??0)>0) {
+                       query = query.Where(it=> id2.Contains( it.{{PK2}} ) );           
+                    }
+                    break;
+                default:
+                    throw new ArgumentException("namePK should be either{{PK1}}, either {{PK2}} ");
+            }            
+            return query.ToArrayAsync();
+        }
 
         public Task<{{POCOFullName}}> FindAfterId({{PK1Type}} id1, {{PK2Type}} id2)
         {

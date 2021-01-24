@@ -39,6 +39,7 @@ namespace {{NamespaceName}} {
 
         {{~ for pi in Properties ~}}
         public const string prop_{{pi.Name}} = "{{pi.Name}}";    
+        public static readonly Func<{{ClassName}},{{pi.ReturnType}}> func_{{pi.Name}} = (it=>it.{{pi.Name}});
         public static readonly System.Linq.Expressions.Expression<Func<{{ClassName}},{{pi.ReturnType}}>> expr_{{pi.Name}} = (it=>it.{{pi.Name}});
         public static System.Linq.Expressions.Expression<Func<{{ClassName}},bool>> expr_{{pi.Name}}_equal({{pi.ReturnType}} value)=> (it=>it.{{pi.Name}} == value);
         public static System.Linq.Expressions.Expression<Func<{{ClassName}},bool>> expr_{{pi.Name}}_diff({{pi.ReturnType}} value)=> (it=>it.{{pi.Name}} != value);

@@ -8,6 +8,7 @@ namespace TestWebAPI_DAL
     {
         Task<T> Delete(T p);
         Task<T> FindAfterId(TypePK1 id1, TypePK2 id2);
+        Task<T[]> FindAfterIds(string namePK, TypePK1[] id1, TypePK2[] id2);
         Task<T[]> FindMultiple(System.Linq.Expressions.Expression<Func<T, bool>> f);
         //Task<T> FindSingle(Func<T, bool> f);
         Task<T[]> GetAll();
