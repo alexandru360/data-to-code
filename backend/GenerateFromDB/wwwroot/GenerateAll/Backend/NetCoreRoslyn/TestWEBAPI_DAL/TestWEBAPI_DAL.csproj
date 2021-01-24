@@ -17,8 +17,8 @@
   <ItemGroup>
     <PackageReference Include="AOPMethodsCommon" Version="2021.1.23.1000" />
     <PackageReference Include="AOPMethodsGenerator" Version="2021.1.23.1000" />
-    <PackageReference Include="AOPEFCommon" Version="2021.1.24.600" />
-    <PackageReference Include="AOPEFGenerator" Version="2021.1.24.600" />
+    <PackageReference Include="AOPEFCommon" Version="2021.1.24.1100" />
+    <PackageReference Include="AOPEFGenerator" Version="2021.1.24.1100" />
 
 
             @switch(dataSource){

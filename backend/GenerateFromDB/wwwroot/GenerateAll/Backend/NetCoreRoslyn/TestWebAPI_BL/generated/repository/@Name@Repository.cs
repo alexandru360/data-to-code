@@ -121,6 +121,8 @@
         default:
             repoInterface=":IRepository<"+(nameClass)+"," + (idType)+","+ idTypeSecond + ">";
             genericRepository ="GenericRepository2PK.txt";
+            pkTemplate=",PK1 = \"" + nameProperty(idTable, nameClass) +"\"";
+            pkTemplate +=",PK2 = \"" + nameProperty(idTableSecond, nameClass) +"\"";
             break;
     }
     
