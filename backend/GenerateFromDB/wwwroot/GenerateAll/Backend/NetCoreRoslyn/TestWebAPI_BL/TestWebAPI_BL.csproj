@@ -10,6 +10,7 @@
     <PackageReference Include="AOPEFGenerator" Version="2021.1.24.600" />
 
     <AdditionalFiles Include="generated/repository/GenericRepository.txt" />
+    <AdditionalFiles Include="generated/repository/GenericRepositoryView.txt" />
     <AdditionalFiles Include="generated/search/GenericSearch.txt" />
   </ItemGroup>
 

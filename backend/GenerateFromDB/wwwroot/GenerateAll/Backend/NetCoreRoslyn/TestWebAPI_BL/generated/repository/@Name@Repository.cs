@@ -108,15 +108,19 @@
     string nameClass= ClassNameFromTableName(dt.TableName);
     string repoName= ClassNameFromTableName(dt.TableName)  + "_Repository";
     string repoInterface=":IRepositoryView<"+(nameClass)+">";
-
+    string genericRepository = "GenericRepositoryView.txt";
+    string pkTemplate ="";
     switch(nrPK){
         case 0:
             break;
         case 1:
             repoInterface=":IRepository<"+(nameClass)+"," + (idType)+">";
+            genericRepository ="GenericRepository.txt";
+            pkTemplate=",PK1 = \"" + nameProperty(idTable, nameClass) +"\"";
             break;
         default:
             repoInterface=":IRepository<"+(nameClass)+"," + (idType)+","+ idTypeSecond + ">";
+            genericRepository ="GenericRepository2PK.txt";
             break;
     }
     
@@ -134,7 +138,7 @@ using AOPEFCommon;
 
 namespace TestWebAPI_BL
 {
-    [Template(template = TemplateMethod.CustomTemplateFile,CustomTemplateFileName ="GenericRepository.txt",   PK1 = "@(nameProperty(idTable, nameClass))")]
+    [Template(template = TemplateMethod.CustomTemplateFile,CustomTemplateFileName ="@(genericRepository)" @Raw(pkTemplate)   )]
     public partial class @repoName @Raw(repoInterface)
     {
         private readonly IDatabaseContext databaseContext;
