@@ -6,7 +6,16 @@
 <ItemGroup>
     <PackageReference Include="AOPMethodsCommon" Version="2021.1.23.1000" />
     <PackageReference Include="AOPMethodsGenerator" Version="2021.1.23.1000" />
-    <AdditionalFiles Include="generated/GenerateFromPOCO.txt" />
+    <PackageReference Include="AOPEFCommon" Version="2021.1.24.600" />
+    <PackageReference Include="AOPEFGenerator" Version="2021.1.24.600" />
+
+    <AdditionalFiles Include="generated/repository/GenericRepository.txt" />
+    <AdditionalFiles Include="generated/search/GenericSearch.txt" />
   </ItemGroup>
+
+  <ItemGroup>
+  <ProjectReference Include="..\TestWEBAPI_DAL\TestWEBAPI_DAL.csproj" />
+</ItemGroup>
+
 
 </Project>

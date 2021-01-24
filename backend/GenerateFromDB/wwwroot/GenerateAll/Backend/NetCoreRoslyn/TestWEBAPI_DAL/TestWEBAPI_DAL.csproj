@@ -15,9 +15,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AOPMethodsCommon" Version="2021.1.23.1000" />
+    <PackageReference Include="AOPMethodsGenerator" Version="2021.1.23.1000" />
     <PackageReference Include="AOPEFCommon" Version="2021.1.24.600" />
-
-
     <PackageReference Include="AOPEFGenerator" Version="2021.1.24.600" />
 
 
@@ -54,12 +54,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TestWebAPI_BL\TestWebAPI_BL.csproj" />
-	<ProjectReference Include="..\TestWebAPI_Searches\TestWebAPI_Searches.csproj" />
-   <AdditionalFiles Include="Generated/GenericRepository.txt" />
-    <AdditionalFiles Include="Generated/GenericSearch.txt" />
-    <AdditionalFiles Include="Generated/GenerateFromDbContext.txt" />
+   <AdditionalFiles Include="Generated/Database/GenerateFromDbContext.txt" />
+    <AdditionalFiles Include="Generated/DbObjects/GenerateFromPOCO.txt" />
+  </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TestWebAPI_Searches\TestWebAPI_Searches.csproj" />
   </ItemGroup>
 
 </Project>

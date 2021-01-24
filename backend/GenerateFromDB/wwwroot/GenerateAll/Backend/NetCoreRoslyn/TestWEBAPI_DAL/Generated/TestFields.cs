@@ -110,11 +110,10 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using TestWebAPI_BL;
 using System.Linq;
 using TestWebAPI_Searches;
 
-namespace TestWEBAPI_DAL
+namespace TestWebAPI_DAL
 {
     
     

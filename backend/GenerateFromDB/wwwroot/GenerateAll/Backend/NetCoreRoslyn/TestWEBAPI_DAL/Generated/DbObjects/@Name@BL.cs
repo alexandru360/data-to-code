@@ -75,7 +75,7 @@
 }
 using System;
 using AOPMethodsCommon;
-namespace TestWebAPI_BL
+namespace TestWebAPI_DAL
 {
     [AutoMethods(template = TemplateMethod.CustomTemplateFile, CustomTemplateFileName = "GenerateFromPOCO.txt")]    
     public partial class @(nameClass)

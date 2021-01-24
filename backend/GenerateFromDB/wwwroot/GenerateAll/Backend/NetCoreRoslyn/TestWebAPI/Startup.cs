@@ -40,7 +40,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using NetCore2Blockly;
 using TestWebAPI_BL;
-using TestWEBAPI_DAL;
+using TestWebAPI_DAL;
 
 namespace TestWebAPI
 {

@@ -128,12 +128,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-using TestWEBAPI_DAL;
-using TestWebAPI_BL;
+using TestWebAPI_DAL;
 using TestWebAPI_Searches;
 using AOPEFCommon;
 
-namespace TestWEBAPI_DAL
+namespace TestWebAPI_BL
 {
     [Template(template = TemplateMethod.CustomTemplateFile,CustomTemplateFileName ="GenericRepository.txt",   PK1 = "@(nameProperty(idTable, nameClass))")]
     public partial class @repoName @Raw(repoInterface)

@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using TestWebAPI_Searches;
 
-namespace TestWEBAPI_DAL
+namespace TestWebAPI_DAL
 {
      public interface IRepository<T, TypePK1, TypePK2>
     {

@@ -76,10 +76,9 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using TestWebAPI_BL;
 using AOPMethodsCommon;
 
-namespace TestWEBAPI_DAL
+namespace TestWebAPI_DAL
 {
     [AutoMethods(template = TemplateMethod.CustomTemplateFile, CustomTemplateFileName = "GenerateFromDbContext.txt")]    
     public partial class DatabaseContext : DbContext

@@ -94,7 +94,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using TestWEBAPI_DAL;
+using TestWebAPI_DAL;
 using TestWebAPI_BL;
 
 namespace TestWebAPI.Controllers

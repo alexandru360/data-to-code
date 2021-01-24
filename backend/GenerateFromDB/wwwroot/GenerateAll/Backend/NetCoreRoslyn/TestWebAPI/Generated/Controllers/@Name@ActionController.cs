@@ -94,7 +94,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SkinnyControllersCommon;
-using TestWEBAPI_DAL;
+using TestWebAPI_DAL;
 using TestWebAPI_BL;
 using TestWebAPI_Searches;
 
