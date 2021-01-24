@@ -147,33 +147,35 @@ namespace TestWebAPI_BL
     public partial class @(nameClass)_Search: SearchModel<@(nameClass)>
     {
 
-
-        public SearchField[] SearchFields { get; set; }
-        public Pagination Pagination { get; set; }
-        public OrderBy[] OrderBys { get; set; }
-
-        
-        
-        public void ArrangeDefaults()
+        public partial OrderBy[] DefaultOrderBy()
         {
             
             @{
+                
+                var colNameSort=  "";
+
                 if(nrPK>0){
+                    colNameSort=idTable;
+                }
+                else
+                {
+                    colNameSort= nameProperty( dt.Columns[0].ColumnName, nameClass);
+                }
 <text>
-            if ((OrderBys?.Length ?? 0) == 0)
-            {
-                OrderBys = new OrderBy[1]
+            
+                return new OrderBy[1]
                 {
                     new OrderBy()
                     {
                         Ascending=false,
-                        Field = Metadata_@(nameClass).prop_@(idTable)
+                        Field = Metadata_@(nameClass).prop_@(colNameSort)
                     }
                 };
-            }
+            
 </text>
 
-                }
+                
+                
             }
         }
         public IQueryable<@(nameClass)> GetSearch(IQueryable<@(nameClass)> data, bool paginated)

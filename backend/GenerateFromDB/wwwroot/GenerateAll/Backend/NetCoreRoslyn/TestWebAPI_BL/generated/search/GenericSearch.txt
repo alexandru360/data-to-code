@@ -23,26 +23,76 @@ namespace {{NamespaceName}} {
 
   [CompilerGenerated]
   partial class {{ClassName}}{ 
-   
+   /*
     public int id(){
     System.Diagnostics.Debugger.Break();
     return 1;
-    } 
-
-    public void ArrangeDefaults1()
+    }
+    */
+    public SearchField[] SearchFields { get; set; }
+    public Pagination Pagination { get; set; }
+    public OrderBy[] OrderBys { get; set; }
+ 
+    public partial OrderBy[] DefaultOrderBy();
+    public void ArrangeDefaults()
     {
-        //Pagination ??= Pagination.Default();
+        Pagination ??= Pagination.Default();
         if ((OrderBys?.Length ?? 0) == 0)
             {
-                OrderBys = new OrderBy[1]
-                {
-                    new OrderBy()
-                    {
-                        Ascending=false,
-                        Field = ""//Metadata_{{ClassName}}.prop_{{PK1}}
-                    }
-                };
+                OrderBys = DefaultOrderBy();
+                
             }
-        }   
+    }   
+    {{~ for p in POCOProperties ~}}
+          {{ propTypeNotNullable = p.ReturnType | string.replace "?" ""  }}
+        public System.Linq.Expressions.Expression<Func<{{POCOFullName}}, bool>> Find_{{p.Name}}(TestWebAPI_Searches.SearchCriteria criteria,string value )
+        {
+            {{propTypeNotNullable}} val = default;
+            {{ case propTypeNotNullable }} 
+            {{ when "string" }}
+                val = value;
+            {{ when "int" }} 
+                if(!int.TryParse(value, out val))
+                    throw new ArgumentException("cannot parse " + value +" for {{p.Name}}");                    
+            {{ when "long" }} 
+                if(!long.TryParse(value, out val))
+                    throw new ArgumentException("cannot parse " + value +" for {{p.Name}}");                    
+            {{ when "bool" }} 
+                if(!bool.TryParse(value, out val))
+                    throw new ArgumentException("cannot parse " + value +" for {{p.Name}}");                    
+            {{ when "short" }} 
+                if(!short.TryParse(value, out val))
+                    throw new ArgumentException("cannot parse " + value +" for {{p.Name}}");                    
+            {{ when "System.Guid" }} 
+                if(!System.Guid.TryParse(value, out val))
+                    throw new ArgumentException("cannot parse " + value +" for {{p.Name}}");                    
+            {{ when "System.DateTime" }} 
+                if(!System.DateTime.TryParse(value, out val))
+                    throw new ArgumentException("cannot parse " + value +" for {{p.Name}}");                    
+            
+            {{ else }}
+                throw new ArgumentException(" did not generate for {{p.ReturnType}} {{POCOFullName}}.{{p.Name}}");
+            {{ end }}
+            switch(criteria){
+                case TestWebAPI_Searches.SearchCriteria.Equal:
+                    
+                    return TestWebAPI_DAL.Metadata_{{POCOName}}.expr_{{p.Name}}_equal(val);
+                    
+                case TestWebAPI_Searches.SearchCriteria.Different:
+                    return TestWebAPI_DAL.Metadata_{{POCOName}}.expr_{{p.Name}}_diff(val);
+            {{ case propTypeNotNullable }} 
+            {{ when "System.DateTime","int","long","System.DateTime"  }}
+                
+            {{ end }}                 
+                default:
+                    throw new ArgumentException("cannot find  " + criteria +" for {{p.ReturnType}} {{POCOFullName}}.{{p.Name}}");                    
+            
+            }
+            
+        }
+
+
+    {{~ end ~}}
+
   }
 }              

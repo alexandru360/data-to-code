@@ -87,7 +87,7 @@ namespace {{NamespaceName}} {
     */
 
     {{~ for mi in Properties ~}}
-        public const string prop_{{mi.Name}} = "{{mi.Name}}";
+        // public const string prop_{{mi.Name}} = "{{mi.Name}}";
     {{~ end ~}}
 
     partial void OnConstructor();
