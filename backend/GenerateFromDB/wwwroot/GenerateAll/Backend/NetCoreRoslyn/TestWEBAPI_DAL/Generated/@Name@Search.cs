@@ -142,7 +142,9 @@ using TestWebAPI_Searches;
 using AOPEFCommon;
 namespace TestWEBAPI_DAL
 {
-    [Template(template = TemplateMethod.GenericSearch, PK1 = "@(idTable)")]
+    
+    [Template(template = TemplateMethod.CustomTemplateFile,CustomTemplateFileName ="GenericSearch.txt",   PK1 = "@(nameProperty(idTable, nameClass))")]
+  
     public partial class @(nameClass)_Search: SearchModel<@(nameClass)>
     {
 

@@ -106,6 +106,9 @@ namespace TestWebAPI
                     </text>
                     break;
             }
+
+        services.AddTransient<IDatabaseContext>(sp=>sp.GetRequiredService<DatabaseContext>());
+
         services.AddSingleton<AllTables>(); 
 
        @foreach(var nameTable in nameTablesToRender){

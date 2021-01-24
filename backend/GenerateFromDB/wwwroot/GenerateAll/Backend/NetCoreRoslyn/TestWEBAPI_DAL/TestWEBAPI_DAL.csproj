@@ -15,10 +15,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AOPEFCommon" Version="2021.1.23.1000" />
+    <PackageReference Include="AOPEFCommon" Version="2021.1.24.600" />
 
 
-    <PackageReference Include="AOPEFGenerator" Version="2021.1.23.1000" />
+    <PackageReference Include="AOPEFGenerator" Version="2021.1.24.600" />
 
 
             @switch(dataSource){
@@ -56,6 +56,9 @@
   <ItemGroup>
     <ProjectReference Include="..\TestWebAPI_BL\TestWebAPI_BL.csproj" />
 	<ProjectReference Include="..\TestWebAPI_Searches\TestWebAPI_Searches.csproj" />
+   <AdditionalFiles Include="Generated/GenericRepository.txt" />
+    <AdditionalFiles Include="Generated/GenericSearch.txt" />
+    <AdditionalFiles Include="Generated/GenerateFromDbContext.txt" />
 
   </ItemGroup>
 

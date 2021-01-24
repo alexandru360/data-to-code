@@ -135,12 +135,12 @@ using AOPEFCommon;
 
 namespace TestWEBAPI_DAL
 {
-    [Template(template = TemplateMethod.GenericRepository,  PK1 = "@(nameProperty(idTable, nameClass))")]
+    [Template(template = TemplateMethod.CustomTemplateFile,CustomTemplateFileName ="GenericRepository.txt",   PK1 = "@(nameProperty(idTable, nameClass))")]
     public partial class @repoName @Raw(repoInterface)
     {
-        private readonly DatabaseContext databaseContext;
+        private readonly IDatabaseContext databaseContext;
 
-        public @repoName (DatabaseContext databaseContext)
+        public @repoName (IDatabaseContext databaseContext)
         {
             this.databaseContext = databaseContext;
         }
