@@ -18,7 +18,7 @@ using System.Runtime.CompilerServices;
 
 }}
 namespace {{NamespaceName}} {
-//este !!{{nrProps}}
+
     {{ if nrProps > 0}}
      [GeneratedCode("AOPMethods", "{{version}}")]
     [CompilerGenerated]

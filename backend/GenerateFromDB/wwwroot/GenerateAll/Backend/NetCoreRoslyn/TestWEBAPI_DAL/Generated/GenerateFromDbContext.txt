@@ -21,7 +21,7 @@ using System.Threading.Tasks;
 
 }}
 namespace {{NamespaceName}} {
-//este !!{{nrProps}}
+
     {{ if nrProps > 0}}
      [GeneratedCode("AOPMethods", "{{version}}")]
     [CompilerGenerated]
