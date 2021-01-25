@@ -6,8 +6,8 @@
 <ItemGroup>
     <PackageReference Include="AOPMethodsCommon" Version="2021.1.23.1000" />
     <PackageReference Include="AOPMethodsGenerator" Version="2021.1.23.1000" />
-    <PackageReference Include="AOPEFCommon" Version="2021.1.24.1800" />
-    <PackageReference Include="AOPEFGenerator" Version="2021.1.24.1800" />
+    <PackageReference Include="AOPEFCommon" Version="2021.1.25.2030" />
+    <PackageReference Include="AOPEFGenerator" Version="2021.1.25.2030" />
 
     <AdditionalFiles Include="generated/repository/GenericRepository.txt" />
     <AdditionalFiles Include="generated/repository/GenericRepositoryView.txt" />    
