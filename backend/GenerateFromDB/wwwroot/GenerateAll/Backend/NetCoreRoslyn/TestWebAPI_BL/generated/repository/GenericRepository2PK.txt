@@ -76,12 +76,16 @@ namespace {{NamespaceName}} {
             await databaseContext.SaveChangesAsync();
             return p;
         }
-    public async Task<{{POCOFullName}}> Delete({{POCOFullName}} p)
+        public async Task<{{POCOFullName}}> Delete({{PK1Type}} id1, {{PK2Type}} id2)
         {
-            var original = await FindAfterId(p.{{PK1}}, p.{{PK2}});
+            var original = await FindAfterId(id1, id2);
             databaseContext.{{POCOName}}.Remove(original);
             await databaseContext.SaveChangesAsync();
-            return p;
+            return original;
+        }
+    public Task<{{POCOFullName}}> Delete({{POCOFullName}} p)
+        {
+            return Delete(p.{{PK1}}, p.{{PK2}});
         }
         public Task<{{POCOFullName}}[]> FindAfterIds(string namePK, {{PK1Type}}[] id1, {{PK2Type}}[] id2){
             System.Linq.IQueryable<{{POCOFullName}}> query = databaseContext.{{POCOName}};

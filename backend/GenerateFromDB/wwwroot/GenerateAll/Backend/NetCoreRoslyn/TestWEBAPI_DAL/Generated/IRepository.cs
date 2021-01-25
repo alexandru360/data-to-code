@@ -6,6 +6,7 @@ namespace TestWebAPI_DAL
 {
      public interface IRepository<T, TypePK1, TypePK2>
     {
+        Task<T> Delete(TypePK1 id1,TypePK2 id2);
         Task<T> Delete(T p);
         Task<T> FindAfterId(TypePK1 id1, TypePK2 id2);
         Task<T[]> FindAfterIds(string namePK, TypePK1[] id1, TypePK2[] id2);
