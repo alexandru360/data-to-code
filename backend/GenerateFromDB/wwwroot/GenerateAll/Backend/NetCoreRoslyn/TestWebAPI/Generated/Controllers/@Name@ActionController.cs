@@ -101,7 +101,7 @@ using TestWebAPI_Searches;
 namespace TestWebAPI.Controllers
 {
     [Route("api/[controller]/[action]")]
-    [AutoActions(template = TemplateIndicator.AllPost, FieldsName = new[] { "*" }, ExcludeFields = new[] { "_logger" })]
+    [AutoActions(template = TemplateIndicator.CustomTemplateFile, CustomTemplateFileName ="Controller.txt", FieldsName = new[] { "*" }, ExcludeFields = new[] { "_logger" })]
 
     [ApiController]
     public partial class @(nameClass)Controller : ControllerBase

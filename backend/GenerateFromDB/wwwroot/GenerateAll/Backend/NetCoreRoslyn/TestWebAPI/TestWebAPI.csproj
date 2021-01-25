@@ -21,6 +21,8 @@
     <ProjectReference Include="..\TestWEBAPI_DAL\TestWEBAPI_DAL.csproj" />
     <PackageReference Include="SkinnyControllersCommon" Version="2021.1.9.2000" />    
     <PackageReference Include="SkinnyControllersGenerator" Version="2021.1.9.2000" />
+    <AdditionalFiles Include="Generated/Controllers/Controller.txt" />
+  
     
   </ItemGroup>
 
