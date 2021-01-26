@@ -143,11 +143,11 @@ namespace TestWebAPI_BL
     [Template(template = TemplateMethod.CustomTemplateFile,CustomTemplateFileName ="@(genericRepository)" @Raw(pkTemplate)   )]
     public partial class @repoName @Raw(repoInterface)
     {
-        private readonly IDatabaseContext databaseContext;
+        private readonly IQueryable<@(nameClass)> query@(nameClass);
 
-        public @repoName (IDatabaseContext databaseContext)
+        public @repoName (IQueryable<@(nameClass)> query@(nameClass))
         {
-            this.databaseContext = databaseContext;
+            this.query@(nameClass) = query@(nameClass);
         }
 
        
