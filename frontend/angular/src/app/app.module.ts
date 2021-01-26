@@ -92,7 +92,8 @@ export function ConfigLoader(configService: AppConfigService) {
     MatIconModule,
     MatToolbarModule,
     MatSidenavModule,
-    MatChipsModule
+    MatChipsModule,
+    MatCardModule
   ],
   providers: [
     AuthGuard,

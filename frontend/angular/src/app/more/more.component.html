@@ -1,38 +1,60 @@
-<mat-card class="card-content-center">
-  <mat-card-header>
-    <mat-card-title>More</mat-card-title>
-  </mat-card-header>
+<div class="container m-top">
+  <h1>More</h1><br>
+  <!--  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.-->
+  <!--    Vestibulum nec ante at eros pulvinar pellentesque.-->
+  <!--    Donec ac ligula ut sem consequat ornare.-->
+  <!--    Phasellus vel sem vel justo aliquam faucibus ac a lectus.-->
+  <!--    Aliquam cursus nunc non aliquam auctor.-->
+  <!--  </p>-->
+</div>
 
-  <mat-card-content>
-    <div class="row row-line">
-      <mat-card class="card-border">
-        <mat-card-content>
-          <img mat-card-xl-image src="assets/img/web-desktop-app.jpg">
-        </mat-card-content>
-        <mat-card-actions>
-          <a mat-stroked-button color="primary" href="https://www.data-to-code.eu/app/GenerateAppWPF.application"
-             target="_blank">Download</a>
-        </mat-card-actions>
+<div class="row p">
+  <mat-grid-list cols="3" rowHeight="fit" class="mat-grid-list" style="height:700px;">
+    <mat-grid-tile class="mat-grid-tile">
+      <mat-card class="card-content-center">
+        <img class="img-responsive zoom-in" src="assets/img/web-app.jpg"><br>
+        <br>
+        <!--        <p>-->
+        <!--          Lorem ipsum dolor sit amet, consectetur adipiscing elit.-->
+        <!--          Vestibulum nec ante at eros pulvinar pellentesque.-->
+        <!--          Donec ac ligula ut sem consequat ornare.-->
+        <!--          Phasellus vel sem vel justo aliquam faucibus ac a lectus.-->
+        <!--          Aliquam cursus nunc non aliquam auctor.-->
+        <!--        </p>-->
+        <button mat-stroked-button>
+          <a class="txt-lightblue" href="https://www.data-to-code.eu/app/GenerateAppWPF.application" target="_blank">Download</a>
+        </button>
       </mat-card>
-
-      <mat-card class="card-border">
-        <mat-card-content>
-          <img mat-card-xl-image src="assets/img/microsoft-win-scp.png">
-        </mat-card-content>
-        <mat-card-actions>
-<!--          <a mat-stroked-button color="primary" href="#" target="_blank">Link</a>-->
-          <button mat-stroked-button color="primary">Coming soon</button>
-        </mat-card-actions>
+    </mat-grid-tile>
+    <mat-grid-tile class="mat-grid-tile">
+      <mat-card class="card-content-center">
+        <img class="img-responsive zoom-in" src="assets/img/microsoft-win.jpg"><br>
+        <br>
+        <!--        <p>-->
+        <!--          Lorem ipsum dolor sit amet, consectetur adipiscing elit.-->
+        <!--          Vestibulum nec ante at eros pulvinar pellentesque.-->
+        <!--          Donec ac ligula ut sem consequat ornare.-->
+        <!--          Phasellus vel sem vel justo aliquam faucibus ac a lectus.-->
+        <!--          Aliquam cursus nunc non aliquam auctor.-->
+        <!--        </p>-->
+        <button mat-stroked-button><a class="txt-lightblue" target="_blank">Coming soon</a></button>
       </mat-card>
-
-      <mat-card class="card-border">
-        <mat-card-content>
-          <img mat-card-xl-image src="assets/img/github-octocat.png">
-        </mat-card-content>
-        <mat-card-actions>
-          <a mat-stroked-button color="primary" href="https://github.com/alexandru360/data-to-code" target="_blank">Star us...</a>
-        </mat-card-actions>
+    </mat-grid-tile>
+    <mat-grid-tile class="mat-grid-tile">
+      <mat-card class="card-content-center">
+        <img class="img-responsive zoom-in" src="assets/img/github.jpg"><br>
+        <br>
+        <!--        <p>-->
+        <!--          Lorem ipsum dolor sit amet, consectetur adipiscing elit.-->
+        <!--          Vestibulum nec ante at eros pulvinar pellentesque.-->
+        <!--          Donec ac ligula ut sem consequat ornare.-->
+        <!--          Phasellus vel sem vel justo aliquam faucibus ac a lectus.-->
+        <!--          Aliquam cursus nunc non aliquam auctor.-->
+        <!--        </p>-->
+        <button mat-stroked-button>
+          <a class="txt-lightblue" href="https://github.com/alexandru360/data-to-code" target="_blank">Star us...</a>
+        </button>
       </mat-card>
-    </div>
-  </mat-card-content>
-</mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
