@@ -37,18 +37,14 @@ export class StepTwoChoseTablesComponent {
   showTablesList: boolean;
   showWhatIsGenerated: boolean;
   whatIsGenerated: OutputToGenerateItem;
-  private _searchText: string;
-  public get searchText():string{
-    return this._searchText;
-  }
-  public set searchText(v: string){
-    this._searchText=v;
-    v= (v || '').trim().toLocaleLowerCase();
-    const showAll = (v.length == 0);
-    this.stepOnePayload.forEach((it)=>{      
-      it.display = showAll || (it.name.toLocaleLowerCase().indexOf(v)>-1);
+
+  public searchText(event: any) {
+    const word = (event.target.value || '').trim().toLocaleLowerCase();
+    this.stepOnePayload.forEach((it) => {
+      it.display = it.name.toLocaleLowerCase().includes(word);
     });
   }
+
   constructor(private srvCommon: AppAssistedStepsService,
               private srvStepTwo: StepTwoConnWizService) {
 
@@ -62,7 +58,7 @@ export class StepTwoChoseTablesComponent {
       if (obj) {
         obj.map(itm => {
           itm.selected = true;
-          itm.display=true;
+          itm.display = true;
           if (!itm.hasOwnProperty('crudEndpoints')) {
             itm.crudEndpoints = new CrudEndpoints();
           }

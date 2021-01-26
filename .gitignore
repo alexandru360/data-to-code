@@ -296,3 +296,6 @@ __pycache__/
 custom
 **/wwwroot/conection.txt
 **/wwwroot/generated.zip
+
+.vs
+.idea

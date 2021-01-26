@@ -7,10 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenerateFromDB", "GenerateF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenerateAppBL", "GenerateAppBL\GenerateAppBL.csproj", "{14A457F1-0A84-440D-8CC0-0ADDC515D239}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenerateAppWPF", "GenerateAppWPF\GenerateAppWPF.csproj", "{74515E52-D504-481B-82AC-D78357075933}"
-EndProject
-Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "GenerateDataToCode", "GenerateDataToCode\GenerateDataToCode.wapproj", "{0EE089B3-5A71-4051-A390-5A9ACF355AFC}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTest", "ConsoleTest\ConsoleTest.csproj", "{C50D6566-8741-46EB-A40D-7EC2D742FEFA}"
 EndProject
 Global

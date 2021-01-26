@@ -1,6 +1,6 @@
 {
   "/data2code": {
-    "target": "https://www.data-to-code.eu/",
+    "target": "http://localhost:5000/api/",
     "secure": true,
     "changeOrigin": true,
     "logLevel": "debug"
