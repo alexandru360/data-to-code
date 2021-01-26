@@ -30,18 +30,18 @@ namespace {{NamespaceName}} {
     */
     public Task<{{POCOFullName}}[]> GetAll()
     {
-        return Query{POCOName}}.ToArrayAsync();
+        return query{{POCOName}}.ToArrayAsync();
     }
     public Task<long> Count()
     {
-        return Query{POCOName}}.LongCountAsync();
+        return query{{POCOName}}.LongCountAsync();
     }
     //very particular TestWebAPI_Searches
     public async Task<TestWebAPI_Searches.PaginatedRecords<{{POCOFullName}}>> SearchPaginated(TestWebAPI_Searches.SearchModel<{{POCOFullName}}> search)
     {
-        var query = search.GetSearch(Query{POCOName}}, paginated:false);
+        var query = search.GetSearch(query{{POCOName}}, paginated:false);
         var nr = await query.LongCountAsync();
-        query = search.GetSearch(Query{POCOName}}, paginated: true);
+        query = search.GetSearch(query{{POCOName}}, paginated: true);
         var data = await query.ToArrayAsync();
         return new TestWebAPI_Searches.PaginatedRecords<{{POCOFullName}}>(nr, data);
          
@@ -49,18 +49,18 @@ namespace {{NamespaceName}} {
 
     public Task<{{POCOFullName}}> FindSingle(Func<{{POCOFullName}} ,bool> f)
     {
-        var data = Query{POCOName}}.FirstOrDefaultAsync(it=>f(it));
+        var data = query{{POCOName}}.FirstOrDefaultAsync(it=>f(it));
         return data;
     }
     public Task<{{POCOFullName}}[]> FindMultiple(System.Linq.Expressions.Expression<Func<{{POCOFullName}}, bool>> f)
     {
-        var data = Query{POCOName}}.Where(f);
+        var data = query{{POCOName}}.Where(f);
         return data.ToArrayAsync();
     }
 
     public async Task<{{POCOFullName}}> Insert({{POCOFullName}} p)
     {
-        Query{POCOName}}.Add(p);
+        query{{POCOName}}.Add(p);
         await databaseContext.SaveChangesAsync();
         return p;
     }
@@ -79,7 +79,7 @@ namespace {{NamespaceName}} {
         public async Task<{{POCOFullName}}> Delete({{PK1Type}} id)
         {
             var original = await FindAfterId(id);
-            Query{POCOName}}.Remove(original);
+            query{{POCOName}}.Remove(original);
             await databaseContext.SaveChangesAsync();
             return original;
         }
@@ -91,14 +91,14 @@ namespace {{NamespaceName}} {
 
         public Task<{{POCOFullName}}> FindAfterId({{PK1Type}} id)
         {
-            var data = Query{POCOName}}.FirstOrDefaultAsync(it => it.{{PK1}} == id);
+            var data = query{{POCOName}}.FirstOrDefaultAsync(it => it.{{PK1}} == id);
             return data;
         }
         public Task<{{POCOFullName}}[]> FindAfterIds(params {{PK1Type}}[] id)
         {
             if((id?.Length??0) == 0)
                 return Task.FromResult(new {{POCOFullName}}[0]);
-            var data = Query{POCOName}}.Where(it => id.Contains(it.{{PK1}}));
+            var data = query{{POCOName}}.Where(it => id.Contains(it.{{PK1}}));
             return data.ToArrayAsync();
         }
 

@@ -30,18 +30,18 @@ namespace {{NamespaceName}} {
     */
     public Task<{{POCOFullName}}[]> GetAll()
     {
-        return Query{{POCOName}}.ToArrayAsync();
+        return query{{POCOName}}.ToArrayAsync();
     }
     public Task<long> Count()
     {
-        return Query{{POCOName}}.LongCountAsync();
+        return query{{POCOName}}.LongCountAsync();
     }
     //very particular TestWebAPI_Searches
     public async Task<TestWebAPI_Searches.PaginatedRecords<{{POCOFullName}}>> SearchPaginated(TestWebAPI_Searches.SearchModel<{{POCOFullName}}> search)
     {
-        var query = search.GetSearch(Query{{POCOName}}, paginated:false);
+        var query = search.GetSearch(query{{POCOName}}, paginated:false);
         var nr = await query.LongCountAsync();
-        query = search.GetSearch(Query{{POCOName}}, paginated: true);
+        query = search.GetSearch(query{{POCOName}}, paginated: true);
         var data = await query.ToArrayAsync();
         return new TestWebAPI_Searches.PaginatedRecords<{{POCOFullName}}>(nr, data);
          
@@ -50,7 +50,7 @@ namespace {{NamespaceName}} {
     
     public Task<{{POCOFullName}}[]> FindMultiple(System.Linq.Expressions.Expression<Func<{{POCOFullName}}, bool>> f)
     {
-        var data = Query{{POCOName}}.Where(f);
+        var data = query{{POCOName}}.Where(f);
         return data.ToArrayAsync();
     }
 

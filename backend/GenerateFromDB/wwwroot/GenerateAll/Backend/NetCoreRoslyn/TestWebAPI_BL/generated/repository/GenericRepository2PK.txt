@@ -30,18 +30,18 @@ namespace {{NamespaceName}} {
     */
     public Task<{{POCOFullName}}[]> GetAll()
     {
-        return Query{POCOName}}.ToArrayAsync();
+        return query{{POCOName}}.ToArrayAsync();
     }
     public Task<long> Count()
     {
-        return Query{POCOName}}.LongCountAsync();
+        return query{{POCOName}}.LongCountAsync();
     }
     //very particular TestWebAPI_Searches
     public async Task<TestWebAPI_Searches.PaginatedRecords<{{POCOFullName}}>> SearchPaginated(TestWebAPI_Searches.SearchModel<{{POCOFullName}}> search)
     {
-        var query = search.GetSearch(Query{POCOName}}, paginated:false);
+        var query = search.GetSearch(query{{POCOName}}, paginated:false);
         var nr = await query.LongCountAsync();
-        query = search.GetSearch(Query{POCOName}}, paginated: true);
+        query = search.GetSearch(query{{POCOName}}, paginated: true);
         var data = await query.ToArrayAsync();
         return new TestWebAPI_Searches.PaginatedRecords<{{POCOFullName}}>(nr, data);
          
@@ -49,18 +49,18 @@ namespace {{NamespaceName}} {
 
     public Task<{{POCOFullName}}> FindSingle(Func<{{POCOFullName}} ,bool> f)
     {
-        var data = Query{POCOName}}.FirstOrDefaultAsync(it=>f(it));
+        var data = query{{POCOName}}.FirstOrDefaultAsync(it=>f(it));
         return data;
     }
     public Task<{{POCOFullName}}[]> FindMultiple(System.Linq.Expressions.Expression<Func<{{POCOFullName}}, bool>> f)
     {
-        var data = Query{POCOName}}.Where(f);
+        var data = query{{POCOName}}.Where(f);
         return data.ToArrayAsync();
     }
 
     public async Task<{{POCOFullName}}> Insert({{POCOFullName}} p)
     {
-        Query{POCOName}}.Add(p);
+        query{{POCOName}}.Add(p);
         await databaseContext.SaveChangesAsync();
         return p;
     }
@@ -79,7 +79,7 @@ namespace {{NamespaceName}} {
         public async Task<{{POCOFullName}}> Delete({{PK1Type}} id1, {{PK2Type}} id2)
         {
             var original = await FindAfterId(id1, id2);
-            Query{POCOName}}.Remove(original);
+            query{{POCOName}}.Remove(original);
             await databaseContext.SaveChangesAsync();
             return original;
         }
@@ -88,7 +88,7 @@ namespace {{NamespaceName}} {
             return Delete(p.{{PK1}}, p.{{PK2}});
         }
         public Task<{{POCOFullName}}[]> FindAfterIds(string namePK, {{PK1Type}}[] id1, {{PK2Type}}[] id2){
-            System.Linq.IQueryable<{{POCOFullName}}> query = Query{POCOName}};
+            System.Linq.IQueryable<{{POCOFullName}}> query = query{{POCOName}};
             switch(namePK){
                 case "{{PK1}}":
                     if((id1?.Length??0)>0) {
@@ -108,7 +108,7 @@ namespace {{NamespaceName}} {
 
         public Task<{{POCOFullName}}> FindAfterId({{PK1Type}} id1, {{PK2Type}} id2)
         {
-            var data = Query{POCOName}}.FirstOrDefaultAsync(it => 
+            var data = query{{POCOName}}.FirstOrDefaultAsync(it => 
                     it.{{PK1}} == id1
                     &&
                     it.{{PK2}} == id2
