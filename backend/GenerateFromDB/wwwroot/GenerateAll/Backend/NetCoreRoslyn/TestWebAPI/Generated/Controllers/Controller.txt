@@ -16,7 +16,7 @@ namespace {{NamespaceName}} {
 
     {{~ for kvp in DictNameField_Methods ~}}
       {{~ for mi in kvp.Value ~}}
-          {{ if mi.NrParameters > 0 }}
+          {{ if mi.NrParameters > 1 }}
     public record rec{{ClassName}}_{{kvp.Key}}_{{mi.Name}}_{{for.index}}_{{mi.HashCodeParams}} ({{mi.parametersDefinitionCSharp }});
           {{ end }}
       {{~ end ~}}
@@ -39,21 +39,29 @@ namespace {{NamespaceName}} {
     {{~ for kvp in DictNameField_Methods ~}}
       {{~ for mi in kvp.Value ~}}
          {{
+            method = "[HttpPost]" 
             argumentFunction=""
-            if mi.NrParameters > 0 
-                argumentFunction = "rec"+ ClassName+"_"+ kvp.Key+"_" +mi.Name+ "_"+for.index+ "_"+mi.HashCodeParams + " data";
+            argumentCall = ""
+            returnVerb =""
+            if mi.ReturnsVoid == false
+                returnVerb  ="return "
             end
+            case mi.NrParameters 
+                when 0
+                    method = "[HttpGet]"
+                    argumentCall =""
+                when 1
+                    argumentFunction = mi.FirstParameter.Value +" "+ mi.FirstParameter.Key  
+                    argumentCall =mi.FirstParameter.Key  
+                else
+                    argumentFunction = "rec"+ ClassName+"_"+ kvp.Key+"_" +mi.Name+ "_"+for.index+ "_"+mi.HashCodeParams + " data"
+                    argumentCall = mi.parametersCallWithRecord 
+           end
          }}
-        [HttpPost]
+
+        {{method}}
         public {{mi.ReturnType}} {{mi.Name}}( {{argumentFunction}} ){
-            {{
-                if mi.ReturnsVoid == false
-            }}
-                return 
-            {{
-                end
-            }}
-            {{kvp.Key}}.{{mi.Name}}({{ mi.parametersCallWithRecord  }});
+            {{returnVerb}} {{kvp.Key}}.{{mi.Name}}({{ argumentCall  }});
 
         }
       {{~ end ~}}
