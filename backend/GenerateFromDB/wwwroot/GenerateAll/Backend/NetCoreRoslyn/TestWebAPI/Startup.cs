@@ -124,7 +124,7 @@ namespace TestWebAPI
                     // just 2 PK
                     idTypeSecond = dtOptions.Rows.Find(nameTable +"_PK_1_Type")[1].ToString();
             }
-
+            string servicesQueryable="services.AddTransient<IQueryable<"+ nameClass +">>(s => s.GetRequiredService<IDatabaseContext>()."+ nameClass +");";
             string textToRender="";
             switch(nrPK){
                 case 1:
@@ -143,6 +143,7 @@ namespace TestWebAPI
             }
             <text>
 			@Raw(textToRender)
+            @Raw(servicesQueryable)
             </text>
         }
  
