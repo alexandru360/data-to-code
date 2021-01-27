@@ -76,6 +76,7 @@
     "apiRootUrl": "http://localhost:5000",
     "stepOneFindTables": "api/Home/FindTables",
     "stepTwoUrlToBeRenamed": "api/Home/generateapp",
+    "templates":"api/home/Templates",
     "versionUrl":"api/Home/Version"
     
   },

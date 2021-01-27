@@ -6,7 +6,7 @@ import {COMMON_HEADER, realApiRootUrl} from '../class-and-types-and-tools/consta
 import StepTwoResponse from '../class-and-types-and-tools/step-two-response';
 import {GenerateTypes} from '../../app.config.model';
 import {timeout, catchError} from 'rxjs/operators';
-
+import { OutputTypes} from '../class-and-types-and-tools/OutputTypes';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,11 +14,13 @@ export class StepTwoConnWizService {
 
   private stepTwoUrl: string;
   public generateTypesList: GenerateTypes;
-
+  private templateUrl:string;
   constructor(private httpClient: HttpClient,
               private cfg: AppConfigService) {
-    this.stepTwoUrl = realApiRootUrl(this.cfg.getConfiguration().urls.apiRootUrl) + '/' + this.cfg.getConfiguration().urls.stepTwoUrlToBeRenamed;
-    this.generateTypesList = this.cfg.getConfiguration().generateTypes;
+                var cfgRoot = this.cfg.getConfiguration();
+    this.stepTwoUrl = realApiRootUrl(cfgRoot.urls.apiRootUrl) + '/' + cfgRoot.urls.stepTwoUrlToBeRenamed;
+    this.generateTypesList = cfgRoot.generateTypes;
+    this.templateUrl=realApiRootUrl(cfgRoot.urls.apiRootUrl) + '/' + cfgRoot.urls.templates;
   }
 
   callStepTwo(body: any): Observable<StepTwoResponse> {
@@ -29,5 +31,9 @@ export class StepTwoConnWizService {
         .pipe(
             timeout(20 * 60* 1000)
             );
+  }
+
+  templates(): Observable<OutputTypes[]>{
+    return this.httpClient.get<OutputTypes[]>(this.templateUrl);
   }
 }

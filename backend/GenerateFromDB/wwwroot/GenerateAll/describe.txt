@@ -5,7 +5,7 @@
         folder: "NETCoreRoslyn",
         name: ".NET Core 5 Roslyn",
         worksWithFrontEnd: [
-            "Angular11.0"
+            
         ],
         copyTableFiles: [
             "TestWEBAPI_BL/generated/repository/@Name@Repository.cs",

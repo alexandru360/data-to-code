@@ -7,6 +7,7 @@ import {KeyValueCfg, PayloadConn} from '../../app.config.model';
 import StepTwoSendPayload, {Field, Table} from '../class-and-types-and-tools/step-two-send-payload';
 import {OutputToGenerateItem} from '../../common/classes/outputToGenerate';
 import {MatStepper} from '@angular/material/stepper';
+import { OutputTypes } from '../class-and-types-and-tools/OutputTypes';
 
 @Component({
   selector: 'app-chose-tables-step-two',
@@ -37,19 +38,54 @@ export class StepTwoChoseTablesComponent {
   showTablesList: boolean;
   showWhatIsGenerated: boolean;
   whatIsGenerated: OutputToGenerateItem;
-
+  templates: OutputTypes[];
   public searchText(event: any) {
     const word = (event.target.value || '').trim().toLocaleLowerCase();
     this.stepOnePayload.forEach((it) => {
       it.display = it.name.toLocaleLowerCase().includes(word);
     });
   }
-
+  worksWithUI: string;
+  worksWithAPI: string;
+  public changeAPI(data){
+    //console.log(this.whatIsGenerated.ApiType);
+    //window.alert(this.whatIsGenerated.ApiType);
+    this.worksWithUI = this.templates
+        .filter(it=>it.apiType == this.whatIsGenerated.ApiType)
+        .reduce(
+           (acc, curr) => { return { uiType: acc.uiType + curr.uiType , apiType: curr.apiType} }, {uiType:'', apiType:''}).uiType;
+  
+  }
+  public changeUI(data){
+    //console.log(this.whatIsGenerated.ApiType);
+    //window.alert(this.whatIsGenerated.ApiType);
+    this.worksWithAPI = this.templates
+        .filter(it=>it.uiType == this.whatIsGenerated.UiType)
+        .reduce(
+           (acc, curr) => { return { uiType: curr.uiType , apiType: curr.apiType + acc.apiType} }, {uiType:'', apiType:''})
+           .apiType;
+  
+  }
   constructor(private srvCommon: AppAssistedStepsService,
               private srvStepTwo: StepTwoConnWizService) {
 
     this.setDefaultValues();
-
+  this.srvStepTwo.templates().subscribe(it=>{
+    
+        this.templates  = it;
+        this.selectWhatIsGeneratedUi = it.filter(it=>it.uiType != null).map(it=>{
+          var n = new KeyValueCfg();
+          n.Key = it.uiType;
+          n.Name = it.uiType;
+          return n;
+          }  );
+        this.selectWhatIsGeneratedApi  = it.filter(it=>it.apiType != null).map(it=>{
+          var n = new KeyValueCfg();
+          n.Key = it.apiType;
+          n.Name = it.apiType;
+          return n;
+          }  );
+      })
     this.stepComplete.emit(false);
     this.srvCommon.connPayloadDetails.subscribe(item => this.payloadConn = item);
     this.srvCommon.arrEntitiesDetails.subscribe(item => {
@@ -83,8 +119,8 @@ export class StepTwoChoseTablesComponent {
     this.selectAllEntities = true;
     this.btnDisableDataDebounce = false;
 
-    this.selectWhatIsGeneratedUi = this.srvStepTwo.generateTypesList.Ui;
-    this.selectWhatIsGeneratedApi = this.srvStepTwo.generateTypesList.Api;
+    //this.selectWhatIsGeneratedUi = this.srvStepTwo.generateTypesList.Ui;
+    //this.selectWhatIsGeneratedApi = this.srvStepTwo.generateTypesList.Api;
   }
 
   onSubmit() {

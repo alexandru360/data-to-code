@@ -43,6 +43,7 @@ export class Urls {
   apiRootUrl: string;
   stepOneFindTables: string;
   stepTwoUrlToBeRenamed: string;
+  templates:string;
   versionUrl: string;
   
 }

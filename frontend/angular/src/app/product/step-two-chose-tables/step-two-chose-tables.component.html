@@ -62,13 +62,14 @@
           <mat-grid-tile>
 
             <mat-form-field appearance="fill" *ngIf="whatIsGenerated.Api">
-              <mat-select [(ngModel)]="whatIsGenerated.ApiType">
+              <mat-select [(ngModel)]="whatIsGenerated.ApiType" (selectionChange)="changeAPI()">
                 <mat-option *ngFor="let itm of selectWhatIsGeneratedApi" [value]="itm.Key">
                   {{itm.Name}}
                 </mat-option>
               </mat-select>
+              
             </mat-form-field>
-
+            Works with UI : {{  worksWithUI }}
           </mat-grid-tile>
           <mat-grid-tile>
             <mat-checkbox class="checkbox-margin" [(ngModel)]="whatIsGenerated.Ui">
@@ -78,13 +79,13 @@
           <mat-grid-tile>
 
             <mat-form-field appearance="fill" *ngIf="whatIsGenerated.Ui">
-              <mat-select [(ngModel)]="whatIsGenerated.UiType">
+              <mat-select [(ngModel)]="whatIsGenerated.UiType" (selectionChange)="changeUI()" >
                 <mat-option *ngFor="let itm of selectWhatIsGeneratedUi" [value]="itm.Key">
                   {{itm.Name}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
-
+            Works with API : {{  worksWithAPI }}
           </mat-grid-tile>
         </mat-grid-list>
 
