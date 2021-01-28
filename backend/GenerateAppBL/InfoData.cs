@@ -82,12 +82,16 @@ namespace GenerateApp.Controllers
             return data; ;
 
         }
-
+        public StankinsGenerator FromFolder(string path)
+        {
+            string generator = Path.Combine(folderGenerator, "describe.txt");
+            var stData = JsonConvert.DeserializeObject<StankinsGenerator>(File.ReadAllText(generator));
+            return stData;
+        }
         public async Task<string> GenerateApp(string backendFolderName, string frontendFolderName)
         {
             string folderGenerator = this.folderGenerator;
-            string generator = Path.Combine(folderGenerator, "describe.txt");
-            var stData = JsonConvert.DeserializeObject<StankinsGenerator>(File.ReadAllText(generator));
+            var stData = FromFolder(folderGenerator);
             //frontendFolderName = @"Angular10.0Full";
             var backend = stData.backend.FirstOrDefault(it => it.folder == backendFolderName);
             

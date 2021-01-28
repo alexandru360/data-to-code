@@ -47,14 +47,10 @@ namespace GenerateFromDB.Controllers
         public Output[] Templates()
         {
             var ret = new List<Output>();
+            var i=new InfoData(connTypes.None);
+            
             var folder = Path.Combine(environment.WebRootPath, "GenerateAll");
-            string generator = Path.Combine(folder, "describe.txt");
-            if (!System.IO.File.Exists(generator))
-            {
-                Console.WriteLine($"cannot find file {generator}");
-                return ret.ToArray();
-            }
-            var stData = JsonConvert.DeserializeObject<StankinsGenerator>(System.IO.File.ReadAllText(generator));
+            var stData = i.FromFolder(folder);
             foreach (var back in stData.backend)
             {
                 if (back.worksWithFrontEnd?.Length > 0)
