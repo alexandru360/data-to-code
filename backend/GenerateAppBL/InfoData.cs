@@ -91,6 +91,8 @@ namespace GenerateApp.Controllers
         public async Task<string> GenerateApp(string backendFolderName, string frontendFolderName)
         {
             string folderGenerator = this.folderGenerator;
+            string generator = Path.Combine(folderGenerator, "describe.txt");
+
             var stData = FromFolder(folderGenerator);
             //frontendFolderName = @"Angular10.0Full";
             var backend = stData.backend.FirstOrDefault(it => it.folder == backendFolderName);
