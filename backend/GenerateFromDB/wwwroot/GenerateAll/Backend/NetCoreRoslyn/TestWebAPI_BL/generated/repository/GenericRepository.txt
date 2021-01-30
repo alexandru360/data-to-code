@@ -28,6 +28,68 @@ namespace {{NamespaceName}} {
     return 1;
     }
     */
+    
+    public partial TestWebAPI_Searches.OrderBy[] DefaultOrderBy();
+    public void ArrangeDefaults(TestWebAPI_Searches.SearchModel search)
+    {
+        search.Pagination ??= TestWebAPI_Searches.Pagination.Default();
+        if ((search.OrderBys?.Length ?? 0) == 0)
+            {
+                search.OrderBys = DefaultOrderBy();
+                
+            }
+    }
+    {{~ for p in POCOProperties ~}}
+          {{ propTypeNotNullable = p.ReturnType | string.replace "?" ""  }}
+        public System.Linq.Expressions.Expression<Func<{{POCOFullName}}, bool>> Find_{{p.Name}}(TestWebAPI_Searches.SearchCriteria criteria,string value )
+        {
+            {{propTypeNotNullable}} val = default;
+            {{ case propTypeNotNullable }} 
+            {{ when "string" }}
+                val = value;
+            {{ when "int" }} 
+                if(!int.TryParse(value, out val))
+                    throw new ArgumentException("cannot parse " + value +" for {{p.Name}}");                    
+            {{ when "long" }} 
+                if(!long.TryParse(value, out val))
+                    throw new ArgumentException("cannot parse " + value +" for {{p.Name}}");                    
+            {{ when "bool" }} 
+                if(!bool.TryParse(value, out val))
+                    throw new ArgumentException("cannot parse " + value +" for {{p.Name}}");                    
+            {{ when "short" }} 
+                if(!short.TryParse(value, out val))
+                    throw new ArgumentException("cannot parse " + value +" for {{p.Name}}");                    
+            {{ when "System.Guid" }} 
+                if(!System.Guid.TryParse(value, out val))
+                    throw new ArgumentException("cannot parse " + value +" for {{p.Name}}");                    
+            {{ when "System.DateTime" }} 
+                if(!System.DateTime.TryParse(value, out val))
+                    throw new ArgumentException("cannot parse " + value +" for {{p.Name}}");                    
+            
+            {{ else }}
+                throw new ArgumentException(" did not generate for {{p.ReturnType}} {{POCOFullName}}.{{p.Name}}");
+            {{ end }}
+            switch(criteria){
+                case TestWebAPI_Searches.SearchCriteria.Equal:
+                    
+                    return TestWebAPI_DAL.Metadata_{{POCOName}}.expr_{{p.Name}}_equal(val);
+                    
+                case TestWebAPI_Searches.SearchCriteria.Different:
+                    return TestWebAPI_DAL.Metadata_{{POCOName}}.expr_{{p.Name}}_diff(val);
+            {{ case propTypeNotNullable }} 
+            {{ when "System.DateTime","int","long","System.DateTime"  }}
+                
+            {{ end }}                 
+                default:
+                    throw new ArgumentException("cannot find  " + criteria +" for {{p.ReturnType}} {{POCOFullName}}.{{p.Name}}");                    
+            
+            }
+            
+        }
+
+
+    {{~ end ~}}
+
     public Task<{{POCOFullName}}[]> GetAll()
     {
         return query{{POCOName}}.ToArrayAsync();
@@ -37,11 +99,11 @@ namespace {{NamespaceName}} {
         return query{{POCOName}}.LongCountAsync();
     }
     //very particular TestWebAPI_Searches
-    public async Task<TestWebAPI_Searches.PaginatedRecords<{{POCOFullName}}>> SearchPaginated(TestWebAPI_Searches.SearchModel<{{POCOFullName}}> search)
+    public async Task<TestWebAPI_Searches.PaginatedRecords<{{POCOFullName}}>> SearchPaginated(TestWebAPI_Searches.SearchModel search)
     {
-        var query = search.GetSearch(query{{POCOName}}, paginated:false);
+        var query = this.GetSearch(query{{POCOName}}, search,paginated:false);
         var nr = await query.LongCountAsync();
-        query = search.GetSearch(query{{POCOName}}, paginated: true);
+        query = this.GetSearch(query{{POCOName}}, search,paginated: true);
         var data = await query.ToArrayAsync();
         return new TestWebAPI_Searches.PaginatedRecords<{{POCOFullName}}>(nr, data);
          
@@ -101,6 +163,11 @@ namespace {{NamespaceName}} {
             var data = query{{POCOName}}.Where(it => id.Contains(it.{{PK1}}));
             return data.ToArrayAsync();
         }
+/*
+        public IQueryable<{{POCOFullName}}> GetSearch(IQueryable<{{POCOFullName}}> data, TestWebAPI_Searches.SearchModel search,bool paginated){
+            throw new ArgumentException("asdasd");
+        }
+*/
 
   }
 }              

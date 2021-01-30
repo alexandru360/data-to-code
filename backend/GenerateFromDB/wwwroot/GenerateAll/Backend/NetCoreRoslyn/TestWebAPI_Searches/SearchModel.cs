@@ -6,15 +6,11 @@ using System.Threading.Tasks;
 
 namespace TestWebAPI_Searches
 {
-    public  interface SearchModel<T>
+    public  class SearchModel
     {
         public SearchField[] SearchFields { get; set; }
         public Pagination Pagination { get; set; }
         public OrderBy[] OrderBys { get; set; }
-
-        public  void  ArrangeDefaults();
-
-        public  IQueryable<T> GetSearch(IQueryable<T> data, bool paginated);
 
     }
 }

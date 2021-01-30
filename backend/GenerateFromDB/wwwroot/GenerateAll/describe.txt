@@ -9,7 +9,6 @@
         ],
         copyTableFiles: [
             "TestWEBAPI_BL/generated/repository/@Name@Repository.cs",
-            "TestWEBAPI_BL/generated/search/@Name@Search.cs",
             "TestWebAPI_DAL/Generated/DbObjects/@Name@BL.cs",  
             "TestWebAPI/Generated/Controllers/@Name@ActionController.cs",
             "TestWebAPI/Generated/Controllers/@Name@RESTController.cs"

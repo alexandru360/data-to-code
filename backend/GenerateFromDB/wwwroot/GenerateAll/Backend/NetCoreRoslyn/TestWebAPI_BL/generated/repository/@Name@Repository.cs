@@ -1,5 +1,8 @@
 @model Stankins.Interfaces.IDataToSent
 @{
+    string guidType = typeof(System.Guid).Name;
+    //string guidTypeNullable=typeof(System.Nullable<System.Guid>).Name;
+    string byteType=typeof(System.Byte[]).Name;
     
 	string ClassNameFromTableName(string tableName){
 		return tableName.Replace(" ","").Replace(".","").Replace("(","").Replace(")","");
@@ -149,6 +152,204 @@ namespace TestWebAPI_BL
         {
             this.query@(nameClass) = query@(nameClass);
             this.databaseContext = databaseContext;
+        }
+
+        public partial OrderBy[] DefaultOrderBy()
+        {
+            
+            @{
+                
+                var colNameSort=  "";
+
+                if(nrPK>0){
+                    colNameSort=nameProperty(idTable,nameClass);
+                }
+                else
+                {
+                    colNameSort= nameProperty( dt.Columns[0].ColumnName, nameClass);
+                }
+<text>
+            
+                return new OrderBy[1]
+                {
+                    new OrderBy()
+                    {
+                        Ascending=false,
+                        Field = Metadata_@(nameClass).prop_@(colNameSort)
+                    }
+                };
+            
+</text>
+
+                
+                
+            }
+        }
+
+
+
+        public IQueryable<@(nameClass)> GetSearch(IQueryable<@(nameClass)> data,TestWebAPI_Searches.SearchModel search, bool paginated)
+        {
+            ArrangeDefaults(search);
+            if(search.SearchFields?.Length > 0)
+            {
+                foreach(var sf in search.SearchFields)
+                {
+                    if (string.IsNullOrWhiteSpace(sf.Field))
+                        continue;
+                    
+                    switch (sf.Field.ToLower())
+                    {
+                        @{
+                            for(int iCol = 0;iCol < nrCols; iCol++){
+                                var col = dt.Columns[iCol];
+                                var colType = col.DataType;
+
+                                if(colType.Name == byteType)
+                                    continue;
+
+                                var colName= nameProperty(col.ColumnName,nameClass) ;
+                                var nameType=  nameTypeForSearch(col.DataType.Name);
+                                string convert = "Convert.To" + col.DataType.Name;
+                                bool isGuid =(col.DataType.Name == guidType );
+                                if(isGuid){
+                                    convert ="Guid.Parse";
+                                }
+                                <text>
+                        case Metadata_@(nameClass).prop_@(colName):
+                            try{   
+                                
+                                var val = @(convert)(sf.Value);
+                                switch (sf.Criteria)
+                                {
+                                    case SearchCriteria.Equal:
+                                        data = data.Where(Metadata_@(nameClass).expr_@(colName)_equal(val));
+                                        break;
+                                    case SearchCriteria.Different:
+                                        data = data.Where(Metadata_@(nameClass).expr_@(colName)_diff(val));
+                                        break;  
+                                        //@(nameType)
+                                    @{
+                                    if(nameType == "number" || nameType =="Date"){
+                                        <text>
+                                            case SearchCriteria.Greater:
+                                                data = data.Where(Metadata_@(nameClass).expr_@(colName)_Greater(val));
+                                                break;  
+                                            case SearchCriteria.Less:
+                                                data = data.Where(Metadata_@(nameClass).expr_@(colName)_Less(val));
+                                                break;  
+                                            case SearchCriteria.GreaterOrEqual:
+                                                data = data.Where(Metadata_@(nameClass).expr_@(colName)_GreaterOrEqual(val));
+                                                break;  
+                                            case SearchCriteria.LessOrEqual:
+                                                data = data.Where(Metadata_@(nameClass).expr_@(colName)_LessOrEqual(val));
+                                                break;  
+                                            
+                                    
+                                        </text>
+                                        }
+                                    if(nameType == "string" && (!isGuid) ){
+                                        <text>
+                                            case SearchCriteria.Contains:
+
+                                                data = data.Where(Metadata_@(nameClass).expr_@(colName)_Contains(val));
+                                                break;  
+                                            case SearchCriteria.StartsWith:
+                                                data = data.Where(Metadata_@(nameClass).expr_@(colName)_Starts(val));
+                                                break;  
+                                            case SearchCriteria.EndsWith:
+                                                data = data.Where(Metadata_@(nameClass).expr_@(colName)_Ends(val));
+                                                break;  
+                                        </text>
+                                        } 
+                                    }   
+                                }
+                                                                        
+                            }
+                            catch(Exception){
+                                //do something with the error to avvert user of the problem
+                            }
+                            break;
+                                </text>
+                            }
+                        }
+                        default:
+                            throw new ArgumentException($"cannot find {sf.Field} in search at {nameof(@(nameClass))} ");
+                    }
+                }
+            }
+
+            //order by
+            var nrOrderBys = search.OrderBys?.Length;
+            if (nrOrderBys> 0)
+            {
+                IOrderedQueryable<@(nameClass)> order=null;
+                var ord = search.OrderBys[0];
+                if(!string.IsNullOrWhiteSpace(ord.Field))
+                switch (ord.Field.ToLower()) {
+                    @{
+                        for(int iCol = 0;iCol < nrCols; iCol++){
+                            var col = dt.Columns[iCol];
+                            var colName= nameProperty(col.ColumnName,nameClass) ;
+                            var nameType=  nameTypeForSearch(col.DataType.Name);
+                            <text>
+                                case Metadata_@(nameClass).prop_@colName:
+
+                                    switch (ord.Ascending)
+                                    {
+                                        case true:
+                                            order = data.OrderBy(Metadata_@(nameClass).expr_@colName);
+                                            break;
+                                        case false:
+                                            order = data.OrderByDescending(Metadata_@(nameClass).expr_@colName);
+                                            break;
+                                        
+                                    }
+                                    break;
+                            </text>
+                        }
+                    }
+                }
+                for(var i = 1; i < nrOrderBys.Value; i++)
+                {
+                    ord = search.OrderBys[i];
+                    switch (ord.Field.ToUpper()) {
+                    @{
+                    for(int iCol = 0;iCol < nrCols; iCol++){
+                        var col = dt.Columns[iCol];
+                        var colName= nameProperty(col.ColumnName,nameClass) ;
+                        var nameType=  nameTypeForSearch(col.DataType.Name);
+                        <text>
+                            case Metadata_@(nameClass).prop_@colName:
+                                switch (ord.Ascending)
+                                {
+                                    case true:
+                                        order = order.ThenBy(Metadata_@(nameClass).expr_@colName);
+                                        break;
+                                    case false:
+                                        order = order.ThenByDescending(Metadata_@(nameClass).expr_@colName);
+                                        break;
+                                    
+                                }
+                                break;
+                        </text>
+                    }
+                    }
+                }   
+
+                }
+                data = order ?? data;
+
+            }
+            //pagination
+            if (paginated && nrOrderBys > 0 && search.Pagination?.PageSizeAbsolute() > 0)
+            {
+                var skip = search.Pagination.SkipRecords();
+                var page = search.Pagination.PageSizeAbsolute();
+                if (skip > 0) data = data.Skip(skip);
+                if (page > 1) data = data.Take(page);
+            }
+            return data;
         }
 
        

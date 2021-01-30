@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using TestWebAPI_Searches;
-
+using System.Linq;
 namespace TestWebAPI_DAL
 {
      public interface IRepository<T, TypePK1, TypePK2>
@@ -16,7 +16,8 @@ namespace TestWebAPI_DAL
         Task<T> Insert(T p);
         Task<T> Update(T p);
         Task<long> Count();
-        Task<PaginatedRecords<T>> SearchPaginated(SearchModel<T> search);
+        Task<PaginatedRecords<T>> SearchPaginated(SearchModel search);
+        IQueryable<T> GetSearch(IQueryable<T> data,SearchModel search, bool paginated);
     }
 
     public interface IRepository<T, TypePK>
@@ -31,14 +32,16 @@ namespace TestWebAPI_DAL
         Task<T> Insert(T p);
         Task<T> Update(T p);
         Task<long> Count();
-        Task<PaginatedRecords<T>> SearchPaginated(SearchModel<T> search);
+        Task<PaginatedRecords<T>> SearchPaginated(SearchModel search);
+        IQueryable<T> GetSearch(IQueryable<T> data,SearchModel search, bool paginated);
     }
 
     public interface IRepositoryView<T>
     {
         Task<T[]> GetAll();
         Task<long> Count();
-        Task<PaginatedRecords<T>> SearchPaginated(SearchModel<T> search);
+        Task<PaginatedRecords<T>> SearchPaginated(SearchModel search);
+        IQueryable<T> GetSearch(IQueryable<T> data, SearchModel search,bool paginated);
 
     }
 }
