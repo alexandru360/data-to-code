@@ -137,7 +137,7 @@ namespace {{NamespaceName}} {
             await databaseContext.SaveChangesAsync();
             return p;
         }
-        public async Task<{{POCOFullName}}> Delete({{PK1Type}} id1, {{PK2Type}} id2)
+        public async Task<{{POCOFullName}}> DeleteById({{PK1Type}} id1, {{PK2Type}} id2)
         {
             var original = await FindAfterId(id1, id2);
             query{{POCOName}}.Remove(original);
@@ -146,7 +146,7 @@ namespace {{NamespaceName}} {
         }
     public Task<{{POCOFullName}}> Delete({{POCOFullName}} p)
         {
-            return Delete(p.{{PK1}}, p.{{PK2}});
+            return DeleteById(p.{{PK1}}, p.{{PK2}});
         }
         public Task<{{POCOFullName}}[]> FindAfterIds(string namePK, {{PK1Type}}[] id1, {{PK2Type}}[] id2){
             System.Linq.IQueryable<{{POCOFullName}}> query = query{{POCOName}};
