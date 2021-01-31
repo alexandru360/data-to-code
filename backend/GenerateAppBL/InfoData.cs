@@ -84,7 +84,7 @@ namespace GenerateApp.Controllers
         }
         public StankinsGenerator FromFolder(string path)
         {
-            string generator = Path.Combine(folderGenerator, "describe.txt");
+            string generator = Path.Combine(path, "describe.txt");
             var stData = JsonConvert.DeserializeObject<StankinsGenerator>(File.ReadAllText(generator));
             return stData;
         }

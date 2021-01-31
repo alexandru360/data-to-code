@@ -50,6 +50,7 @@ namespace GenerateFromDB.Controllers
             var i=new InfoData(connTypes.None);
             
             var folder = Path.Combine(environment.WebRootPath, "GenerateAll");
+            //i.folderGenerator = folder;
             var stData = i.FromFolder(folder);
             foreach (var back in stData.backend)
             {
