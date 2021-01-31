@@ -31,6 +31,6 @@
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <Version>2021.1.26.2041</Version>
+    <Version>2021.1.31.226</Version>
   </PropertyGroup>
 </Project>

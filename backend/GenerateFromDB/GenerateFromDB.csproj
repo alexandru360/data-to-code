@@ -4,7 +4,7 @@
     <!--<UserSecretsId>4b35ebaf-6be0-420d-940b-d49258ebb257</UserSecretsId>-->
     <!--<PublishSingleFile>true</PublishSingleFile>-->
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-    <Version>2021.1.26.2041</Version>
+    <Version>2021.1.31.226</Version>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="wwwroot\19700416000000\**" />
