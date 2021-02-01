@@ -1,11 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <StartupObject>GenerateAppWPF.App</StartupObject>
     <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
-    <Version>2021.1.31.226</Version>
+    <Version>2021.2.1.755</Version>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
   <ItemGroup>
