@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 using System;
+using System.Collections.Generic;
 using System.CodeDom.Compiler;
 using System.Runtime.CompilerServices;
 
@@ -36,7 +37,17 @@ namespace {{NamespaceName}} {
     {{ end }}
 
     public class Metadata_{{ClassName}}{
+        public static Dictionary<{{ClassName}}_EnumProps, Type>  propertiesWithType = new()
+        
+        {
+            { {{ClassName}}_EnumProps.None, typeof(void) }
+        {{~ for mi in Properties ~}}
+          ,{  {{ClassName}}_EnumProps.{{mi.Name}},typeof(int) }
+        {{~ end ~}}
+        }
+        ;
 
+        
         {{~ for pi in Properties ~}}
         public const string prop_{{pi.Name}} = "{{pi.Name}}";    
         public static readonly Func<{{ClassName}},{{pi.ReturnType}}> func_{{pi.Name}} = (it=>it.{{pi.Name}});
