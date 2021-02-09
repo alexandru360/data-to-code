@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 using System;
+using System.Collections.Generic;
 using System.CodeDom.Compiler;
 using System.Runtime.CompilerServices;
 using Microsoft.EntityFrameworkCore;
@@ -36,7 +37,25 @@ namespace {{NamespaceName}} {
     }
     {{ end }}
    
-    
+    [GeneratedCode("AOPMethods", "{{version}}")]
+    [CompilerGenerated]
+    public enum {{ClassName}}_EnumProps{
+        None
+        {{~ for mi in Properties ~}}
+        ,{{mi.Name}} // {{mi.Accesibility}} 
+        {{~ end ~}}
+    }
+    public class Metadata_{{ClassName}}{
+        public static Dictionary<{{ClassName}}_EnumProps, string>  properties = new()
+        
+        {
+            { {{ClassName}}_EnumProps.None, "" }
+        {{~ for mi in Properties ~}}
+          ,{  {{ClassName}}_EnumProps.{{mi.Name}},"{{mi.Name}}" }
+        {{~ end ~}}
+        }
+        ;
+    }
     /// <summary>
     /// Generates code from  {{ClassName}}
     /// </summary>
@@ -48,7 +67,7 @@ namespace {{NamespaceName}} {
     return 1;
     } 
     */
-
+       
     
   }
 }              
