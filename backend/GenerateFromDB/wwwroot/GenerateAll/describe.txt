@@ -5,7 +5,7 @@
         folder: "NETCoreRoslyn",
         name: ".NET Core 5 Roslyn",
         worksWithFrontEnd: [
-            
+            "Angular11Roslyn"
         ],
         copyTableFiles: [
             "TestWEBAPI_BL/generated/repository/@Name@Repository.cs",
@@ -139,7 +139,36 @@
             ]
         }]
     },
+	{
+        folder: "Angular11Roslyn",
+        worksWithBackEnd: [
+            "NETCoreRoslyn"
+        ],
+        name: "Angular 11 navigation",
+        copyTableFiles: [
+            'src/app/WebAPIComponents/@Name@.component.ts',
+            'src/app/WebAPIComponents/@Name@.component.css',
+            'src/app/WebAPIComponents/@Name@.component.html',
+             'src/app/WebAPIComponents/@Name@edit.component.ts',
+            'src/app/WebAPIComponents/@Name@edit.component.css',
+            'src/app/WebAPIComponents/@Name@edit.component.html',
+             'src/app/WebAPIComponents/@Name@add.component.ts',
+            'src/app/WebAPIComponents/@Name@add.component.css',
+            'src/app/WebAPIComponents/@Name@add.component.html',
+            'src/app/WebAPIClasses/@Name@.ts',
+            'src/app/services/@Name@.service.ts',
+
+        ],
+        "execute": [{
+            name: "docker",
+            execute: [
+                "docker build -t testwebapiang -f docker.txt .",
+                "docker run -p 4200:4200 -d --name testwebapiangContainer --rm testwebapiang"
+            ]
+        }]
+    },
 	
+
 	{
         folder: "Angular11.0",
         worksWithBackEnd: [

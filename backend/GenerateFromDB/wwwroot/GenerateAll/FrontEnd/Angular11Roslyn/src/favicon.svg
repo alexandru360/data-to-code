@@ -1,0 +1,10 @@
+@model Stankins.Interfaces.IDataToSent
+@{
+  var dtOptions= Model.FindAfterName("@@Options@@").Value;
+  var nameApp = dtOptions.Rows.Find("ApplicationName")[1].ToString();
+  
+}
+<svg width="200" height="100">
+  <rect x="0" y="0" width="200" height="100" stroke="red" stroke-width="3px" fill="white"/>
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle">@(nameApp)</text>    
+</svg>
