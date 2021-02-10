@@ -12,7 +12,6 @@
     <AdditionalFiles Include="generated/repository/GenericRepository.txt" />
     <AdditionalFiles Include="generated/repository/GenericRepositoryView.txt" />    
     <AdditionalFiles Include="generated/repository/GenericRepository2PK.txt" />
-    <AdditionalFiles Include="generated/search/GenericSearch.txt" />
   </ItemGroup>
 
   <ItemGroup>
