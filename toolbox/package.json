@@ -1,0 +1,60 @@
+{
+  "name": "data-to-code-toolbox",
+  "author": "Alexandru Badita",
+  "version": "1.0.0",
+  "description": "Data2Code toolbox launcher updater",
+  "main": "main.js",
+  "scripts": {
+    "postinstall": "install-app-deps",
+    "start": "npm install && electron .",
+    "pack": "build --dir",
+    "dist": "electron-builder build"
+  },
+  "license": "ISC",
+  "build": {
+    "appId": "data-to-code-toolbox",
+    "productName": "Data2CodeToolbox",
+    "copyright": "Copyright © 2020",
+    "buildVersion": "1.0.1",
+    "compression": "maximum",
+    "directories": {
+      "buildResources": "resources",
+      "output": "C:\\electron-dist\\tool-box"
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "icon": "code-16.ico",
+      "target": [
+        "nsis",
+        "msi"
+      ]
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "rpm",
+        "snap",
+        "AppImage"
+      ],
+      "category": "Development"
+    }
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^12.0.0",
+    "electron-builder": "^22.10.5"
+  }
+}
