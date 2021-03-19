@@ -72,6 +72,7 @@ const windowMain = () => {
           }
         }).catch(e => console.log(e.message));
     } else {
+
       execApi(mainWindow);
       mainWindow.loadURL("http://localhost:5000")
         .then(() => {
