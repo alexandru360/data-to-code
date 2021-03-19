@@ -14,7 +14,7 @@ function downloadImage(mainWindow, launchedExe) {
   return new Promise((res, rej) => {
     let dataResponse = { appUrl: "", executable: "", version: "" };
     let currentVersion = { major: 0, minor: 0 }, serverVersion = { major: 0, minor: 0 };
-    const dataOptionsUrl = Config.options.remoteVer;
+    const dataOptionsUrl = Config.options.serverVer;
     axios.get(dataOptionsUrl).then(remoteInfo => {
       //Start of then
       try {
@@ -37,7 +37,7 @@ function downloadImage(mainWindow, launchedExe) {
             break;
         }
       } catch (e) {
-        rej(ex);
+        rej(e);
       }
       
       let localVer = Config.options.version.split("."),
@@ -55,55 +55,56 @@ function downloadImage(mainWindow, launchedExe) {
         
         DeleteDirContent(); // delete directory
         const archive = Path.resolve(Config.appPathDownload, archiveName);
-        const writer = Fs.createWriteStream(archive);
-        const dataExeUrl = dataResponse.appUrl;
-        
-        axios({
-          url: dataExeUrl,
-          method: "get",
-          responseType: "stream"
-        }).then(response => {
-          response.data.pipe(writer);
+        if (!fs.existsSync(Config.appPathDownload)) {
+          shell.mkdir("-p", Config.appPathDownload);
+          const writer = Fs.createWriteStream(archive);
+          const dataExeUrl = dataResponse.appUrl;
           
-          // writer.on("finish", res);
-          writer.on("error", rej);
-          
-          writer.on("finish", () => {
-            let newOptions = { ...Config.options };
-            newOptions.exe = dataResponse.executable;
-            newOptions.version = dataResponse.version;
-            Config.writeConfig(newOptions);
+          axios({
+            url: dataExeUrl,
+            method: "get",
+            responseType: "stream"
+          }).then(response => {
+            response.data.pipe(writer);
             
-            //Extract from archive !
-            try {
-              // close application
-              if (launchedExe) {
-                try {
-                  launchedExe.stdin.pause();
-                  launchedExe.kill();
-                } catch (e) {
-                  console.error(ex.message);
+            writer.on("error", rej);
+            writer.on("finish", () => {
+              let newOptions = { ...Config.options };
+              newOptions.exe = dataResponse.executable;
+              newOptions.version = dataResponse.version;
+              Config.writeConfig(newOptions);
+              
+              //Extract from archive !
+              try {
+                // close application
+                if (launchedExe) {
+                  try {
+                    launchedExe.stdin.pause();
+                    launchedExe.kill();
+                  } catch (e) {
+                    console.error(e.message);
+                  }
                 }
+                const unzip = promisify(ExtractZip);
+                unzip(archive, { dir: Config.appPathDownload })
+                  .then(() => {
+                    // when successful archive extracted start the process ...
+                    execApi(Config, mainWindow);
+                    mainWindow.loadFile("").then().catch(e => console.error(e.message));
+                    mainWindow.loadURL("http://localhost:5000")
+                      .then(() => {
+                        mainWindow.reload();
+                        res();
+                      })
+                      .catch((e) => console.log(e.message));
+                  });
+              } catch (e) {
+                console.log(e.message);
               }
-              const unzip = promisify(ExtractZip);
-              unzip(archive, { dir: Config.appPathDownload })
-                .then((r) => {
-                  // when successful archive extracted start the process ...
-                  execApi(Config, mainWindow);
-                  mainWindow.loadFile("").then().catch(e => console.error(e.message));
-                  mainWindow.loadURL("http://localhost:5000")
-                    .then(() => {
-                      mainWindow.reload();
-                      res();
-                    })
-                    .catch((e) => console.log(e.message));
-                });
-            } catch (e) {
-              console.log(e.message);
-            }
-          });
-          
-        }).catch(e => console.log(e.message));
+            });
+            
+          }).catch(e => console.log(e.message));
+        }
       } else res();
       // End of then
     }).catch(e => {

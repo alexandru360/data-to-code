@@ -27,7 +27,6 @@ const windowMain = () => {
     });
     
     try {
-      // mainWindow.hide();
       mainWindow.loadFile("loading.html")
         .then(() => mainWindow.show())
         .catch((e) => console.log(e.message));
@@ -37,22 +36,23 @@ const windowMain = () => {
     
     mainWindow.on("close", (e) => {
       e.preventDefault(); //this prevents it from closing. The `closed` event will not fire now
-      mainWindow.hide();
+      process.exit(0);
     });
   };
   
   app.whenReady().then(() => {
     createWindow();
-
     //download
     util.downloadImage(mainWindow, launchedExe, true).then(() => {
-      execApi(mainWindow).then((r) => {
-        console.log("R from :", r);
-        mainWindow.show();
-      }).catch((e) => console.log(e.message));
+      // Error if we do not have exe to launch ...
+      if (require("fs").existsSync(require("path").join(Config.appPathDownload, Config.options.exe))) {
+        execApi(mainWindow).then(() => {
+          mainWindow.show();
+        }).catch((e) => console.log(e.message));
+      } else {
+        // To Do - show error here ...
+      }
     }).catch((e) => console.log(e.message));
-    if (app.dock) app.dock.hide();
-    
   }).catch((e) => console.log(e.message));
   
   // Closing the application ...
@@ -62,6 +62,7 @@ const windowMain = () => {
   
   app.on("window-all-closed", (e) => {
     e.preventDefault();
+    process.exit(0);
   });
 };
 

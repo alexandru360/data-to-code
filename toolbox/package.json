@@ -21,7 +21,7 @@
     "compression": "maximum",
     "directories": {
       "buildResources": "resources",
-      "output": "C:\\electron-dist\\tool-box"
+      "output": "C:\\_electron-dist\\tool-box"
     },
     "dmg": {
       "contents": [
@@ -38,7 +38,7 @@
       ]
     },
     "win": {
-      "icon": "code-16.ico",
+      "icon": "favicon.ico",
       "target": [
         "nsis",
         "msi"
@@ -52,7 +52,11 @@
         "AppImage"
       ],
       "category": "Development"
-    }
+    },
+    "extraFiles": [
+      "config.json",
+      "download"
+    ]
   },
   "dependencies": {
     "axios": "^0.21.1",

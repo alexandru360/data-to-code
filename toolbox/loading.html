@@ -1,27 +1,59 @@
 <head>
+
   <style>
       html, body {
-          height: 100%;
           margin: 0;
           padding: 0;
+          background-color: #68acec;
+          text-align: center;
       }
 
-      div {
-          position: relative;
-          height: 100%;
-          width: 100%;
+      devHeaderCenter {
+          align-self: center;
+          align-items: center;
+          justify-content: center;
       }
 
-      div img {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          margin: auto;
+      divBodyCenter {
+          align-self: center;
+          align-items: center;
+          justify-content: center;
+      }
+
+      hrStyle {
+          border: 1px solid white;
+      }
+
+      html, body p {
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: medium;
+          color: white;
+          font-weight: bold;
+          letter-spacing: 2px;
       }
   </style>
+<!--  <script>-->
+<!--    document.addEventListener("DOMContentLoaded", (event) => {-->
+<!--      let dots = 0;-->
+<!--      const paragraph = document.getElementById("dots");-->
+<!--      setInterval(() => {-->
+<!--        if (dots === 3) dots = 0;-->
+<!--        dots++;-->
+<!--        paragraph.innerHTML = new Array(dots + 1).join(".");-->
+<!--      }, 1000);-->
+<!--    });-->
+<!--  </script>-->
 </head>
+
 <body>
-<div><img src="load.gif"></div>
+
+<div class="devHeaderCenter"><img src="data2code-logo.png" style="margin: auto;"></div>
+<hr class="hrStyle" />
+<p class="pStyleWait"> Please wait while loading </p>
+<!--<p class="pStyleWait" id="dots">...</p>-->
+<!--<hr class="hrStyle" />-->
+
+<div class="divBodyCenter"><img src="load.gif"></div>
+<!--<hr class="hrStyle" />-->
+
 </body>
