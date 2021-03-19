@@ -1,8 +1,7 @@
 ﻿"use strict";
 
-const Fs = require("fs");
+const fs = require("fs");
 const Path = require("path");
-const shell = require("shelljs"); // create directory if not exists lookup example online
 const axios = require("axios");
 const Config = require("./config");
 const { execApi } = require("./exec-api");
@@ -10,7 +9,7 @@ const { DeleteDirContent } = require("./file-manager");
 const ExtractZip = require("extract-zip");
 const promisify = require("util.promisify");
 
-function downloadImage(mainWindow, launchedExe) {
+module.exports.downloadApp = (mainWindow, launchedExe) => {
   return new Promise((res, rej) => {
     let dataResponse = { appUrl: "", executable: "", version: "" };
     let currentVersion = { major: 0, minor: 0 }, serverVersion = { major: 0, minor: 0 };
@@ -47,7 +46,9 @@ function downloadImage(mainWindow, launchedExe) {
       serverVersion.major = Number(srvVer[0]);
       serverVersion.minor = Number(srvVer[1]);
       
-      if (serverVersion.major > currentVersion.major ||
+      // if not exe or major mismatch or minor mismatch then download !
+      if (!Config.isExeDownloaded() ||
+        serverVersion.major > currentVersion.major ||
         (currentVersion.major = serverVersion.major &&
           currentVersion.minor > serverVersion.minor)) {
         let archiveName
@@ -55,56 +56,56 @@ function downloadImage(mainWindow, launchedExe) {
         
         DeleteDirContent(); // delete directory
         const archive = Path.resolve(Config.appPathDownload, archiveName);
-        if (!fs.existsSync(Config.appPathDownload)) {
-          shell.mkdir("-p", Config.appPathDownload);
-          const writer = Fs.createWriteStream(archive);
-          const dataExeUrl = dataResponse.appUrl;
+        if (!fs.existsSync(Config.appPathDownload))
+          fs.mkdirSync(Config.appPathDownload);
+        
+        const writer = fs.createWriteStream(archive);
+        const dataExeUrl = dataResponse.appUrl;
+        
+        axios({
+          url: dataExeUrl,
+          method: "get",
+          responseType: "stream"
+        }).then(response => {
+          response.data.pipe(writer);
           
-          axios({
-            url: dataExeUrl,
-            method: "get",
-            responseType: "stream"
-          }).then(response => {
-            response.data.pipe(writer);
+          writer.on("error", rej);
+          writer.on("finish", () => {
+            let newOptions = { ...Config.options };
+            newOptions.exe = dataResponse.executable;
+            newOptions.version = dataResponse.version;
+            Config.writeConfig(newOptions);
             
-            writer.on("error", rej);
-            writer.on("finish", () => {
-              let newOptions = { ...Config.options };
-              newOptions.exe = dataResponse.executable;
-              newOptions.version = dataResponse.version;
-              Config.writeConfig(newOptions);
-              
-              //Extract from archive !
-              try {
-                // close application
-                if (launchedExe) {
-                  try {
-                    launchedExe.stdin.pause();
-                    launchedExe.kill();
-                  } catch (e) {
-                    console.error(e.message);
-                  }
+            //Extract from archive !
+            try {
+              // close application
+              if (launchedExe) {
+                try {
+                  launchedExe.stdin.pause();
+                  launchedExe.kill();
+                } catch (e) {
+                  console.error(e.message);
                 }
-                const unzip = promisify(ExtractZip);
-                unzip(archive, { dir: Config.appPathDownload })
-                  .then(() => {
-                    // when successful archive extracted start the process ...
-                    execApi(Config, mainWindow);
-                    mainWindow.loadFile("").then().catch(e => console.error(e.message));
-                    mainWindow.loadURL("http://localhost:5000")
-                      .then(() => {
-                        mainWindow.reload();
-                        res();
-                      })
-                      .catch((e) => console.log(e.message));
-                  });
-              } catch (e) {
-                console.log(e.message);
               }
-            });
-            
-          }).catch(e => console.log(e.message));
-        }
+              const unzip = promisify(ExtractZip);
+              unzip(archive, { dir: Config.appPathDownload })
+                .then(() => {
+                  // when successful archive extracted start the process ...
+                  execApi(Config, mainWindow);
+                  mainWindow.loadFile("").then().catch(e => console.error(e.message));
+                  mainWindow.loadURL("http://localhost:5000")
+                    .then(() => {
+                      mainWindow.reload();
+                      res();
+                    })
+                    .catch((e) => console.log(e.message));
+                });
+            } catch (e) {
+              console.log(e.message);
+            }
+          });
+          
+        }).catch(e => console.log(e.message));
       } else res();
       // End of then
     }).catch(e => {
@@ -112,6 +113,4 @@ function downloadImage(mainWindow, launchedExe) {
       rej(e);
     });
   });
-}
-
-module.exports = { downloadImage };
+};

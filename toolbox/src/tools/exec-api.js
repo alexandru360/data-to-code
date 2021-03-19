@@ -2,8 +2,11 @@ const Config = require("./config");
 const { spawn } = require("child_process");
 
 let externalProcess = null;
+let cwd = null, exe = null;
 module.exports.execApi = () => {
-  externalProcess = spawn(Config.options.exe, { cwd: Config.appPathDownload });
+  cwd = Config.appPathDownload;
+  exe = Config.options.exe;
+  externalProcess = spawn(exe, { cwd: cwd });
   
   externalProcess.stdout.on("data", (data) => {
     console.log(`stdout: ${data}`);
