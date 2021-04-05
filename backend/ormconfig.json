@@ -1,0 +1,8 @@
+{
+  "name": "default",
+  "type": "sqlite",
+  "database": "nest-api.db",
+  "entities": ["dist/**/*.entity{.ts,.js}"],
+  "synchronize": false,
+  "logging": true
+}

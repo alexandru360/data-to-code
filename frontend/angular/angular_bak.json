@@ -1,0 +1,205 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "primeng-angularcli-contab-web": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/primeng-angularcli-contab-web",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/themes/bootstrap4-light-blue/theme.css",
+              "node_modules/primeng/resources/themes/bootstrap4-light-purple/theme.css",
+              "node_modules/primeng/resources/themes/bootstrap4-dark-blue/theme.css",
+              "node_modules/primeng/resources/themes/bootstrap4-dark-purple/theme.css",
+              "node_modules/primeng/resources/themes/md-light-indigo/theme.css",
+              "node_modules/primeng/resources/themes/md-light-deeppurple/theme.css",
+              "node_modules/primeng/resources/themes/md-dark-indigo/theme.css",
+              "node_modules/primeng/resources/themes/md-dark-deeppurple/theme.css",
+              "node_modules/primeng/resources/themes/mdc-light-indigo/theme.css",
+              "node_modules/primeng/resources/themes/mdc-light-deeppurple/theme.css",
+              "node_modules/primeng/resources/themes/mdc-dark-indigo/theme.css",
+              "node_modules/primeng/resources/themes/mdc-dark-deeppurple/theme.css",
+              "node_modules/primeng/resources/themes/fluent-light/theme.css",
+              "node_modules/primeng/resources/themes/saga-blue/theme.css",
+              "node_modules/primeng/resources/themes/saga-green/theme.css",
+              "node_modules/primeng/resources/themes/saga-orange/theme.css",
+              "node_modules/primeng/resources/themes/saga-purple/theme.css",
+              "node_modules/primeng/resources/themes/vela-blue/theme.css",
+              "node_modules/primeng/resources/themes/vela-green/theme.css",
+              "node_modules/primeng/resources/themes/vela-orange/theme.css",
+              "node_modules/primeng/resources/themes/vela-purple/theme.css",
+              "node_modules/primeng/resources/themes/arya-blue/theme.css",
+              "node_modules/primeng/resources/themes/arya-green/theme.css",
+              "node_modules/primeng/resources/themes/arya-orange/theme.css",
+              "node_modules/primeng/resources/themes/arya-purple/theme.css",
+              "node_modules/primeng/resources/themes/nova/theme.css",
+              "node_modules/primeng/resources/themes/nova-alt/theme.css",
+              "node_modules/primeng/resources/themes/nova-accent/theme.css",
+              "node_modules/primeng/resources/themes/luna-amber/theme.css",
+              "node_modules/primeng/resources/themes/luna-blue/theme.css",
+              "node_modules/primeng/resources/themes/luna-green/theme.css",
+              "node_modules/primeng/resources/themes/luna-pink/theme.css",
+              "node_modules/primeng/resources/themes/rhea/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/font-awesome/css/font-awesome.min.css",
+              "node_modules/primeflex/primeflex.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "primeng-angularcli-contab-web:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "primeng-angularcli-contab-web:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "primeng-angularcli-contab-web:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/themes/bootstrap4-light-blue/theme.css",
+              "node_modules/primeng/resources/themes/bootstrap4-light-purple/theme.css",
+              "node_modules/primeng/resources/themes/bootstrap4-dark-blue/theme.css",
+              "node_modules/primeng/resources/themes/bootstrap4-dark-purple/theme.css",
+              "node_modules/primeng/resources/themes/md-light-indigo/theme.css",
+              "node_modules/primeng/resources/themes/md-light-deeppurple/theme.css",
+              "node_modules/primeng/resources/themes/md-dark-indigo/theme.css",
+              "node_modules/primeng/resources/themes/md-dark-deeppurple/theme.css",
+              "node_modules/primeng/resources/themes/mdc-light-indigo/theme.css",
+              "node_modules/primeng/resources/themes/mdc-light-deeppurple/theme.css",
+              "node_modules/primeng/resources/themes/mdc-dark-indigo/theme.css",
+              "node_modules/primeng/resources/themes/mdc-dark-deeppurple/theme.css",
+              "node_modules/primeng/resources/themes/fluent-light/theme.css",
+              "node_modules/primeng/resources/themes/saga-blue/theme.css",
+              "node_modules/primeng/resources/themes/saga-green/theme.css",
+              "node_modules/primeng/resources/themes/saga-orange/theme.css",
+              "node_modules/primeng/resources/themes/saga-purple/theme.css",
+              "node_modules/primeng/resources/themes/vela-blue/theme.css",
+              "node_modules/primeng/resources/themes/vela-green/theme.css",
+              "node_modules/primeng/resources/themes/vela-orange/theme.css",
+              "node_modules/primeng/resources/themes/vela-purple/theme.css",
+              "node_modules/primeng/resources/themes/arya-blue/theme.css",
+              "node_modules/primeng/resources/themes/arya-green/theme.css",
+              "node_modules/primeng/resources/themes/arya-orange/theme.css",
+              "node_modules/primeng/resources/themes/arya-purple/theme.css",
+              "node_modules/primeng/resources/themes/nova/theme.css",
+              "node_modules/primeng/resources/themes/nova-alt/theme.css",
+              "node_modules/primeng/resources/themes/nova-accent/theme.css",
+              "node_modules/primeng/resources/themes/luna-amber/theme.css",
+              "node_modules/primeng/resources/themes/luna-blue/theme.css",
+              "node_modules/primeng/resources/themes/luna-green/theme.css",
+              "node_modules/primeng/resources/themes/luna-pink/theme.css",
+              "node_modules/primeng/resources/themes/rhea/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/font-awesome/css/font-awesome.min.css",
+              "node_modules/primeflex/primeflex.css"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "tsconfig.app.json",
+              "tsconfig.spec.json",
+              "e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "primeng-angularcli-contab-web:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "primeng-angularcli-contab-web:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "primeng-angularcli-contab-web",
+  "cli": {
+    "analytics": "955a4f91-9759-4b23-ab5f-34717c72695d"
+  }
+}

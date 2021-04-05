@@ -1,0 +1,8 @@
+.div-menu-group {
+  display: inline-flex;
+  flex-direction: row;
+}
+
+.div-spacer {
+  padding-left: 0.3em;
+}

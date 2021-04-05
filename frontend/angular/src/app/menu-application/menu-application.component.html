@@ -1,0 +1,15 @@
+<p-megaMenu [model]="items">
+  <div class="div-menu-group">
+    <div class="div-spacer">
+      <p-dropdown
+        [options]="themeList"
+        [(ngModel)]="selectedTheme"
+        (onChange)="onThemeSelect($event)"
+        optionLabel="name"></p-dropdown>
+    </div>
+    <div class="div-spacer">
+      <p-button label="Login" icon="pi pi-user" routerLink="/login"></p-button>
+    </div>
+  </div>
+</p-megaMenu>
+<!--<i class="pi pi-angle-double-right"></i>-->
