@@ -3,9 +3,13 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "data-to-code": {
+    "primeng-angularcli-contab-web": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -13,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/data-to-code",
+            "outputPath": "dist/primeng-angularcli-contab-web",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -24,7 +28,6 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -40,7 +43,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -48,13 +50,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
                 }
               ]
             }
@@ -63,18 +65,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "data-to-code:build"
+            "browserTarget": "primeng-angularcli-contab-web:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "data-to-code:build:production"
+              "browserTarget": "primeng-angularcli-contab-web:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "data-to-code:build"
+            "browserTarget": "primeng-angularcli-contab-web:build"
           }
         },
         "test": {
@@ -89,7 +91,6 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -112,19 +113,19 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "data-to-code:serve"
+            "devServerTarget": "primeng-angularcli-contab-web:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "data-to-code:serve:production"
+              "devServerTarget": "primeng-angularcli-contab-web:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "data-to-code",
+  "defaultProject": "primeng-angularcli-contab-web",
   "cli": {
-    "analytics": "7a3de78c-5353-4237-87d3-35fc88034d37"
+    "analytics": "6f241b81-5603-437b-8f9b-baa50d78601c"
   }
 }

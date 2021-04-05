@@ -1,28 +1,15 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {AppAssistedStepsComponent} from './product/connection-wizard-steps/app-assisted-steps.component';
-import {LandingPageComponent} from './presentation/landing-page/landing-page.component';
-import {ContactComponent} from './contact/contact.component';
-import {AboutComponent} from './about/about.component';
-import {AuthGuard} from './security/guards/auth.guard';
-import {PasswordComponent} from './security/password/password.component';
-import {RegistrationComponent} from './security/registration/registration.component';
-import {PasswordRecoveryComponent} from './security/password-recovery/password-recovery.component';
-import {MoreComponent} from './more/more.component';
+import {SecurityLoginComponent} from './security-login/security-login.component';
+import {AuthGuard} from './security/auth.guard';
+import {DemoGridComponent} from './demo-grid/demo-grid.component';
+import {NomCaenComponent} from './nomenclator/nom-caen/nom-caen.component';
 
 const routes: Routes = [
-  {path: '', pathMatch: 'full', redirectTo: '/home'},
-  {path: 'home', component: LandingPageComponent},
-  {path: 'about', component: AboutComponent},
-  {path: 'more', component: MoreComponent},
-  {path: 'contact', component: ContactComponent},
-  {
-    path: 'demo', component: AppAssistedStepsComponent,
-    canActivate: [AuthGuard]
-  },
-  {path: 'login', component: PasswordComponent},
-  {path: '', component: RegistrationComponent},
-  {path: 'login', component: PasswordRecoveryComponent},
+  {path: '', component: SecurityLoginComponent, pathMatch: 'full'},
+  {path: 'login', component: SecurityLoginComponent},
+  {path: 'demo', component: DemoGridComponent}, // canActivate: [AuthGuard]
+  {path: 'nom-caen', component: NomCaenComponent}
 ];
 
 @NgModule({

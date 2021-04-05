@@ -1,4 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+@import url("../node_modules/font-awesome/css/font-awesome.min.css");
+@import url("../node_modules/primeng/resources/primeng.min.css");
+@import url("../node_modules/primeicons/primeicons.css");
+@import url("../node_modules/primeflex/primeflex.css");
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@import url("../node_modules/@fullcalendar/common/main.min.css");
+@import url("../node_modules/@fullcalendar/daygrid/main.min.css");
+@import url("../node_modules/@fullcalendar/timegrid/main.min.css");
+
+
+@font-face {
+  font-family: 'primeicons';
+  font-display: auto;
+  src: url('assets/fonts/primeicons.ttf') format('truetype'), url('assets/fonts/primeicons.woff') format('woff')!important;
+  font-weight: normal;
+  font-style: normal;
+}
+
+html {
+  font-size: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, “Segoe UI”, Roboto, Helvetica, Arial, sans-serif, “Apple Color Emoji”, “Segoe UI Emoji”, “Segoe UI Symbol”;
+}
+
+body {
+  padding: 1em;
+}

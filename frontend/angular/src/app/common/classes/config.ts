@@ -1,12 +1,17 @@
-export class SecurityConfig {
-  constructor(
-    public useSecurity: boolean,
-    public defaultAuthenticatedRoute: string,
-    public loginRoute: string,
-    public registerRoute: string,
-    public recoverPasswordRoute: string,
-    public userStatsLogins: string,
-    public userStatsOtherMetrics: string
-  ) {
+export class Configuration {
+  public LoginRoute = '';
+  public RegisterRoute = '';
+  public RecoverPasswordRoute = '';
+  public ChatHubRoute = '';
+  public AddTrip = '';
+  public GetUserTrips: string;
+
+  constructor() {
+    this.LoginRoute = '';
+    this.RegisterRoute = '';
+    this.RecoverPasswordRoute = '';
+    this.ChatHubRoute = '';
+    this.AddTrip = '';
+    this.GetUserTrips = '';
   }
 }

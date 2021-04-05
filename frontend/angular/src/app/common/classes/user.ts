@@ -1,22 +1,22 @@
 export class User {
-  Username: string;
-  Password: string;
+  Username = '';
+  Password = '';
 }
 
 export class UserRegister {
-  FirstName: string;
-  LastName: string;
-  Username: string;
-  Email: string;
-  Password: string;
+  FirstName = '';
+  LastName = '';
+  Username = '';
+  Email = '';
+  Password = '';
 }
 
 export class LoggedInUser {
-  id: number;
-  lastName: string;
-  firstName: string;
-  username: string;
-  token: string;
+  id = -1;
+  lastName = '';
+  firstName = '';
+  username = '';
+  token = '';
 
   clone(par: any) {
     this.id = par.id;

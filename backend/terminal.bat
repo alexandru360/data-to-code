@@ -1,1 +1,0 @@
-wt --title Generated -d GenerateFromDB\wwwroot\19700416000000\custom19700416000000\Generated\frontend\Angular11.0 ; split-pane -d GenerateFromDB\wwwroot\19700416000000\custom19700416000000\Generated\Backend\NETCore5\TestWebAPI      
