@@ -23,10 +23,15 @@ import {HelperService} from './common/helper/helper';
 import {environment} from '../environments/environment';
 import {ConfigService} from './common/services/config.service';
 import { NomCaenComponent } from './nomenclator/nom-caen/nom-caen.component';
+import { NewAppTempleateSelectionComponent } from './new-app-templeate-selection/new-app-templeate-selection.component';
+import { NewAppTemplatePopulationComponent } from './new-app-template-population/new-app-template-population.component';
+import {SelectButtonModule} from 'primeng/selectbutton';
+import {BreadcrumbModule} from 'primeng/breadcrumb';
+import { DragAndDropModule } from 'angular-draggable-droppable';
 
-export function ConfigLoader(configService: ConfigService): any {
-  return () => configService.load(environment.configFile);
-}
+// export function ConfigLoader(configService: ConfigService): any {
+//   return () => configService.load(environment.configFile);
+// }
 
 @NgModule({
   imports: [
@@ -44,6 +49,9 @@ export function ConfigLoader(configService: ConfigService): any {
     HttpClientModule,
     SecurityModule,
     MegaMenuModule,
+    SelectButtonModule,
+    BreadcrumbModule,
+    DragAndDropModule
   ],
   providers: [
     // ConfigService,
@@ -63,8 +71,9 @@ export function ConfigLoader(configService: ConfigService): any {
     SecurityLoginComponent,
     MenuApplicationComponent,
     NomCaenComponent,
+    NewAppTempleateSelectionComponent,
+    NewAppTemplatePopulationComponent,
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule {}

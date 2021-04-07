@@ -1,0 +1,8 @@
+<p-selectButton [options]="templateOptions" [(ngModel)]="value" optionLabel="icon">
+  <ng-template let-item>
+    <div (click)="selectedOption(item.idx)">
+      <i [class]="item.icon"></i>
+      <label>{{item.caption}}</label>
+    </div>
+  </ng-template>
+</p-selectButton>

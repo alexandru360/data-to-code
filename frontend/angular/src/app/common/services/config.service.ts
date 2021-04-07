@@ -11,18 +11,19 @@ export class ConfigService {
     this.config = new Configuration();
   }
 
-  load(url: string): any {
-    return new Promise((resolve) => {
-      this.http.get<Configuration>(url).pipe(map(res => res))
-        .subscribe(config => {
-          this.config = config;
-          if (isDevMode()) {
-            console.log(this.config);
-          }
-          resolve();
-        });
-    });
-  }
+  // load(url: string): any {
+  //   return new Promise((resolve) => {
+  //     this.http.get<Configuration>(url).pipe(map(res => res))
+  //       .subscribe(config => {
+  //         this.config = config;
+  //         if (isDevMode()) {
+  //           console.log(this.config);
+  //         }
+  //
+  //         resolve();
+  //       });
+  //   });
+  // }
 
   getConfiguration(): Configuration {
     return this.config;

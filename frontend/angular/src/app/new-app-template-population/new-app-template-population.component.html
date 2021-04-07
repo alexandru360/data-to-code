@@ -1,0 +1,42 @@
+<div
+  mwlDraggable
+  dropData="foo"
+  dragActiveClass="drag-active"
+  [touchStartLongPress]="{ delay: 300, delta: 30 }"
+>
+  Drag me!
+</div>
+<div
+  mwlDraggable
+  dropData="bar"
+  dragActiveClass="drag-active"
+  [dragSnapGrid]="{ x: 100, y: 100 }"
+  [touchStartLongPress]="{ delay: 300, delta: 30 }"
+>
+  I snap to a 100 x 100 grid
+</div>
+<div mwlDroppable (drop)="onDrop($event)" dragOverClass="drop-over-active">
+  <span [hidden]="droppedData">Drop here</span>
+  <span [hidden]="!droppedData"
+  >Item dropped here with data: "{{ droppedData }}"!</span
+  >
+</div>
+<div
+  mwlDroppable
+  (drop)="onDrop2($event)"
+  dragOverClass="drop-over-active"
+  [validateDrop]="validateDrop"
+  class="validate-drop"
+>
+  <span [hidden]="droppedData2">Drop here</span>
+  <span [hidden]="!droppedData2"
+  >Item dropped here with data: "{{ droppedData2 }}"!</span
+  >
+</div>
+
+<div class="floating-toolbar floating-toolbar-1">
+  Floating toolbar, drop here too!
+</div>
+<div class="floating-toolbar floating-toolbar-2">
+  Floating toolbar, can't drop here!
+</div>

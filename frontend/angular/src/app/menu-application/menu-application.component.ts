@@ -26,8 +26,15 @@ export class MenuApplicationComponent implements OnInit {
         items: [
           [
             {
-              label: 'Contabilitate',
-              items: [{label: 'Modul 1.1', routerLink: 'demo', routerLinkActiveOptions: true, }, {label: 'Modul 1.2'}]
+              label: 'Application',
+              items: [
+                {
+                  label: 'Create new application', routerLink: 'new-app-template-selection', routerLinkActiveOptions: true,
+                },
+                {
+                  label: 'Demo component...', routerLink: 'demo', routerLinkActiveOptions: true,
+                }
+              ]
             },
             {
               label: 'Gestiune',
@@ -59,51 +66,6 @@ export class MenuApplicationComponent implements OnInit {
               items: [{label: 'User 2.1'}, {label: 'User 2.2'}]
             },
           ],
-          [
-            {
-              label: 'User 3',
-              items: [{label: 'User 3.1'}, {label: 'User 3.2'}]
-            },
-            {
-              label: 'User 4',
-              items: [{label: 'User 4.1'}, {label: 'User 4.2'}]
-            }
-          ],
-          [
-            {
-              label: 'User 5',
-              items: [{label: 'User 5.1'}, {label: 'User 5.2'}]
-            },
-            {
-              label: 'User 6',
-              items: [{label: 'User 6.1'}, {label: 'User 6.2'}]
-            }
-          ]
-        ]
-      },
-      {
-        label: 'Events', icon: 'pi pi-fw pi-calendar',
-        items: [
-          [
-            {
-              label: 'Event 1',
-              items: [{label: 'Event 1.1'}, {label: 'Event 1.2'}]
-            },
-            {
-              label: 'Event 2',
-              items: [{label: 'Event 2.1'}, {label: 'Event 2.2'}]
-            }
-          ],
-          [
-            {
-              label: 'Event 3',
-              items: [{label: 'Event 3.1'}, {label: 'Event 3.2'}]
-            },
-            {
-              label: 'Event 4',
-              items: [{label: 'Event 4.1'}, {label: 'Event 4.2'}]
-            }
-          ]
         ]
       },
       {
@@ -114,14 +76,6 @@ export class MenuApplicationComponent implements OnInit {
               label: 'Setting 1',
               items: [{label: 'Setting 1.1'}, {label: 'Setting 1.2'}]
             },
-            {
-              label: 'Setting 2',
-              items: [{label: 'Setting 2.1'}, {label: 'Setting 2.2'}]
-            },
-            {
-              label: 'Setting 3',
-              items: [{label: 'Setting 3.1'}, {label: 'Setting 3.2'}]
-            }
           ],
           [
             {
